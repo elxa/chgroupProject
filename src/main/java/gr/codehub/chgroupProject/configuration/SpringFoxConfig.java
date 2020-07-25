@@ -1,5 +1,4 @@
-
-package gr.codehub.chgroupProject.configuration;
+package gr.codehub.rsproject.configuration;
 
 //http://localhost:8080/swagger-ui.html@Configuration
 

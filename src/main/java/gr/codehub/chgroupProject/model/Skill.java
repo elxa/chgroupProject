@@ -1,6 +1,5 @@
 package gr.codehub.chgroupProject.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +19,6 @@ public class Skill {
     private String nameOfSkill;
     private String levelOfSkill;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "skill")
     private List<ApplicantSkill> applicantSkills;
 
