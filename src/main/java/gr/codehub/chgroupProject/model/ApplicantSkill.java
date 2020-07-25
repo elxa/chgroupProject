@@ -18,7 +18,6 @@ public class ApplicantSkill {
 
     @ManyToOne
     private Skill skill;
-
     /**
      * Specify a relationship from the embeddable class to an entity class.
      * @ManyToOne
