@@ -11,6 +11,7 @@ public interface JobOfferService {
     JobOffer updateJobOffer(JobOffer jobOffer, int jobOfferId);
            // throws CustomerNotFoundException;
 
-    JobOffer getJobOffer(int jobOfferId) throws JobOfferNotFoundException;//to exception auto anaferetai sto otan den briskei ton pelath
+    boolean deleteJobOffer(int jobOfferId);
+    JobOffer getJobOffer(int jobOfferId); //throws CustomerNotFoundException;//to exception auto anaferetai sto otan den briskei ton pelath
 
 }
