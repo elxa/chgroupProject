@@ -1,5 +1,6 @@
 package gr.codehub.chgroupProject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class Applicant {
     private boolean available = false;
 
 
+    @JsonIgnore
     @OneToMany(mappedBy = "applicant")
     private List<ApplicantSkill> applicantSkills;
 //
