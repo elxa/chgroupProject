@@ -55,11 +55,6 @@ public class JobOfferServiceImpl implements JobOfferService{
 
     }
 
-    @Override
-    public boolean deleteJobOffer(int jobOfferId) {
-        return false;
-    }
-
 
     @Override
     public JobOffer getJobOffer(int jobOfferId) throws JobOfferNotFoundException{
