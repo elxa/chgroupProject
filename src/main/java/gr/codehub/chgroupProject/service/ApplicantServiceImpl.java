@@ -46,58 +46,6 @@ public class ApplicantServiceImpl implements ApplicantService {
 //            throw new CustomerCreationException("invalid customer's email");
         return applicantRepo.save(applicant);
     }
-
-//    @Override
-//    public Applicant updateApplicant(Applicant applicant, int applicantId) {
-//
-//        Applicant applicantInDb = applicantRepo.findById(applicantId).get();
-//              .orElseThrow(
-//                       () -> new CustomerNotFoundException("not such customer")
-//               );
-//
-//        applicantInDb.setFirstName(applicant.getFirstName());
-//        applicantInDb.setLastName(applicant.getLastName());
-//        applicantInDb.setAddress(applicant.getAddress());
-//        applicantInDb.setRegion(applicant.getRegion());
-//        applicantInDb.setEducation(applicant.getEducation());
-//
-////
-//        applicantRepo.save(applicantInDb);
-//
-//        return applicantInDb;
-//    }
-
-
-    @Override
-    public Applicant addApplicant(Applicant applicant) {
-//        if (applicant == null)
-        //throw new ApplicantCreationException("null customer");
-//        if (applicant.getEmail()==null  || !customer.getEmail().contains("@")    )
-//            throw new CustomerCreationException("invalid customer's email");
-        return applicantRepo.save(applicant);
-    }
-
-//    @Override
-//    public Applicant updateApplicant(Applicant applicant, int applicantId) {
-//
-//        Applicant applicantInDb = applicantRepo.findById(applicantId).get();
-//              .orElseThrow(
-//                       () -> new CustomerNotFoundException("not such customer")
-//               );
-//
-//        applicantInDb.setFirstName(applicant.getFirstName());
-//        applicantInDb.setLastName(applicant.getLastName());
-//        applicantInDb.setAddress(applicant.getAddress());
-//        applicantInDb.setRegion(applicant.getRegion());
-//        applicantInDb.setEducation(applicant.getEducation());
-//
-////
-//        applicantRepo.save(applicantInDb);
-//
-//        return applicantInDb;
-//    }
-
-
     /**
      *
      * @param applicantId specific applicant
