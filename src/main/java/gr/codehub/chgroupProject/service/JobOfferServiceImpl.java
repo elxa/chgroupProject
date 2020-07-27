@@ -68,5 +68,3 @@ public class JobOfferServiceImpl implements JobOfferService{
 //        return oJobOffer.get();//todo einai gia dior8wsh
     }
 }
-
-
