@@ -1,5 +1,6 @@
 package gr.codehub.chgroupProject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class ApplicantSkill {
     @ManyToOne
     private Skill skill;
 
+    @JsonIgnore
     @ManyToOne
     private Applicant applicant;
 }
