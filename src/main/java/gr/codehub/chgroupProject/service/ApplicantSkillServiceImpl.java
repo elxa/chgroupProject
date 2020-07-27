@@ -5,20 +5,22 @@ import gr.codehub.chgroupProject.model.ApplicantSkill;
 import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.repository.ApplicantRepository;
 import gr.codehub.chgroupProject.repository.ApplicantSkillRepository;
-import gr.codehub.chgroupProject.repository.SkillRepo;
+import gr.codehub.chgroupProject.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+//todo na paroume mia lista me ola ta applicantSkill
+
+
 @Service
 public class ApplicantSkillServiceImpl implements ApplicantSkillService {
-
 
     @Autowired
     private ApplicantSkillRepository applicantSkillRepo;
     @Autowired
     private ApplicantRepository applicantRepo;
     @Autowired
-    public SkillRepo skillRepo;
+    public SkillRepository skillRepo;
 
 
     @Override

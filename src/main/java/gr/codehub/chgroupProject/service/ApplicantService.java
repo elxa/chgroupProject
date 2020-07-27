@@ -5,15 +5,16 @@ import gr.codehub.chgroupProject.model.Applicant;
 
 import java.util.List;
 import java.util.Optional;
-
+//todo update applicant
 public interface ApplicantService {
-    Applicant findApplicantByFirstNameAndLastName(String firstName, String lastName) throws ApplicantNotFoundException;
 
-    List<Applicant> getApplicant();
+    List<Applicant> getApplicants();
     Applicant addApplicant(Applicant applicant);
 
     // throws ApplicantNotFoundException;
 
-    Applicant getApplicant(int applicantId);
+    Applicant getApplicantById(int applicantId);
+
+    Applicant findApplicantByFirstNameAndLastName(String firstName, String lastName) throws ApplicantNotFoundException;
 
 }

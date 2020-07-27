@@ -1,6 +1,7 @@
 package gr.codehub.chgroupProject.service;
 
 import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
+import gr.codehub.chgroupProject.excheption.JobOfferNotValidFields;
 import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.repository.JobOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.util.Optional;
 //TODO EXCHEPTION
 //TODO updateJobOffer with excheption
 //TODO updateJobOffer -> available
+//todo exception if user does not put a field
 
 @Service
 public class JobOfferServiceImpl implements JobOfferService{
@@ -25,47 +27,44 @@ public class JobOfferServiceImpl implements JobOfferService{
     }
 
     @Override
-    public JobOffer addJobOffer(JobOffer jobOffer) {
+    public JobOffer addJobOffer(JobOffer jobOffer) throws JobOfferNotFoundException, JobOfferNotValidFields {
         if(jobOffer == null){
-         //   throw new CustomerCreationException("null job Offer");
+            throw new JobOfferNotFoundException("Job Offer Not found");
         }
-//        if( customer.getEmail()==null || !customer.getEmail().contains("@")){ //ean den balei email xtupaei null pointer excheption paizei rolo h seira edw
-//            throw new CustomerCreationException("invalid ffff");
-//        }
+        if( jobOffer.getPosition().equals("") || jobOffer.getRegion().equals("")){ //ean den balei email xtupaei null pointer excheption paizei rolo h seira edw
+            throw new JobOfferNotValidFields("Job Offer fields must not be null");
+        }
         return jobOfferRepo.save(jobOffer);
-
     }
 
+//    @Override
+//    public JobOffer updateJobOffer(JobOffer jobOffer, int jobOfferId) {
+//        JobOffer jobOfferInDb = jobOfferRepo.findById(jobOfferId).get();
+////                .orElseThrow("sss"
+////                     //   () -> new CustomerNotFoundException("not such customer")
+////                              );
+//        //se periptwsh pou den brei to id
+//        jobOfferInDb.setPosition(jobOffer.getPosition());
+//        jobOfferInDb.setRegion(jobOffer.getRegion());
+//
+//        boolean available = jobOfferInDb.isAvailable();
+//        System.out.println("HHHHHHHHHHHHHHHHHHH" +available);
+//        jobOfferInDb.setAvailable(available);
+//
+//        jobOfferRepo.save(jobOfferInDb);
+//
+//        return jobOfferInDb;
+//
+//    }
+
+
     @Override
-    public JobOffer updateJobOffer(JobOffer jobOffer, int jobOfferId) {
-        JobOffer jobOfferInDb = jobOfferRepo.findById(jobOfferId).get();
-//                .orElseThrow("sss"
-//                     //   () -> new CustomerNotFoundException("not such customer")
-//                              );
-        //se periptwsh pou den brei to id
-        jobOfferInDb.setPosition(jobOffer.getPosition());
-        jobOfferInDb.setRegion(jobOffer.getRegion());
-
-        boolean available = jobOfferInDb.isAvailable();
-        System.out.println("HHHHHHHHHHHHHHHHHHH" +available);
-        jobOfferInDb.setAvailable(available);
-
-        jobOfferRepo.save(jobOfferInDb);
-
-        return jobOfferInDb;
-
-    }
-
-
-    @Override
-    public JobOffer getJobOffer(int jobOfferId) throws JobOfferNotFoundException{
+    public JobOffer getJobOfferById(int jobOfferId) throws JobOfferNotFoundException{
         Optional<JobOffer> oJobOffer= jobOfferRepo.findById(jobOfferId);
-        if (oJobOffer.isPresent()){
+        if (oJobOffer.isPresent()){ //ean uparxei epistrefei to jobOffer
             return oJobOffer.get();
         }
         else throw new JobOfferNotFoundException("Job Offer Not Found");
-  // }
-//        return oJobOffer.get();//todo einai gia dior8wsh
     }
 }
 

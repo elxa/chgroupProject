@@ -1,5 +1,8 @@
 package gr.codehub.chgroupProject.service;
 
+import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
+import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
+import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,15 +55,25 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public Skill getSkill(int skillId) {
+    public Skill getSkillById(int skillId) {
         Optional<Skill> oSkill = skillRepo.findById(skillId);
         if (oSkill.isPresent()) {
             return oSkill.get();
-
         }
         //else throw new JobOfferNotFoundException("Job Offer Not Found");
         // }
-        return oSkill.get();//todo einai gia dior8wsh
+        return oSkill.get();//todo einai gia dior8wsh prepei na sbhstei
     }
 
-}
+    @Override
+    public Skill findSkillByName(String skillName) throws SkillNotFoundException {
+
+        Optional<Skill> oSkill= skillRepo.findSkillByName(skillName);
+        if (oSkill.isPresent()){ //ean uparxei epistrefei to jobOffer
+            return oSkill.get();
+        }
+        else throw new SkillNotFoundException("Skill with this name Not Found");
+    }
+    }
+
+

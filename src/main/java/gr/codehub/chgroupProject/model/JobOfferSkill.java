@@ -18,8 +18,6 @@ public class JobOfferSkill {
 
     @ManyToOne
     private Skill skill;
-
-
     @ManyToOne
     private JobOffer jobOffer;
 }

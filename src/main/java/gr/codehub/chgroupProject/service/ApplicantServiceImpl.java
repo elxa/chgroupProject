@@ -13,6 +13,7 @@ import java.util.Optional;
 
 /**
  * We directly call the ApplicantRepo
+ *
  * @Service
  */
 @Service
@@ -22,22 +23,21 @@ public class ApplicantServiceImpl implements ApplicantService {
     private ApplicantRepository applicantRepo;
 
     /**
-     *
      * We call the methods of the Interfect
-     * @Override
      *
      * @return Return the List of the Applicants from the dattabase
+     * @Override
      */
     @Override
-    public List<Applicant> getApplicant() {
+    public List<Applicant> getApplicants() {
         return applicantRepo.findAll();
     }
 
     /**
-     *
      * @param applicant
      * @return add the applicant on the datatbase
      */
+    //todo prepei na tsekaroume an o xrhsths bazei swsta thn hmeromhnia alliws exei la8os
     @Override
     public Applicant addApplicant(Applicant applicant) {
 //        if (applicant == null)
@@ -46,15 +46,14 @@ public class ApplicantServiceImpl implements ApplicantService {
 //            throw new CustomerCreationException("invalid customer's email");
         return applicantRepo.save(applicant);
     }
+
     /**
-     *
      * @param applicantId specific applicant
      * @return Return a specific applicant.
      */
     @Override
-    public Applicant getApplicant(int applicantId) {
-        Optional<Applicant> oApplicant =
-                applicantRepo.findById(applicantId);
+    public Applicant getApplicantById(int applicantId) {
+        Optional<Applicant> oApplicant = applicantRepo.findById(applicantId);
         if (oApplicant.isPresent()) {
             return oApplicant.get();
         }

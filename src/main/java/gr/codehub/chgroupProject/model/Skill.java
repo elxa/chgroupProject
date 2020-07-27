@@ -23,7 +23,7 @@ public class Skill {
     @JsonIgnore
     @OneToMany(mappedBy = "skill")
     private List<ApplicantSkill> applicantSkills;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "skill")
     private List<JobOfferSkill> jobOfferSkills;
 }

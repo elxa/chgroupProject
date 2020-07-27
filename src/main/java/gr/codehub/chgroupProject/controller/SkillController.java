@@ -1,5 +1,6 @@
 package gr.codehub.chgroupProject.controller;
 
+import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class SkillController {
     @GetMapping("skill/{skillId}")
     public Skill getSkillById(@PathVariable int skillId) //todo throws CustomerNotFoundException {
     {
-        return skillService.getSkill(skillId);//epistrefei ena json
+        return skillService.getSkillById(skillId);//epistrefei ena json
     }
 
     @PutMapping("skill/{skillId}")
@@ -41,6 +42,11 @@ public class SkillController {
         return skillService.deleteSkill(skillId);
     }
 
+    //todo na ftia3oume to monopati giati to mperdeuei me to apo panw k xtupaei error
+    @GetMapping("asskill/{skillName}")
+    public Skill getSkillByName(@PathVariable("skillName") String skillName) throws SkillNotFoundException {
+        return skillService.findSkillByName(skillName);//epistrefei ena json
+    }
 
 }
 

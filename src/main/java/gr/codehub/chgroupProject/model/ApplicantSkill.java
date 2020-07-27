@@ -25,8 +25,6 @@ public class ApplicantSkill {
      * Specify a relationship from the embeddable class to an entity class.
      * @ManyToOne
      */
-
-    @JsonIgnore
     @ManyToOne
     private Applicant applicant;
 }

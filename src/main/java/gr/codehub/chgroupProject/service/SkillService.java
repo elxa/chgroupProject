@@ -1,5 +1,6 @@
 package gr.codehub.chgroupProject.service;
 
+import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.Skill;
 
 import java.util.List;
@@ -10,5 +11,6 @@ public interface SkillService {
     Skill updateSkill(Skill skill, int skillId);
     // throws CustomerNotFoundException;
     boolean deleteSkill(int skillId);
-    Skill getSkill(int skillId);
+    Skill getSkillById(int skillId);
+    Skill findSkillByName(String skillName) throws SkillNotFoundException;
 }

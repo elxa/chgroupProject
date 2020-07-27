@@ -1,6 +1,7 @@
 package gr.codehub.chgroupProject.service;
 
 import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
+import gr.codehub.chgroupProject.excheption.JobOfferNotValidFields;
 import gr.codehub.chgroupProject.model.JobOffer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ class JobOfferServiceImplTest {
     JobOfferService jos;
 
     @Test
-    void getJobOffers() {
+    void getJobOffers() throws JobOfferNotFoundException, JobOfferNotValidFields {
         JobOffer jo1 = new JobOffer();
         jo1.setPosition("accentue");
         jo1.setAvailable(true);
@@ -32,7 +33,7 @@ class JobOfferServiceImplTest {
     }
 
     @Test
-    void addJobOffer() {
+    void addJobOffer() throws JobOfferNotFoundException, JobOfferNotValidFields {
         List<JobOffer> jobOffers = new ArrayList<>();
         JobOffer jo1 = new JobOffer();
         jo1.setPosition("accentue");
@@ -58,7 +59,7 @@ class JobOfferServiceImplTest {
 //    }
 
     @Test
-    void getJobOffer() throws JobOfferNotFoundException {
+    void getJobOffer() throws JobOfferNotFoundException, JobOfferNotValidFields {
         JobOffer jo1 = new JobOffer();
         jo1.setPosition("accentue");
         jo1.setAvailable(true);
@@ -66,7 +67,7 @@ class JobOfferServiceImplTest {
         jo1.setId(1);
 
         jos.addJobOffer(jo1);
-        assertEquals("athens", jos.getJobOffer(1).getRegion());
+        assertEquals("athens", jos.getJobOfferById(1).getRegion());
 
     }
 }

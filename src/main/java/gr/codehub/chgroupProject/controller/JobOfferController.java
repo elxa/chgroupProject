@@ -1,6 +1,7 @@
 package gr.codehub.chgroupProject.controller;
 
 import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
+import gr.codehub.chgroupProject.excheption.JobOfferNotValidFields;
 import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.service.JobOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +22,12 @@ public class JobOfferController {
     }
 
     @PostMapping("jobOffer")
-    public JobOffer addJobOffer(@RequestBody JobOffer JobOffer)
-    //todo   throws CustomerCreationException
-    {
+    public JobOffer addJobOffer(@RequestBody JobOffer JobOffer) throws JobOfferNotFoundException, JobOfferNotValidFields {
         return jobOfferService.addJobOffer(JobOffer);
     }
 
     @GetMapping("jobOffer/{jobOfferId}")
-    public JobOffer getJobOfferById(@PathVariable int jobOfferId) throws JobOfferNotFoundException//todo throws CustomerNotFoundException {
-    {
-        return jobOfferService.getJobOffer(jobOfferId);//epistrefei ena json
+    public JobOffer getJobOfferById(@PathVariable int jobOfferId) throws JobOfferNotFoundException {
+        return jobOfferService.getJobOfferById(jobOfferId);//epistrefei ena json
     }
-
-
 }

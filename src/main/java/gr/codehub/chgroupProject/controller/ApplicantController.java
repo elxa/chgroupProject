@@ -19,7 +19,7 @@ public class ApplicantController {
      */
     @GetMapping("applicant")
     public List<Applicant> getListApplicants(){
-        return applicantService.getApplicant();
+        return applicantService.getApplicants();
     }
 
     /**
@@ -31,7 +31,7 @@ public class ApplicantController {
     public Applicant getApplicantById(@PathVariable int applicantId)
             //TODO throws CustomerNotFoundException
     {
-        return applicantService.getApplicant(applicantId);
+        return applicantService.getApplicantById(applicantId);
     }
 
     /**

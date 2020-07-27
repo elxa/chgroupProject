@@ -1,6 +1,7 @@
 package gr.codehub.chgroupProject.controller;
 
 import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
+import gr.codehub.chgroupProject.excheption.JobOfferNotValidFields;
 import gr.codehub.chgroupProject.model.ErrorDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,13 @@ public class RestErrorHandler {
         return new ResponseEntity(errorDetails, HttpStatus.CONFLICT);
     }
 
-//    @ExceptionHandler(JobOfferNotFoundException.class)
+    @ExceptionHandler(JobOfferNotValidFields.class)
+    public ResponseEntity<?> handleResourseJobOfferNotValidFields(JobOfferNotValidFields ex, WebRequest request){
+        ErrorDetails errorDetails = new ErrorDetails(ex.getMessage(),request.getDescription(false));
+        return new ResponseEntity(errorDetails, HttpStatus.CONFLICT);
+    }
+
+//    @ExceptionHandler(JobOfferNotValidFields.class)
 //    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 //    @ResponseBody
 //    public Object processValidationError(JobOfferNotFoundException ex) {

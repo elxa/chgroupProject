@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+//todo na paroume mia lista me ola ta applicantSkill
+
 @Service
 public class JobOfferSkillServiceImpl implements JobOfferSkillService {
     @Autowired

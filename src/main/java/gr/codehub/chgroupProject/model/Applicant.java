@@ -51,7 +51,7 @@ public class Applicant {
     @JsonIgnore
     @OneToMany(mappedBy = "applicant")
     private List<ApplicantSkill> applicantSkills;
-//
-//    @OneToMany(mappedBy = "applicant")
-//    private List<CreateAndMatch> createAndMatches;
+
+    @OneToMany(mappedBy = "applicant")
+    private List<CreateAndMatch> createAndMatches;
 }
