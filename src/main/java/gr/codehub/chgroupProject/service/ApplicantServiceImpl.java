@@ -1,5 +1,6 @@
 package gr.codehub.chgroupProject.service;
 
+<<<<<<< HEAD
 import gr.codehub.chgroupProject.excheption.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.model.JobOffer;
@@ -18,9 +19,8 @@ import java.util.Optional;
  */
 @Service
 public class ApplicantServiceImpl implements ApplicantService {
-
     @Autowired
-    ApplicantRepository applicantRepo;
+    private ApplicantRepository applicantRepo;
 
     /**
      *
@@ -39,6 +39,36 @@ public class ApplicantServiceImpl implements ApplicantService {
      * @param applicant
      * @return add the applicant on the datatbase
      */
+    @Override
+    public Applicant addApplicant(Applicant applicant) {
+//        if (applicant == null)
+        //throw new ApplicantCreationException("null customer");
+//        if (applicant.getEmail()==null  || !customer.getEmail().contains("@")    )
+//            throw new CustomerCreationException("invalid customer's email");
+        return applicantRepo.save(applicant);
+    }
+
+//    @Override
+//    public Applicant updateApplicant(Applicant applicant, int applicantId) {
+//
+//        Applicant applicantInDb = applicantRepo.findById(applicantId).get();
+//              .orElseThrow(
+//                       () -> new CustomerNotFoundException("not such customer")
+//               );
+//
+//        applicantInDb.setFirstName(applicant.getFirstName());
+//        applicantInDb.setLastName(applicant.getLastName());
+//        applicantInDb.setAddress(applicant.getAddress());
+//        applicantInDb.setRegion(applicant.getRegion());
+//        applicantInDb.setEducation(applicant.getEducation());
+//
+////
+//        applicantRepo.save(applicantInDb);
+//
+//        return applicantInDb;
+//    }
+
+
     @Override
     public Applicant addApplicant(Applicant applicant) {
 //        if (applicant == null)
@@ -88,10 +118,8 @@ public class ApplicantServiceImpl implements ApplicantService {
         ApplicantNotFoundException {
 
         Applicant applicantInDb = applicantRepo.findApplicantByFirstNameAndLastName(firstName, lastName)
-                .orElseThrow( () -> new ApplicantNotFoundException("Applicant Not found"));
+                .orElseThrow(() -> new ApplicantNotFoundException("Applicant Not found"));
 
-            return applicantInDb;
-        }
-
-
+        return applicantInDb;
     }
+}
