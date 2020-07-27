@@ -36,6 +36,8 @@ public List<SkillsDto> readApplicantsFromExcel(Workbook workbook)throws IOExcept
 
         List<String> skills=new ArrayList<>();
         while(row.getCell(skills_count_cell)!=null){
+                String skill = row.getCell(skills_count_cell).getStringCellValue();
+
         skills.add(row.getCell(skills_count_cell).getStringCellValue());
         skills_count_cell++;
         }
