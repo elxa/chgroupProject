@@ -6,12 +6,19 @@ import gr.codehub.chgroupProject.model.Applicant;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * We declare the methods that we use in the Implementation
+ */
 public interface ApplicantService {
+    Applicant findApplicantByFirstNameAndLastName(String firstName, String lastName) throws ApplicantNotFoundException;
 
     List<Applicant> getApplicant();
+
     Applicant addApplicant(Applicant applicant);
+
     //Applicant updateApplicant(Applicant applicant, int applicantId);
     // throws ApplicantNotFoundException;
+    boolean deleteApplicant(int applicantId);
+
     Applicant getApplicant(int applicantId);
-    Applicant findApplicantByFirstNameAndLastName(String firstName, String lastName) throws ApplicantNotFoundException;
 }
