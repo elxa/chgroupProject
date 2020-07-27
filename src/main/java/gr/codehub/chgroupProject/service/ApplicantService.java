@@ -13,5 +13,4 @@ public interface ApplicantService {
     // throws ApplicantNotFoundException;
     Applicant getApplicant(int applicantId);
     Applicant findApplicantByFirstNameAndLastName(String firstName, String lastName) throws ApplicantNotFoundException;
-
 }
