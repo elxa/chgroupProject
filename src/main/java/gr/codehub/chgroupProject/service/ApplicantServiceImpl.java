@@ -1,9 +1,7 @@
 package gr.codehub.chgroupProject.service;
 
-<<<<<<< HEAD
 import gr.codehub.chgroupProject.excheption.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
-import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.repository.ApplicantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +17,7 @@ import java.util.Optional;
  */
 @Service
 public class ApplicantServiceImpl implements ApplicantService {
+
     @Autowired
     private ApplicantRepository applicantRepo;
 
@@ -113,9 +112,10 @@ public class ApplicantServiceImpl implements ApplicantService {
         }
         return oApplicant.get(); //todo diorthwshh na bei to else
 //        else throw new ApplicantNotFoundException("Not Such Applicant");
-        @Override
-        public Applicant findApplicantByFirstNameAndLastName(String firstName, String lastName) throws
-        ApplicantNotFoundException {
+    }
+
+    @Override
+    public Applicant findApplicantByFirstNameAndLastName(String firstName, String lastName) throws ApplicantNotFoundException {
 
         Applicant applicantInDb = applicantRepo.findApplicantByFirstNameAndLastName(firstName, lastName)
                 .orElseThrow(() -> new ApplicantNotFoundException("Applicant Not found"));
