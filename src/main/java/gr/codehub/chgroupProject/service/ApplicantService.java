@@ -1,5 +1,6 @@
 package gr.codehub.chgroupProject.service;
 
+import gr.codehub.chgroupProject.excheption.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
 
 import java.util.List;
@@ -11,5 +12,6 @@ public interface ApplicantService {
     //Applicant updateApplicant(Applicant applicant, int applicantId);
     // throws ApplicantNotFoundException;
     Applicant getApplicant(int applicantId);
+    Applicant findApplicantByFirstNameAndLastName(String firstName, String lastName) throws ApplicantNotFoundException;
 
 }
