@@ -17,6 +17,8 @@ public class JobOffer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String name;
+    private String level;
     private String position;
     private String region;
     private boolean available= false;

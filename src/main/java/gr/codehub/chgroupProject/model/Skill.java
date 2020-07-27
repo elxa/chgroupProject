@@ -17,7 +17,6 @@ public class Skill {
     private int id;
 
     private String nameOfSkill;
-    private String levelOfSkill;
 
     @OneToMany(mappedBy = "skill")
     private List<ApplicantSkill> applicantSkills;
