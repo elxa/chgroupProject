@@ -5,6 +5,9 @@ import gr.codehub.chgroupProject.service.ApplicantSkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -16,7 +19,7 @@ public class match1Skill {
     @PostMapping("applicant/{applicantId}/skill/{skillId}")
     public ApplicantSkill addApplicantSkill(@PathVariable int applicantId,
                                             @PathVariable int skillId)
-    //TODO throws ApplicntCreationException, SkillCreationException
+  //TODO throws ApplicntCreationException, SkillCreationException
     {
         return applicantSkillService.addApplicantSkill(applicantId,skillId);
     }
