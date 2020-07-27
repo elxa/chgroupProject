@@ -29,12 +29,12 @@ public class ReadJobOffers {
             jb.setLevel(row.getCell(3).getStringCellValue());
             jb.setAvailable(true);
 
-            int skills_count_cell=4;
+            int skillsCountCell=4;
 
             List<String> skills=new ArrayList<>();
-            while(row.getCell(skills_count_cell)!=null){
-                skills.add(row.getCell(skills_count_cell).getStringCellValue());
-                skills_count_cell++;
+            while(row.getCell(skillsCountCell)!=null){
+                skills.add(row.getCell(skillsCountCell).getStringCellValue());
+                skillsCountCell++;
             }
 
             skillsDto.add(new SkillsDto(jb ,skills));
