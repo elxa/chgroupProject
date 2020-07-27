@@ -1,10 +1,22 @@
 package gr.codehub.chgroupProject.service;
 
-import gr.codehub.chgroupProject.excheption.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
 
-import java.util.Optional;
+import java.util.List;
 
-public interface ApplicantService{
-    Applicant findApplicantByFirstNameAndLastName(String firstName, String lastName) throws ApplicantNotFoundException;
+/**
+ * We declare the methods that we use in the Implementation
+ */
+public interface ApplicantService {
+
+    /**
+     * Methods
+     *
+     */
+    List<Applicant> getApplicant();
+    Applicant addApplicant(Applicant applicant);
+    //Applicant updateApplicant(Applicant applicant, int applicantId);
+    // throws ApplicantNotFoundException;
+    Applicant getApplicant(int applicantId);
+
 }
