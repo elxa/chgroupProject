@@ -1,5 +1,7 @@
 package gr.codehub.chgroupProject.service;
 
+import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
+import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.ApplicantSkill;
 import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.model.JobOfferSkill;
@@ -22,16 +24,16 @@ public class JobOfferSkillServiceImpl implements JobOfferSkillService {
 
 
     @Override
-    public JobOfferSkill addJobOfferSkill(int jobOfferId, int skillId) {
-        JobOffer jobOfferInDb = jobOfferRepo.findById(jobOfferId).get();
-        //                .orElseThrow("sss"
-//                     //   () -> new CustomerNotFoundException("not such customer")
-//                              );
+    public JobOfferSkill addJobOfferSkill(int jobOfferId, int skillId) throws SkillNotFoundException, JobOfferNotFoundException {
+        JobOffer jobOfferInDb = jobOfferRepo.findById(jobOfferId)
+                        .orElseThrow(
+                        () -> new JobOfferNotFoundException("Job offer not found")
+                              );
 
-        Skill skillInDb = skillRepo.findById(skillId).get();
-        //                .orElseThrow("sss"
-//                     //   () -> new CustomerNotFoundException("not such customer")
-//                              );
+        Skill skillInDb = skillRepo.findById(skillId)
+                .orElseThrow(
+                        () -> new SkillNotFoundException("Skill not found")
+                );
 
         JobOfferSkill jobOfferSkill = new JobOfferSkill();
         jobOfferSkill.setJobOffer(jobOfferInDb);

@@ -50,7 +50,7 @@ public class Applicant {
     private String education;
     @NotNull
     private String level;
-    private boolean available = false;
+    private Boolean available = true;
 
 
     /**

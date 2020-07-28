@@ -27,15 +27,29 @@ public class JobOfferServiceImpl implements JobOfferService{
     }
 
     @Override
+    public JobOffer updateJobOffer(JobOffer jobOffer, int jobOfferId) throws JobOfferNotFoundException {
+        JobOffer jobOfferInDb = jobOfferRepo.findById(jobOfferId)
+                .orElseThrow(
+                        () -> new JobOfferNotFoundException("Job Offer Not Found"));
+
+        jobOfferInDb.setAvailable(jobOffer.getAvailable());
+        jobOfferRepo.save(jobOfferInDb);
+
+        return jobOfferInDb;
+    }
+
+    @Override
     public JobOffer addJobOffer(JobOffer jobOffer) throws JobOfferNotFoundException, JobOfferNotValidFields {
         if(jobOffer == null){
             throw new JobOfferNotFoundException("Job Offer Not found");
         }
-        if(jobOffer.getPosition() ==null|| jobOffer.getRegion() == null ||
-                jobOffer.getPosition().equals("") || jobOffer.getRegion().equals("")){ //ean den balei email xtupaei null pointer excheption paizei rolo h seira edw
+        if( jobOffer.getCompanyName().equals("") || jobOffer.getCompanyName().equals("")
+                || jobOffer.getPosition().equals("") || jobOffer.getPosition().equals("")
+                || jobOffer.getRegion().equals("") || jobOffer.getRegion().equals("")
+                || jobOffer.getLevel().equals("") || jobOffer.getLevel().equals("")
+                || jobOffer.getAvailable().equals("") || jobOffer.getAvailable().equals("")){ //ean den balei email xtupaei null pointer excheption paizei rolo h seira edw
             throw new JobOfferNotValidFields("Job Offer fields must not be null");
         }
-
         return jobOfferRepo.save(jobOffer);
     }
 

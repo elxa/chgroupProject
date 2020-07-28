@@ -14,42 +14,32 @@ public class SkillController {
     @Autowired
     private SkillService skillService;
 
-
+    //auto douleuei
+    @GetMapping("skill")
+    public List<Skill> getListOfSkills(@RequestParam(required = false) String skillName) throws SkillNotFoundException {
+        return skillService.getSkills(skillName); //ean o xrhsths dwsei kapoia parametro tote 8a emfanisei mono ta skills me bash to onoma pou exei dwsei alliws 8a emfanisei olh th lista me
+    }
 
     @PostMapping("skill")
-    public Skill addSkill(@RequestBody Skill skill)
-    //todo   throws CustomerCreationException
-    {
+    public Skill addSkill(@RequestBody Skill skill) throws SkillNotFoundException, SkillNotValidFields {
         return skillService.addSkill(skill);
     }
 
     @GetMapping("skill/{skillId}")
-    public Skill getSkillById(@PathVariable int skillId) //todo throws CustomerNotFoundException {
-    {
-        return skillService.getSkillById(skillId);//epistrefei ena json
+    public Skill getSkillById(@PathVariable int skillId) throws SkillNotFoundException {
+        {
+            return skillService.getSkillById(skillId);//epistrefei ena json
+        }
     }
 
     @PutMapping("skill/{skillId}")
-    public Skill updateSkillById(@RequestBody Skill skill, @PathVariable int skillId){
-        return skillService.updateSkill(skill,skillId);
+    public Skill updateSkillById(@RequestBody Skill skill, @PathVariable int skillId) throws SkillNotFoundException {
+        return skillService.updateSkill(skill, skillId);
     }
 
     @DeleteMapping("skill/{skillId}")
-    public boolean  deleteSkillById(@PathVariable int skillId){
+    public boolean deleteSkillById(@PathVariable int skillId) {
         return skillService.deleteSkill(skillId);
-    }
-
-    //lista apo skill
-
-    @GetMapping("skills")
-    public List<Skill> getListOfSkills() {
-        return skillService.getSkills();
-    }
-    //todo na ftia3oume to monopati giati to mperdeuei me to apo panw k xtupaei error
-    @GetMapping("skill")
-//    public Skill getSkillByName(@PathVariable("skillName") String skillName) throws SkillNotFoundException {
-        public Skill getSkillByName(@RequestParam(required = false) String skillName) throws SkillNotFoundException {
-        return skillService.findSkillByName(skillName);
     }
 
 }

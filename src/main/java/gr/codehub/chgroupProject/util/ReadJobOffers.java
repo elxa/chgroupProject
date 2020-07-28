@@ -1,12 +1,13 @@
-package gr.codehub.chgroupProject.util;
-
-import gr.codehub.chgroupProject.model.JobOffer;
-import org.apache.poi.ss.usermodel.*;
-
-import java.io.*;
-import java.util.*;
-
-public class ReadJobOffers {
+//package gr.codehub.chgroupProject.util;
+//
+////import gr.codehub.chgroupProject.dto.SkillsDto;
+//import gr.codehub.chgroupProject.model.JobOffer;
+//import org.apache.poi.ss.usermodel.*;
+//
+//import java.io.*;
+//import java.util.*;
+//
+//public class ReadJobOffers {
 //    public List<SkillsDto> ReadJobOffersFromExcel (Workbook workbook) throws IOException {
 //
 //        List<SkillsDto> skillsDto = new ArrayList<SkillsDto>();
@@ -38,8 +39,8 @@ public class ReadJobOffers {
 //
 //            skillsDto.add(new SkillsDto(jb ,skills));
 //    }
-
-        //workbook.close(); to kleinw ston appstartup
+//
+//        //workbook.close(); to kleinw ston appstartup
 //        return skillsDto;
 //    }
-}
+//}
