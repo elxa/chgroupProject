@@ -1,6 +1,7 @@
 package gr.codehub.chgroupProject.controller;
 
 import gr.codehub.chgroupProject.model.ApplicantSkill;
+import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOfferSkill;
 import gr.codehub.chgroupProject.service.ApplicantSkillService;
 import gr.codehub.chgroupProject.service.JobOfferSkillService;
@@ -32,4 +33,11 @@ public class MatchController {
 
         return jobOfferSkillService.addJobOfferSkill(jobOfferId, skillId);
     }
+
+    //******************************************** MatchSkill Controller*********************************************
+//    @PostMapping("applicant/{applicantId}/jobOffer/{jobOfferId}")
+//    public CreateAndMatch createAndMatchService(@PathVariable int applicantId, @PathVariable int jobOfferId){
+//
+//        return
+//    }
 }

@@ -21,7 +21,7 @@ class JobOfferServiceImplTest {
     @Test
     void getJobOffers() throws JobOfferNotFoundException, JobOfferNotValidFields {
         JobOffer jo1 = new JobOffer();
-        jo1.setPosition("accentue");
+        jo1.setPosition("accenture");
         jo1.setAvailable(true);
         jo1.setRegion("athens");
         jo1.setId(1);

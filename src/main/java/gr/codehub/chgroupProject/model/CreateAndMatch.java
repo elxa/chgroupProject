@@ -16,7 +16,8 @@ public class CreateAndMatch {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private LocalDate dom;
+    private LocalDate dateOfMatch; //todo hmeromhnia pou egine to match
+    private LocalDate dateOfHired; //todo hmeromhnia pou egine to Hired
     private boolean manualMatch;
     private boolean available = false;
 
