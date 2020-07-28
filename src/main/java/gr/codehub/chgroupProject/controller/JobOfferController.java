@@ -22,12 +22,14 @@ public class JobOfferController {
     }
 
     @PostMapping("jobOffer")
-    public JobOffer addJobOffer(@RequestBody JobOffer JobOffer) throws JobOfferNotFoundException, JobOfferNotValidFields {
+    public JobOffer addJobOffer(@RequestBody JobOffer JobOffer)
+            throws JobOfferNotFoundException, JobOfferNotValidFields {
         return jobOfferService.addJobOffer(JobOffer);
     }
 
     @GetMapping("jobOffer/{jobOfferId}")
-    public JobOffer getJobOfferById(@PathVariable int jobOfferId) throws JobOfferNotFoundException {
+    public JobOffer getJobOfferById(@PathVariable int jobOfferId)
+            throws JobOfferNotFoundException {
         return jobOfferService.getJobOfferById(jobOfferId);//epistrefei ena json
     }
 }
