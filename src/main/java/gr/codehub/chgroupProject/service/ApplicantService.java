@@ -1,6 +1,5 @@
 package gr.codehub.chgroupProject.service;
 
-import gr.codehub.chgroupProject.excheption.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.excheption.ApplicantNotValidFields;
 import gr.codehub.chgroupProject.model.Applicant;
 
