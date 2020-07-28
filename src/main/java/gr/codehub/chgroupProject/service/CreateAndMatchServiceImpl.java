@@ -25,23 +25,24 @@ public class CreateAndMatchServiceImpl implements CreateAndMatchService {
     private JobOfferRepository jobOfferRepo;
 
     @Override
-    public List<CreateAndMatch> getCreateAndMatch(){
+    public List<CreateAndMatch> getCreateAndMatch() {
         return camRepo.findAll();
     }
 
     @Override
-    public CreateAndMatch addCreateAndMatch(int applicantId, int jobOfferId)
-            throws ApplicantNotFoundException, JobOfferNotFoundException {
-        Applicant applicantInDb = applicantRepo.findById(applicantId).orElseThrow(
-                () -> new ApplicantNotFoundException("Applicant Not Found")
-        );
+    public CreateAndMatch addCreateAndMatch(int applicantId, int jobOfferId) throws ApplicantNotFoundException, JobOfferNotFoundException {
+        Applicant applicantInDb = applicantRepo.findById(applicantId)
+                .orElseThrow(
+                        () -> new ApplicantNotFoundException("Applicant Not Found")
+                );
 
-        JobOffer jobOfferInDb = jobOfferRepo.findById(jobOfferId).orElseThrow(
-                ( () -> new JobOfferNotFoundException("Job Offer Not Found"))
-        );
+        JobOffer jobOfferInDb = jobOfferRepo.findById(jobOfferId)
+                .orElseThrow(
+                        () -> new JobOfferNotFoundException("Job Offer Not Found")
+                );
 
 
-        CreateAndMatch createAndMatch= new CreateAndMatch();
+        CreateAndMatch createAndMatch = new CreateAndMatch();
         createAndMatch.setApplicant(applicantInDb);
         createAndMatch.setJobOffer(jobOfferInDb);
 
@@ -54,19 +55,8 @@ public class CreateAndMatchServiceImpl implements CreateAndMatchService {
                 .orElseThrow(
                         () -> new CreateAndMatchNotFound("Match Not Found"));
 
-        createAndMatchInDb.setAvailable(false);
-
+        createAndMatchInDb.setAvailable(createAndMatch.isAvailable());
         return camRepo.save(createAndMatchInDb);
 
     }
-
-//    @Override
-//    public CreateAndMatch getCreateAndMatchById(int createAndMatchId) throws CreateAndMatchNotFound {
-//        Optional<CreateAndMatch> oCreateAndMatch = camRepo.findById(createAndMatchId);
-//        if (oCreateAndMatch.isPresent()){
-//            return oCreateAndMatch.get();
-//        }
-//        return oCreateAndMatch.orElseThrow(
-//                ()-> new CreateAndMatchNotFound("Match Not Found"));
-//    }
 }

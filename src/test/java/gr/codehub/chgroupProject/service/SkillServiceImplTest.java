@@ -27,7 +27,7 @@ class SkillServiceImplTest {
         ss.addSkill(ss1);
         ss.addSkill(ss1);
 
-        assertEquals(2, ss.getSkills().size());
+        assertEquals(2, ss.getSkills(null).size());
     }
 
     @Test

@@ -9,12 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
-//TODO EXCHEPTION
-//TODO updateJobOffer with excheption
-//TODO updateJobOffer -> available
-//todo exception if user does not put a field
-
 @Service
 public class JobOfferServiceImpl implements JobOfferService{
 
@@ -32,8 +26,7 @@ public class JobOfferServiceImpl implements JobOfferService{
                 .orElseThrow(
                         () -> new JobOfferNotFoundException("Job Offer Not Found"));
 
-        jobOfferInDb.setAvailable(false);
-
+        jobOfferInDb.setAvailable(jobOffer.getAvailable());
         jobOfferRepo.save(jobOfferInDb);
 
         return jobOfferInDb;
@@ -44,31 +37,15 @@ public class JobOfferServiceImpl implements JobOfferService{
         if(jobOffer == null){
             throw new JobOfferNotFoundException("Job Offer Not found");
         }
-        if( jobOffer.getPosition().equals("") || jobOffer.getRegion().equals("")){ //ean den balei email xtupaei null pointer excheption paizei rolo h seira edw
+        if( jobOffer.getCompanyName().equals("") || jobOffer.getCompanyName().equals("")
+                || jobOffer.getPosition().equals("") || jobOffer.getPosition().equals("")
+                || jobOffer.getRegion().equals("") || jobOffer.getRegion().equals("")
+                || jobOffer.getLevel().equals("") || jobOffer.getLevel().equals("")
+                || jobOffer.getAvailable().equals("") || jobOffer.getAvailable().equals("")){ //ean den balei email xtupaei null pointer excheption paizei rolo h seira edw
             throw new JobOfferNotValidFields("Job Offer fields must not be null");
         }
         return jobOfferRepo.save(jobOffer);
     }
-
-//    @Override
-//    public JobOffer updateJobOffer(JobOffer jobOffer, int jobOfferId) {
-//        JobOffer jobOfferInDb = jobOfferRepo.findById(jobOfferId).get();
-////                .orElseThrow("sss"
-////                     //   () -> new CustomerNotFoundException("not such customer")
-////                              );
-//        //se periptwsh pou den brei to id
-//        jobOfferInDb.setPosition(jobOffer.getPosition());
-//        jobOfferInDb.setRegion(jobOffer.getRegion());
-//
-//        boolean available = jobOfferInDb.isAvailable();
-//        System.out.println("HHHHHHHHHHHHHHHHHHH" +available);
-//        jobOfferInDb.setAvailable(available);
-//
-//        jobOfferRepo.save(jobOfferInDb);
-//
-//        return jobOfferInDb;
-//
-//    }
 
 
     @Override

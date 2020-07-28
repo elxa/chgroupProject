@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SkillService {
-    List<Skill> getSkills();
+    public List<Skill> getSkills(String skillName) throws SkillNotFoundException;
     Skill addSkill(Skill skill) throws SkillNotFoundException, SkillNotValidFields; //throws CustomerCreationException; //gia na epibebaiwsoume oti autos o customer mphke
     Skill updateSkill(Skill skill, int skillId) throws SkillNotFoundException;
     // throws CustomerNotFoundException;

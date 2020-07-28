@@ -1,11 +1,11 @@
 package gr.codehub.chgroupProject.service;
 
+import gr.codehub.chgroupProject.excheption.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.excheption.ApplicantNotValidFields;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.repository.ApplicantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -42,12 +42,14 @@ public class ApplicantServiceImpl implements ApplicantService {
     public Applicant addApplicant(Applicant applicant) throws ApplicantNotFoundException, ApplicantNotValidFields {
         if (applicant == null)
             throw new ApplicantNotFoundException("Applicant Not found");
-        if (applicant.getAddress() == null || applicant.getAddress().equals("")
-                || applicant.getFirstName() == null || applicant.getLastName().equals("")
-                || applicant.getLastName() == null|| applicant.getFirstName().equals("")
+        if (applicant.getFirstName() == null || applicant.getFirstName().equals("")
+                || applicant.getLastName() == null || applicant.getLastName().equals("")
+                || applicant.getAddress() == null || applicant.getAddress().equals("")
+                || applicant.getRegion() == null || applicant.getEducation().equals("")
                 || applicant.getEducation() == null || applicant.getEducation().equals("")
                 || applicant.getLevel() == null || applicant.getLevel().equals("")
-                || applicant.getRegion() == null || applicant.getEducation().equals(""))
+                || applicant.getAvailable() == null || applicant.getAvailable().equals("")
+        )
             throw new ApplicantNotValidFields("Applicant fields must not be null");
         return applicantRepo.save(applicant);
     }
@@ -57,9 +59,8 @@ public class ApplicantServiceImpl implements ApplicantService {
         Applicant applicantInDb = applicantRepo.findById(applicantId)
                 .orElseThrow(
                         () -> new ApplicantNotFoundException("Applicant Not Found"));
-
-        applicantInDb.setAvailable(false);
-
+//todo na dw an xreiazetai gia ola ta pedia
+        applicantInDb.setAvailable(applicant.getAvailable());
         applicantRepo.save(applicantInDb);
 
         return applicantInDb;
@@ -75,17 +76,16 @@ public class ApplicantServiceImpl implements ApplicantService {
         if (oApplicant.isPresent()) {
             return oApplicant.get();
         }
-        return oApplicant.orElseThrow(
-                () -> new ApplicantNotFoundException("Applicant Not Found")); //todo diorthwshh na bei to else
+        else throw new ApplicantNotFoundException("Applicant Not Found"); //todo diorthwshh na bei to else
 
     }
 
-    @Override
-    public Applicant findApplicantByFirstNameAndLastName(String firstName, String lastName) throws ApplicantNotFoundException {
-
-        Applicant applicantInDb = applicantRepo.findApplicantByFirstNameAndLastName(firstName, lastName)
-                .orElseThrow(() -> new ApplicantNotFoundException("Applicant Not found"));
-
-        return applicantInDb;
-    }
+//    @Override
+//    public Applicant findApplicantByFirstNameAndLastName(String firstName, String lastName) throws ApplicantNotFoundException {
+//
+//        Applicant applicantInDb = applicantRepo.findApplicantByFirstNameAndLastName(firstName, lastName)
+//                .orElseThrow(() -> new ApplicantNotFoundException("Applicant Not found"));
+//
+//        return applicantInDb;
+//    }
 }

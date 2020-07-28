@@ -21,8 +21,7 @@ public class JobOfferController {
     }
 
     @PostMapping("jobOffer")
-    public JobOffer addJobOffer(@RequestBody JobOffer JobOffer)
-            throws JobOfferNotFoundException, JobOfferNotValidFields {
+    public JobOffer addJobOffer(@RequestBody JobOffer JobOffer) throws JobOfferNotFoundException, JobOfferNotValidFields {
         return jobOfferService.addJobOffer(JobOffer);
     }
 
@@ -33,9 +32,7 @@ public class JobOfferController {
     }
 
     @PutMapping("jobOffer/{jobOfferId}")
-    public JobOffer updateJobOffer(@RequestBody JobOffer jobOffer,
-                                     @PathVariable int jobOfferId)
-            throws JobOfferNotFoundException {
+    public JobOffer updateJobOffer(@RequestBody JobOffer jobOffer, @PathVariable int jobOfferId) throws JobOfferNotFoundException {
         return jobOfferService.updateJobOffer(jobOffer,jobOfferId);
     }
 }

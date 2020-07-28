@@ -11,5 +11,4 @@ public interface CreateAndMatchService {
     List<CreateAndMatch> getCreateAndMatch();
     CreateAndMatch addCreateAndMatch (int applicantId, int jobOfferId) throws ApplicantNotFoundException, JobOfferNotFoundException;
     CreateAndMatch updateCreateAndMatch(CreateAndMatch createAndMatch, int createAndMatchId) throws CreateAndMatchNotFound;
-    //CreateAndMatch getCreateAndMatchById(int createAndMatchId) throws CreateAndMatchNotFound;
 }

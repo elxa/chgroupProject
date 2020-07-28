@@ -1,5 +1,8 @@
 package gr.codehub.chgroupProject.controller;
 
+import gr.codehub.chgroupProject.excheption.ApplicantNotFoundException;
+import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
+import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.ApplicantSkill;
 import gr.codehub.chgroupProject.model.JobOfferSkill;
 import gr.codehub.chgroupProject.service.ApplicantSkillService;
@@ -20,17 +23,13 @@ public class MatchController {
 
     //******************************************** ApplicantSkill Controller********************************************
     @PostMapping("applicant/{applicantId}/skill/{skillId}")
-    public ApplicantSkill addApplicantSkill(@PathVariable int applicantId, @PathVariable int skillId)
-            throws ApplicantNotFoundException
-    // TODO SkillCreationException
-    {
+    public ApplicantSkill addApplicantSkill(@PathVariable int applicantId, @PathVariable int skillId) throws ApplicantNotFoundException, SkillNotFoundException {
         return applicantSkillService.addApplicantSkill(applicantId, skillId);
     }
 
     //******************************************** JobOfferSkill Controller*********************************************
     @PostMapping("jobOffer/{jobOfferId}/skill/{skillId}")
-    public JobOfferSkill JobOfferSkillService(@PathVariable int jobOfferId, @PathVariable int skillId) {
-
+    public JobOfferSkill JobOfferSkillService(@PathVariable int jobOfferId, @PathVariable int skillId) throws SkillNotFoundException, JobOfferNotFoundException {
         return jobOfferSkillService.addJobOfferSkill(jobOfferId, skillId);
     }
 }

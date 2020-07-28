@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+//todo na ftia3oume ta end points
 @RestController
 public class CreateAndMatchContoller {
 
@@ -22,8 +22,7 @@ public class CreateAndMatchContoller {
     }
 
     @PostMapping("createAndMatch")
-    public CreateAndMatch addCreateAndMatch(@PathVariable int applicantId,@PathVariable int jobOfferId)
-            throws ApplicantNotFoundException, JobOfferNotFoundException {
+    public CreateAndMatch addCreateAndMatch(@PathVariable int applicantId,@PathVariable int jobOfferId) throws ApplicantNotFoundException, JobOfferNotFoundException {
         return createAndMatchService.addCreateAndMatch(applicantId,jobOfferId);
     }
 
@@ -33,8 +32,7 @@ public class CreateAndMatchContoller {
 //    }
 
     @PutMapping("createAndMatch/{createAndMatchId}")
-    public CreateAndMatch updateCreateAndMatch(@RequestBody CreateAndMatch createAndMatch,
-                                   @PathVariable int createAndMatchId) throws CreateAndMatchNotFound {
+    public CreateAndMatch updateCreateAndMatch(@RequestBody CreateAndMatch createAndMatch, @PathVariable int createAndMatchId) throws CreateAndMatchNotFound {
         return createAndMatchService.updateCreateAndMatch(createAndMatch,createAndMatchId);
     }
 }

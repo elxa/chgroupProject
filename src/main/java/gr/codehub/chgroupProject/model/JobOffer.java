@@ -23,7 +23,7 @@ public class JobOffer {
     private String position;
     private String region;
     private String level;
-    private boolean available;
+    private Boolean available = true;
 
     @JsonIgnore
     @OneToMany(mappedBy = "jobOffer")
