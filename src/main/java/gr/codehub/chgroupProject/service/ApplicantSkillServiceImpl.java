@@ -28,8 +28,9 @@ public class ApplicantSkillServiceImpl implements ApplicantSkillService {
     public ApplicantSkill addApplicantSkill(int applicantId, int skillId) throws ApplicantNotFoundException
     //TODO throws  SkillNotFoundException
     {
-        Applicant applicantInDb = applicantRepo.findById(applicantId).orElseThrow(
-                ()-> new ApplicantNotFoundException("Applicant Not Found "));
+        Applicant applicantInDb = applicantRepo.findById(applicantId)
+                .orElseThrow(
+                        ()-> new ApplicantNotFoundException("Applicant Not Found "));
 
         Skill skillInDb = skillRepo.findById(skillId).get();
 //                .orElseThrow(
