@@ -1,6 +1,7 @@
 package gr.codehub.chgroupProject.controller;
 
 import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
+import gr.codehub.chgroupProject.excheption.SkillNotValidFields;
 import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +21,19 @@ public class SkillController {
     }
 
     @PostMapping("skill")
-    public Skill addSkill(@RequestBody Skill skill)
-    //todo   throws CustomerCreationException
+    public Skill addSkill(@RequestBody Skill skill) throws SkillNotFoundException, SkillNotValidFields //todo   throws CustomerCreationException
     {
         return skillService.addSkill(skill);
     }
 
     @GetMapping("skill/{skillId}")
-    public Skill getSkillById(@PathVariable int skillId) //todo throws CustomerNotFoundException {
+    public Skill getSkillById(@PathVariable int skillId) throws SkillNotFoundException //todo throws CustomerNotFoundException {
     {
         return skillService.getSkillById(skillId);//epistrefei ena json
     }
 
     @PutMapping("skill/{skillId}")
-    public Skill updateSkillById(@RequestBody Skill skill, @PathVariable int skillId){
+    public Skill updateSkillById(@RequestBody Skill skill, @PathVariable int skillId) throws SkillNotFoundException {
         return skillService.updateSkill(skill,skillId);
     }
 

@@ -1,8 +1,7 @@
 package gr.codehub.chgroupProject.service;
 
-import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
-import gr.codehub.chgroupProject.model.JobOffer;
+import gr.codehub.chgroupProject.excheption.SkillNotValidFields;
 import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,25 +22,24 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public Skill addSkill(Skill skill) {
-        // if(skill == null){
-        //   throw new CustomerCreationException("null job Offer");
-        // }
-//        if( customer.getEmail()==null || !customer.getEmail().contains("@")){ //ean den balei email xtupaei null pointer excheption paizei rolo h seira edw
-//            throw new CustomerCreationException("invalid ffff");
-//        }
+    public Skill addSkill(Skill skill) throws SkillNotFoundException, SkillNotValidFields {
+         if(skill == null){
+          throw new SkillNotFoundException("null skill");
+         }
+        if(  skill.getNameOfSkill().equals("") || skill.getNameOfSkill()==null){ //ean den balei email xtupaei null pointer excheption paizei rolo h seira edw
+            throw new SkillNotValidFields("Skill fields must not be null");
+        }
         return skillRepo.save(skill);
     }
 
     @Override
-    public Skill updateSkill(Skill skill, int skillId) {
-        Skill skillInDb = skillRepo.findById(skillId).get();
-//                .orElseThrow("sss"
-//                     //   () -> new CustomerNotFoundException("not such customer")
-//                              );
+    public Skill updateSkill(Skill skill, int skillId) throws SkillNotFoundException {
+        Skill skillInDb = skillRepo.findById(skillId)
+                .orElseThrow(() -> new SkillNotFoundException("skill not found")
+                              );
         //se periptwsh pou den brei to id
         skillInDb.setNameOfSkill(skill.getNameOfSkill());
-        skillInDb.setLevelOfSkill(skill.getLevelOfSkill());
+
 
 
         skillRepo.save(skillInDb);
@@ -55,14 +53,14 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public Skill getSkillById(int skillId) {
+    public Skill getSkillById(int skillId) throws SkillNotFoundException {
         Optional<Skill> oSkill = skillRepo.findById(skillId);
         if (oSkill.isPresent()) {
             return oSkill.get();
         }
-        //else throw new JobOfferNotFoundException("Job Offer Not Found");
-        // }
-        return oSkill.get();//todo einai gia dior8wsh prepei na sbhstei
+        else throw new SkillNotFoundException("Job Offer Not Found");
+
+
     }
 
     @Override
