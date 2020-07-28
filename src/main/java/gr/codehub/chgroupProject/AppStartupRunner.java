@@ -22,12 +22,12 @@ import java.util.List;
 
 
             Workbook workbook = IO.createWorkbook("data for rs-api.xlsx");
-
-            ReadSkills rs = new ReadSkills();
-            List<Skill> skills= rs.ReadSkillsFromExcel(workbook);
-            System.out.println(skills);
-
-            ReadApplicants ra =  new ReadApplicants();
+//
+//            ReadSkills rs = new ReadSkills();
+//            List<Skill> skills= rs.ReadSkillsFromExcel(workbook);
+//            System.out.println(skills);
+//
+//            ReadApplicants ra =  new ReadApplicants();
          //   List <SkillsDto> applicantsDto = ra.readApplicantsFromExcel(workbook);
          //   System.out.println(applicantsDto);
 //

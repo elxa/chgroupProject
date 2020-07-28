@@ -1,17 +1,23 @@
 package gr.codehub.chgroupProject.util;
 
 import gr.codehub.chgroupProject.model.Skill;
+import gr.codehub.chgroupProject.service.SkillService;
 import org.apache.poi.ss.usermodel.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.*;
 
-
+@Service
 public class ReadSkills {
+
+    @Autowired
+    private SkillService skillService;
+
     public List<Skill> ReadSkillsFromExcel (Workbook workbook) throws IOException {
 
         List<Skill> skills = new ArrayList<>();
-
         Sheet sheet= workbook.getSheetAt(2);
         boolean firstTime=true;
 
@@ -24,9 +30,12 @@ public class ReadSkills {
             skill.setNameOfSkill(row.getCell(0).getStringCellValue());
 
             skills.add(skill);
+            skillService.addSkill(skill);
+
         }
 
        // workbook.close(); to kleinw ston appstartup
+        System.out.println(skills);
         return skills;
     }
 }

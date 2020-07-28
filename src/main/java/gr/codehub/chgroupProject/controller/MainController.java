@@ -2,6 +2,7 @@ package gr.codehub.chgroupProject.controller;
 
 import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
+import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.util.IO;
 import gr.codehub.chgroupProject.util.ReadApplicants;
 import gr.codehub.chgroupProject.util.ReadSkills;
@@ -19,13 +20,23 @@ public class MainController {
     @Autowired
     ReadApplicants readApplicants;
 
+    @Autowired
+    ReadSkills readSkills;
+
     Workbook workbook = IO.createWorkbook("data for rs-api.xlsx");
 
     public MainController() throws IOException, InvalidFormatException {
     }
 
-    @GetMapping("createDb")
+    @GetMapping("createDbSkills")
+    public List<Skill> createDbSkills() throws IOException, SkillNotFoundException {
+        return readSkills.ReadSkillsFromExcel(workbook);
+    }
+
+    @GetMapping("createDbApplicants")
     public List<Applicant> createDb() throws IOException, SkillNotFoundException {
         return readApplicants.readApplicantsFromExcel(workbook);
     }
+
+
 }
