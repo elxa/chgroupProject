@@ -1,7 +1,7 @@
 package gr.codehub.chgroupProject.controller;
 
-import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
-import gr.codehub.chgroupProject.excheption.JobOfferNotValidFields;
+import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
+import gr.codehub.chgroupProject.exception.JobOfferNotValidFields;
 import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.service.JobOfferService;
 import org.springframework.beans.factory.annotation.Autowired;

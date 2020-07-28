@@ -1,9 +1,9 @@
 package gr.codehub.chgroupProject.controller;
 
-import gr.codehub.chgroupProject.excheption.ApplicantNotFoundException;
-import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
-import gr.codehub.chgroupProject.excheption.JobOfferNotValidFields;
-import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
+import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
+import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
+import gr.codehub.chgroupProject.exception.JobOfferNotValidFields;
+import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.model.Skill;

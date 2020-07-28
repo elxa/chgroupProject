@@ -1,9 +1,7 @@
 package gr.codehub.chgroupProject.service;
 
-import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
-import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
-import gr.codehub.chgroupProject.excheption.SkillNotValidFields;
-import gr.codehub.chgroupProject.model.JobOffer;
+import gr.codehub.chgroupProject.exception.SkillNotFoundException;
+import gr.codehub.chgroupProject.exception.SkillNotValidFields;
 import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;

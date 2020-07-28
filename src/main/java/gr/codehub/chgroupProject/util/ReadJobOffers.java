@@ -1,8 +1,9 @@
 package gr.codehub.chgroupProject.util;
 
-import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
-import gr.codehub.chgroupProject.excheption.JobOfferNotValidFields;
-import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
+import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
+import gr.codehub.chgroupProject.exception.JobOfferNotValidFields;
+import gr.codehub.chgroupProject.exception.SkillNotFoundException;
+import gr.codehub.chgroupProject.exception.SkillNotValidFields;
 import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.model.JobOfferSkill;
 import gr.codehub.chgroupProject.model.Skill;
@@ -30,7 +31,7 @@ public class ReadJobOffers {
         this.jobOfferSkillService = jobOfferSkillService;
     }
 
-    public List<JobOffer> ReadJobOffersFromExcel(Workbook workbook) throws IOException, JobOfferNotFoundException, JobOfferNotValidFields {
+    public List<JobOffer> ReadJobOffersFromExcel(Workbook workbook) throws IOException, JobOfferNotFoundException, JobOfferNotValidFields, SkillNotFoundException, SkillNotValidFields {
 
         Sheet sheet = workbook.getSheetAt(1);
 

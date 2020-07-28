@@ -1,7 +1,7 @@
 package gr.codehub.chgroupProject.service;
 
-import gr.codehub.chgroupProject.excheption.ApplicantNotFoundException;
-import gr.codehub.chgroupProject.excheption.ApplicantNotValidFields;
+import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
+import gr.codehub.chgroupProject.exception.ApplicantNotValidFields;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.repository.ApplicantRepository;
 import org.springframework.beans.factory.annotation.Autowired;

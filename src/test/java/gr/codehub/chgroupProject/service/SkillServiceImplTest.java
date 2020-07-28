@@ -1,7 +1,7 @@
 package gr.codehub.chgroupProject.service;
 
-import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
-import gr.codehub.chgroupProject.excheption.SkillNotValidFields;
+import gr.codehub.chgroupProject.exception.SkillNotFoundException;
+import gr.codehub.chgroupProject.exception.SkillNotValidFields;
 import gr.codehub.chgroupProject.model.Skill;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

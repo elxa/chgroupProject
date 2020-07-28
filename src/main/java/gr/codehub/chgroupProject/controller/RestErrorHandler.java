@@ -1,15 +1,11 @@
 package gr.codehub.chgroupProject.controller;
 
-import gr.codehub.chgroupProject.excheption.BusinessException;
-import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
-import gr.codehub.chgroupProject.excheption.JobOfferNotValidFields;
+import gr.codehub.chgroupProject.exception.BusinessException;
 import gr.codehub.chgroupProject.model.ErrorDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 
 @ControllerAdvice

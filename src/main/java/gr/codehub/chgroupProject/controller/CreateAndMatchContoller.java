@@ -1,8 +1,8 @@
 package gr.codehub.chgroupProject.controller;
 
-import gr.codehub.chgroupProject.excheption.ApplicantNotFoundException;
-import gr.codehub.chgroupProject.excheption.CreateAndMatchNotFound;
-import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
+import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
+import gr.codehub.chgroupProject.exception.CreateAndMatchNotFound;
+import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.service.CreateAndMatchService;
 import org.springframework.beans.factory.annotation.Autowired;

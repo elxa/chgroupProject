@@ -1,4 +1,4 @@
-package gr.codehub.chgroupProject.excheption;
+package gr.codehub.chgroupProject.exception;
 
 public class SkillNotFoundException extends BusinessException{
     public SkillNotFoundException(String message) {

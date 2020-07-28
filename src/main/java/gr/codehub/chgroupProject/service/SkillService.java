@@ -1,11 +1,10 @@
 package gr.codehub.chgroupProject.service;
 
-import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
-import gr.codehub.chgroupProject.excheption.SkillNotValidFields;
+import gr.codehub.chgroupProject.exception.SkillNotFoundException;
+import gr.codehub.chgroupProject.exception.SkillNotValidFields;
 import gr.codehub.chgroupProject.model.Skill;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface SkillService {
     public List<Skill> getSkills(String skillName) throws SkillNotFoundException;

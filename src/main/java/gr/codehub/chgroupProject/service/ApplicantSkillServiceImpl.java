@@ -1,7 +1,7 @@
 package gr.codehub.chgroupProject.service;
 
-import gr.codehub.chgroupProject.excheption.ApplicantNotFoundException;
-import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
+import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
+import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.model.ApplicantSkill;
 import gr.codehub.chgroupProject.model.Skill;

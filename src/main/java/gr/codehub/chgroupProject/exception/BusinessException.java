@@ -1,4 +1,4 @@
-package gr.codehub.chgroupProject.excheption;
+package gr.codehub.chgroupProject.exception;
 
 public class BusinessException extends Exception{
     public BusinessException(String message) {

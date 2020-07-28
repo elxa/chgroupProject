@@ -1,4 +1,4 @@
-package gr.codehub.chgroupProject.excheption;
+package gr.codehub.chgroupProject.exception;
 
 public class ApplicantNotFoundException extends BusinessException{
     public ApplicantNotFoundException(String message) {

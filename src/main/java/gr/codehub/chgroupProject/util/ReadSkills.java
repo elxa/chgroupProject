@@ -1,5 +1,7 @@
 package gr.codehub.chgroupProject.util;
 
+import gr.codehub.chgroupProject.exception.SkillNotFoundException;
+import gr.codehub.chgroupProject.exception.SkillNotValidFields;
 import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.service.SkillService;
 import org.apache.poi.ss.usermodel.*;
@@ -15,7 +17,7 @@ public class ReadSkills {
     @Autowired
     private SkillService skillService;
 
-    public List<Skill> ReadSkillsFromExcel (Workbook workbook) throws IOException {
+    public List<Skill> ReadSkillsFromExcel (Workbook workbook) throws IOException, SkillNotFoundException, SkillNotValidFields {
 
         List<Skill> skills = new ArrayList<>();
         Sheet sheet= workbook.getSheetAt(2);

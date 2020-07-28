@@ -1,14 +1,12 @@
 package gr.codehub.chgroupProject.service;
 
-import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
-import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
-import gr.codehub.chgroupProject.model.ApplicantSkill;
+import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
+import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.model.JobOfferSkill;
 import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 //todo na paroume mia lista me ola ta applicantSkill
