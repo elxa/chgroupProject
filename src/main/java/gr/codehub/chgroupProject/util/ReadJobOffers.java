@@ -32,8 +32,6 @@ public class ReadJobOffers {
 
     public List<JobOffer> ReadJobOffersFromExcel(Workbook workbook) throws IOException, JobOfferNotFoundException, JobOfferNotValidFields {
 
-        //List<JobOfferSkill> jobOfferSkillList = new ArrayList<>();
-
         Sheet sheet = workbook.getSheetAt(1);
 
         List<JobOffer> jobOffers = new ArrayList<>();
@@ -44,6 +42,9 @@ public class ReadJobOffers {
                 firstTime = false;
                 continue;
             }
+
+            List<JobOfferSkill> jobOfferSkillList = new ArrayList<>();
+
             JobOffer jb = new JobOffer();
             jb.setCompanyName(row.getCell(0).getStringCellValue());
             jb.setPosition(row.getCell(1).getStringCellValue());
@@ -59,9 +60,9 @@ public class ReadJobOffers {
             while (row.getCell(skillsCountCell) != null) {
 
                 String skillName = row.getCell(skillsCountCell).getStringCellValue();
-//
-//                JobOfferSkill jobOfferSkill = new JobOfferSkill();
-//                jobOfferSkill.setJobOffer(jb);
+
+                JobOfferSkill jobOfferSkill = new JobOfferSkill();
+                jobOfferSkill.setJobOffer(jb);
 
                 Skill skill;
 
@@ -74,16 +75,15 @@ public class ReadJobOffers {
 
                 }
 
-               // jobOfferSkill.setSkill(skill);
-                //jobOfferSkillList.add(JobOfferSkill);
+                jobOfferSkill.setSkill(skill);
+                jobOfferSkillList.add(jobOfferSkill);
                 jobOfferSkillService.addJobOfferSkill(jb.getId(), skill.getId());
 
                 skillsCountCell++;
-                // skills.add(new Skill(jb ,skill));
-            }
-           // jb.setJobOfferSkill(JobOfferSkillList);
-        }
 
+            }
+            jb.setJobOfferSkill(jobOfferSkillList);
+        }
 
         return jobOffers;
     }
