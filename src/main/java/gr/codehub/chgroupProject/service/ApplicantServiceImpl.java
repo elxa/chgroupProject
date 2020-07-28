@@ -52,6 +52,19 @@ public class ApplicantServiceImpl implements ApplicantService {
         return applicantRepo.save(applicant);
     }
 
+    @Override
+    public Applicant updateApplicant(Applicant applicant, int applicantId) throws ApplicantNotFoundException {
+        Applicant applicantInDb = applicantRepo.findById(applicantId)
+                .orElseThrow(
+                        () -> new ApplicantNotFoundException("Applicant Not Found"));
+
+        applicantInDb.setAvailable(false);
+
+        applicantRepo.save(applicantInDb);
+
+        return applicantInDb;
+    }
+
     /**
      * @param applicantId specific applicant
      * @return Return a specific applicant.

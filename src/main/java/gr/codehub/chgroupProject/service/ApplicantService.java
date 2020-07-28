@@ -11,6 +11,9 @@ public interface ApplicantService {
 
     Applicant addApplicant(Applicant applicant) throws ApplicantNotFoundException, ApplicantNotValidFields;
 
+    Applicant updateApplicant(Applicant applicant, int applicantId)
+            throws ApplicantNotFoundException;
+
     Applicant getApplicantById(int applicantId) throws ApplicantNotFoundException;
 
     Applicant findApplicantByFirstNameAndLastName(String firstName, String lastName) throws ApplicantNotFoundException;

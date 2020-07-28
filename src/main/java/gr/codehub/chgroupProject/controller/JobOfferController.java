@@ -7,7 +7,6 @@ import gr.codehub.chgroupProject.service.JobOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
 
 @RestController
@@ -31,5 +30,12 @@ public class JobOfferController {
     public JobOffer getJobOfferById(@PathVariable int jobOfferId)
             throws JobOfferNotFoundException {
         return jobOfferService.getJobOfferById(jobOfferId);//epistrefei ena json
+    }
+
+    @PutMapping("jobOffer/{jobOfferId}")
+    public JobOffer updateJobOffer(@RequestBody JobOffer jobOffer,
+                                     @PathVariable int jobOfferId)
+            throws JobOfferNotFoundException {
+        return jobOfferService.updateJobOffer(jobOffer,jobOfferId);
     }
 }

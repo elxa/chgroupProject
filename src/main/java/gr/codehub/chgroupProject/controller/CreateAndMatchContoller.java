@@ -1,0 +1,40 @@
+package gr.codehub.chgroupProject.controller;
+
+import gr.codehub.chgroupProject.excheption.ApplicantNotFoundException;
+import gr.codehub.chgroupProject.excheption.CreateAndMatchNotFound;
+import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
+import gr.codehub.chgroupProject.model.CreateAndMatch;
+import gr.codehub.chgroupProject.service.CreateAndMatchService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+public class CreateAndMatchContoller {
+
+    @Autowired
+    private CreateAndMatchService createAndMatchService;
+
+    @GetMapping("createAndMatch")
+    public List<CreateAndMatch> getListOfCreateAndMatch() {
+        return createAndMatchService.getCreateAndMatch();
+    }
+
+    @PostMapping("createAndMatch")
+    public CreateAndMatch addCreateAndMatch(@PathVariable int applicantId,@PathVariable int jobOfferId)
+            throws ApplicantNotFoundException, JobOfferNotFoundException {
+        return createAndMatchService.addCreateAndMatch(applicantId,jobOfferId);
+    }
+
+//    @GetMapping("createAndMatch/{createAndMatchId}")
+//    public CreateAndMatch getCreateAndMatchById(@PathVariable int createAndMatchId) throws CreateAndMatchNotFound {
+//        return createAndMatchService.getCreateAndMatchById(createAndMatchId);
+//    }
+
+    @PutMapping("createAndMatch/{createAndMatchId}")
+    public CreateAndMatch updateCreateAndMatch(@RequestBody CreateAndMatch createAndMatch,
+                                   @PathVariable int createAndMatchId) throws CreateAndMatchNotFound {
+        return createAndMatchService.updateCreateAndMatch(createAndMatch,createAndMatchId);
+    }
+}

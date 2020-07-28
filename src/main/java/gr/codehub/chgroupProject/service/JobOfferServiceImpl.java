@@ -27,6 +27,19 @@ public class JobOfferServiceImpl implements JobOfferService{
     }
 
     @Override
+    public JobOffer updateJobOffer(JobOffer jobOffer, int jobOfferId) throws JobOfferNotFoundException {
+        JobOffer jobOfferInDb = jobOfferRepo.findById(jobOfferId)
+                .orElseThrow(
+                        () -> new JobOfferNotFoundException("Job Offer Not Found"));
+
+        jobOfferInDb.setAvailable(false);
+
+        jobOfferRepo.save(jobOfferInDb);
+
+        return jobOfferInDb;
+    }
+
+    @Override
     public JobOffer addJobOffer(JobOffer jobOffer) throws JobOfferNotFoundException, JobOfferNotValidFields {
         if(jobOffer == null){
             throw new JobOfferNotFoundException("Job Offer Not found");
