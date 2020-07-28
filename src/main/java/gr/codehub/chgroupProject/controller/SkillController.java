@@ -27,11 +27,11 @@ public class SkillController {
     }
 
     @GetMapping("skill/{skillId}")
-    public Skill getSkillById(@PathVariable int skillId) throws SkillNotFoundException //todo throws CustomerNotFoundException {
-    {
-        return skillService.getSkillById(skillId);//epistrefei ena json
+    public Skill getSkillById(@PathVariable int skillId) throws SkillNotFoundException {
+        {
+            return skillService.getSkillById(skillId);//epistrefei ena json
+        }
     }
-
     @PutMapping("skill/{skillId}")
     public Skill updateSkillById(@RequestBody Skill skill, @PathVariable int skillId) throws SkillNotFoundException {
         return skillService.updateSkill(skill,skillId);
@@ -44,10 +44,10 @@ public class SkillController {
 
     //todo na ftia3oume to monopati giati to mperdeuei me to apo panw k xtupaei error
     @GetMapping("skill/skillByName")
-//    public Skill getSkillByName(@PathVariable("skillName") String skillName) throws SkillNotFoundException {
-        public Skill getSkillByName(@RequestParam String skillName) throws SkillNotFoundException {
+    public Skill getSkillByName(@RequestParam String skillName) throws SkillNotFoundException {
         return skillService.findSkillByName(skillName);
     }
+
 
 }
 
