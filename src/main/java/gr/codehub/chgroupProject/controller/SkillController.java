@@ -43,9 +43,10 @@ public class SkillController {
     }
 
     //todo na ftia3oume to monopati giati to mperdeuei me to apo panw k xtupaei error
-    @GetMapping("asskill/{skillName}")
-    public Skill getSkillByName(@PathVariable("skillName") String skillName) throws SkillNotFoundException {
-        return skillService.findSkillByName(skillName);//epistrefei ena json
+    @GetMapping("skill/skillByName")
+//    public Skill getSkillByName(@PathVariable("skillName") String skillName) throws SkillNotFoundException {
+        public Skill getSkillByName(@RequestParam String skillName) throws SkillNotFoundException {
+        return skillService.findSkillByName(skillName);
     }
 
 }

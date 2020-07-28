@@ -42,6 +42,7 @@ public class Applicant {
     private String address;
     private String region;
     private String education;
+    private String level;
     private boolean available = false;
 
 

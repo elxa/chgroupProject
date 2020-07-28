@@ -19,8 +19,10 @@ public class JobOffer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String companyName;
     private String position;
     private String region;
+    private String level;
     private boolean available;
 
     @JsonIgnore
