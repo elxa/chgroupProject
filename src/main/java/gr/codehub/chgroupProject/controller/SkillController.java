@@ -14,10 +14,7 @@ public class SkillController {
     @Autowired
     private SkillService skillService;
 
-    @GetMapping("skill")
-    public List<Skill> getListOfSkills() {
-        return skillService.getSkills();
-    }
+
 
     @PostMapping("skill")
     public Skill addSkill(@RequestBody Skill skill)
@@ -42,10 +39,16 @@ public class SkillController {
         return skillService.deleteSkill(skillId);
     }
 
+    //lista apo skill
+
+    @GetMapping("skills")
+    public List<Skill> getListOfSkills() {
+        return skillService.getSkills();
+    }
     //todo na ftia3oume to monopati giati to mperdeuei me to apo panw k xtupaei error
-    @GetMapping("skill/skillByName")
+    @GetMapping("skill")
 //    public Skill getSkillByName(@PathVariable("skillName") String skillName) throws SkillNotFoundException {
-        public Skill getSkillByName(@RequestParam String skillName) throws SkillNotFoundException {
+        public Skill getSkillByName(@RequestParam(required = false) String skillName) throws SkillNotFoundException {
         return skillService.findSkillByName(skillName);
     }
 

@@ -1,7 +1,5 @@
 package gr.codehub.chgroupProject;
 
-import gr.codehub.chgroupProject.dto.SkillsDto;
-import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.model.ApplicantSkill;
 import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.util.IO;
@@ -30,8 +28,8 @@ import java.util.List;
             System.out.println(skills);
 
             ReadApplicants ra =  new ReadApplicants();
-            List <SkillsDto> applicantsDto = ra.readApplicantsFromExcel(workbook);
-            System.out.println(applicantsDto);
+         //   List <SkillsDto> applicantsDto = ra.readApplicantsFromExcel(workbook);
+         //   System.out.println(applicantsDto);
 //
 //            List<Applicant> applicantsDb = new ArrayList<>();
 //

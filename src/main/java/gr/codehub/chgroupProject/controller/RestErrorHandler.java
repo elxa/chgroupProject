@@ -1,5 +1,6 @@
 package gr.codehub.chgroupProject.controller;
 
+import gr.codehub.chgroupProject.excheption.BusinessException;
 import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.excheption.JobOfferNotValidFields;
 import gr.codehub.chgroupProject.model.ErrorDetails;
@@ -14,27 +15,11 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 public class RestErrorHandler {
 
-    @ExceptionHandler(JobOfferNotFoundException.class)
+    @ExceptionHandler(BusinessException.class)
  //   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<?> handleResourseJobOfferNotFoundExcheption(JobOfferNotFoundException ex, WebRequest request){
-//        ErrorDetails errorDetails = new ErrorDetails(ex.getMessage(), request.getDescription(false));
-//   return new ResponseEntity(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
-        ErrorDetails errorDetails = new ErrorDetails(ex.getMessage(),request.getDescription(false));
-        return new ResponseEntity(errorDetails, HttpStatus.CONFLICT);
+    public ResponseEntity<?> handleResourseJobOfferNotFoundExcheption(BusinessException ex, WebRequest request){
+        ErrorDetails errorDetails = new ErrorDetails(ex.getMessage() ,request.getDescription(false));
+        return new ResponseEntity(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(JobOfferNotValidFields.class)
-    public ResponseEntity<?> handleResourseJobOfferNotValidFields(JobOfferNotValidFields ex, WebRequest request){
-        ErrorDetails errorDetails = new ErrorDetails(ex.getMessage(),request.getDescription(false));
-        return new ResponseEntity(errorDetails, HttpStatus.CONFLICT);
-    }
-
-//    @ExceptionHandler(JobOfferNotValidFields.class)
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    @ResponseBody
-//    public Object processValidationError(JobOfferNotFoundException ex) {
-//        String result = ex. ;
-//        System.out.println("###########"+result);
-//        return ex;
-//    }
 }

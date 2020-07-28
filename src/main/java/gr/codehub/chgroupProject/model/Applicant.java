@@ -2,6 +2,7 @@ package gr.codehub.chgroupProject.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,11 +38,17 @@ public class Applicant {
     /**
      * Set the colums and names on the database
      */
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
+    @NotNull
     private String address;
+    @NotNull
     private String region;
+    @NotNull
     private String education;
+    @NotNull
     private String level;
     private boolean available = false;
 

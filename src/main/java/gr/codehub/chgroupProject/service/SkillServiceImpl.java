@@ -41,7 +41,6 @@ public class SkillServiceImpl implements SkillService {
 //                              );
         //se periptwsh pou den brei to id
         skillInDb.setNameOfSkill(skill.getNameOfSkill());
-        skillInDb.setLevelOfSkill(skill.getLevelOfSkill());
 
 
         skillRepo.save(skillInDb);

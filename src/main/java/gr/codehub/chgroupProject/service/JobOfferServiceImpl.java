@@ -31,9 +31,11 @@ public class JobOfferServiceImpl implements JobOfferService{
         if(jobOffer == null){
             throw new JobOfferNotFoundException("Job Offer Not found");
         }
-        if( jobOffer.getPosition().equals("") || jobOffer.getRegion().equals("")){ //ean den balei email xtupaei null pointer excheption paizei rolo h seira edw
+        if(jobOffer.getPosition() ==null|| jobOffer.getRegion() == null ||
+                jobOffer.getPosition().equals("") || jobOffer.getRegion().equals("")){ //ean den balei email xtupaei null pointer excheption paizei rolo h seira edw
             throw new JobOfferNotValidFields("Job Offer fields must not be null");
         }
+
         return jobOfferRepo.save(jobOffer);
     }
 

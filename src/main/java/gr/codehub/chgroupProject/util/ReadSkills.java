@@ -1,8 +1,5 @@
 package gr.codehub.chgroupProject.util;
 
-import gr.codehub.chgroupProject.dto.SkillsDto;
-import gr.codehub.chgroupProject.model.Applicant;
-import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.model.Skill;
 import org.apache.poi.ss.usermodel.*;
 

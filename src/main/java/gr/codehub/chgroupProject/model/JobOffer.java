@@ -2,6 +2,7 @@ package gr.codehub.chgroupProject.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,9 +20,13 @@ public class JobOffer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull
     private String companyName;
+    @NotNull
     private String position;
+    @NotNull
     private String region;
+    @NotNull
     private String level;
     private boolean available;
 
