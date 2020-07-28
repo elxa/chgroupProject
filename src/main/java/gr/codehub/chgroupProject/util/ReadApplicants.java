@@ -31,7 +31,7 @@ public class ReadApplicants {
         this.applicantSkillService = applicantSkillService;
     }
 
-    public List<Applicant> readApplicantsFromExcel(Workbook workbook) throws IOException, SkillNotFoundException {
+    public List<Applicant> readApplicantsFromExcel(Workbook workbook) throws IOException {
 
         //List<ApplicantSkill> applicantSkillList = new ArrayList<>();
 
@@ -54,26 +54,37 @@ public class ReadApplicants {
             a.setLevel(row.getCell(5).getStringCellValue());
             a.setAvailable(true);
 
+            //a = applicantService.addApplicant(a);
             //save a stous applicants sth vasi
-            applicants.add(a); // den xreaizetai
+            applicants.add(a); // edw me auto ton tropo 3erwk ta id twn applicant
             applicantService.addApplicant(a);
 
             int skillsCountCell = 6;
-            //List<String> skills = new ArrayList<>();
+            List<String> skills = new ArrayList<>();
 
-//            while (row.getCell(skillsCountCell) != null) {
-//
-//                String skillName = row.getCell(skillsCountCell).getStringCellValue();
-//
-//                ApplicantSkill applicantSkill = new ApplicantSkill();
-//                applicantSkill.setApplicant(a);
-//                Skill skill = skillService.findSkillByName(skillName);
-//                applicantSkill.setSkill(skill);
-//                // applicantSkillList.add(applicantSkill); xreiazetai?? thelei sth vasi
-//                applicantSkillService.addApplicantSkill(a.getId(),skill.getId());
-//
-//                skillsCountCell++;
-//            }
+            while (row.getCell(skillsCountCell) != null) {
+
+                String skillName = row.getCell(skillsCountCell).getStringCellValue();
+
+               // ApplicantSkill applicantSkill = new ApplicantSkill();
+                //applicantSkill.setApplicant(a);
+                Skill skill;
+                try {
+                    skill = skillService.findSkillByName(skillName);
+                } catch (SkillNotFoundException e) {
+                    skill = new Skill();
+                    skill.setNameOfSkill(skillName);
+                    skillService.addSkill(skill);
+                }
+
+                System.out.println(skillName +"*******");
+                System.out.println(skill);
+                //applicantSkill.setSkill(skill);
+                // applicantSkillList.add(applicantSkill); xreiazetai?? thelei sth vasi
+                applicantSkillService.addApplicantSkill(a.getId(),skill.getId());
+
+                skillsCountCell++;
+            }
 
 
 

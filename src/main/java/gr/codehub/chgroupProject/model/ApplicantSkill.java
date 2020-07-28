@@ -2,6 +2,7 @@ package gr.codehub.chgroupProject.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,5 +27,6 @@ public class ApplicantSkill {
      * @ManyToOne
      */
     @ManyToOne
+    @JsonIgnore
     private Applicant applicant;
 }
