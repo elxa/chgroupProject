@@ -25,7 +25,7 @@ public class ReadApplicants {
     private ApplicantSkillService applicantSkillService;
 
     @Autowired
-    public ReadApplicants(ApplicantService applicantService, SkillService skillService, ApplicantSkillService applicantSkillService){
+    public ReadApplicants(ApplicantService applicantService, SkillService skillService, ApplicantSkillService applicantSkillService) {
         this.applicantService = applicantService;
         this.skillService = skillService;
         this.applicantSkillService = applicantSkillService;
@@ -33,7 +33,6 @@ public class ReadApplicants {
 
     public List<Applicant> readApplicantsFromExcel(Workbook workbook) throws IOException {
 
-        //List<ApplicantSkill> applicantSkillList = new ArrayList<>();
 
         Sheet sheet = workbook.getSheetAt(0);
 
@@ -45,6 +44,9 @@ public class ReadApplicants {
                 firstTime = false;
                 continue;
             }
+
+            List<ApplicantSkill> applicantSkillList = new ArrayList<>();
+
             Applicant a = new Applicant();
             a.setFirstName(row.getCell(0).getStringCellValue());
             a.setLastName(row.getCell(1).getStringCellValue());
@@ -54,20 +56,19 @@ public class ReadApplicants {
             a.setLevel(row.getCell(5).getStringCellValue());
             a.setAvailable(true);
 
-            //a = applicantService.addApplicant(a);
-            //save a stous applicants sth vasi
-            applicants.add(a); // edw me auto ton tropo 3erwk ta id twn applicant
+
+            applicants.add(a);
             applicantService.addApplicant(a);
 
             int skillsCountCell = 6;
-            List<String> skills = new ArrayList<>();
 
             while (row.getCell(skillsCountCell) != null) {
 
                 String skillName = row.getCell(skillsCountCell).getStringCellValue();
 
-               // ApplicantSkill applicantSkill = new ApplicantSkill();
-                //applicantSkill.setApplicant(a);
+                ApplicantSkill applicantSkill = new ApplicantSkill();
+                applicantSkill.setApplicant(a);
+
                 Skill skill;
                 try {
                     skill = skillService.findSkillByName(skillName);
@@ -75,25 +76,19 @@ public class ReadApplicants {
                     skill = new Skill();
                     skill.setNameOfSkill(skillName);
                     skillService.addSkill(skill);
+
                 }
 
-                System.out.println(skillName +"*******");
-                System.out.println(skill);
-                //applicantSkill.setSkill(skill);
-                // applicantSkillList.add(applicantSkill); xreiazetai?? thelei sth vasi
-                applicantSkillService.addApplicantSkill(a.getId(),skill.getId());
+                applicantSkill.setSkill(skill);
+                applicantSkillList.add(applicantSkill);
+                applicantSkillService.addApplicantSkill(a.getId(), skill.getId());
 
                 skillsCountCell++;
             }
 
-
+            a.setApplicantSkills(applicantSkillList);
 
         }
-
-
-        // Closing the workbook
-        //workbook.close(); to kleinw ston appstartup
-
         return applicants;
     }
 }
