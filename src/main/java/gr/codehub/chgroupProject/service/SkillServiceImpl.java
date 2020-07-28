@@ -2,12 +2,14 @@ package gr.codehub.chgroupProject.service;
 
 import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
+import gr.codehub.chgroupProject.excheption.SkillNotValidFields;
 import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,8 +52,6 @@ public class SkillServiceImpl implements SkillService {
                 );
         //se periptwsh pou den brei to id
         skillInDb.setNameOfSkill(skill.getNameOfSkill());
-        skillInDb.setLevelOfSkill(skill.getLevelOfSkill());
-
 
         skillRepo.save(skillInDb);
         return skillInDb;

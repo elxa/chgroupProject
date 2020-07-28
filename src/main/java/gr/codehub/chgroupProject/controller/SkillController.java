@@ -1,6 +1,7 @@
 package gr.codehub.chgroupProject.controller;
 
 import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
+import gr.codehub.chgroupProject.excheption.SkillNotValidFields;
 import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
