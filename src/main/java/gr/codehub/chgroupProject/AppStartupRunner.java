@@ -1,23 +1,35 @@
-//package gr.codehub.chgroupProject;
+package gr.codehub.chgroupProject;
+
+import gr.codehub.chgroupProject.model.ApplicantSkill;
+import gr.codehub.chgroupProject.model.Skill;
+import gr.codehub.chgroupProject.util.IO;
+import gr.codehub.chgroupProject.util.ReadApplicants;
+import gr.codehub.chgroupProject.util.ReadJobOffers;
+import gr.codehub.chgroupProject.util.ReadSkills;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+@Component
+    public class AppStartupRunner implements ApplicationRunner {
+        @Override
+        public void run(ApplicationArguments args) throws Exception {
+
+
+            Workbook workbook = IO.createWorkbook("data for rs-api.xlsx");
 //
-//import gr.codehub.chgroupProject.model.Skill;
-//import gr.codehub.chgroupProject.util.IO;
-//import gr.codehub.chgroupProject.util.ReadApplicants;
-//import gr.codehub.chgroupProject.util.ReadJobOffers;
-//import gr.codehub.chgroupProject.util.ReadSkills;
-//import org.apache.poi.ss.usermodel.Workbook;
-//import org.springframework.boot.ApplicationArguments;
-//import org.springframework.boot.ApplicationRunner;
-//import org.springframework.stereotype.Component;
+//            ReadSkills rs = new ReadSkills();
+//            List<Skill> skills= rs.ReadSkillsFromExcel(workbook);
+//            System.out.println(skills);
 //
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//
-//@Component
-//    public class AppStartupRunner implements ApplicationRunner {
-//        @Override
-//        public void run(ApplicationArguments args) throws Exception {
+//            ReadApplicants ra =  new ReadApplicants();
+         //   List <SkillsDto> applicantsDto = ra.readApplicantsFromExcel(workbook);
+         //   System.out.println(applicantsDto);
 //
 //            List<Applicant> applicantsDb = new ArrayList<>();
 //
@@ -41,9 +53,9 @@
             //ReadJobOffers rjo = new ReadJobOffers();
             //System.out.println(rjo.ReadJobOffersFromExcel(workbook));
 
-//            workbook.close();
-//        }
-//    }
+            workbook.close();
+        }
+    }
 
 
 

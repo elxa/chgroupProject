@@ -1,11 +1,13 @@
 package gr.codehub.chgroupProject.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -56,7 +58,6 @@ public class Applicant {
     /**
      * Set the Foreign key
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "applicant")
     private List<ApplicantSkill> applicantSkills;
 

@@ -30,7 +30,7 @@ public class JobOffer {
     private String level;
     private Boolean available = true;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "jobOffer")
     private List<JobOfferSkill> jobOfferSkill;
 
