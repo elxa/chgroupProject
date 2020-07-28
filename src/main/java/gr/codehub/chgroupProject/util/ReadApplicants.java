@@ -1,16 +1,39 @@
 package gr.codehub.chgroupProject.util;
 
+import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.model.ApplicantSkill;
+import gr.codehub.chgroupProject.model.Skill;
+import gr.codehub.chgroupProject.service.ApplicantService;
+import gr.codehub.chgroupProject.service.ApplicantSkillService;
+import gr.codehub.chgroupProject.service.SkillService;
+import lombok.NoArgsConstructor;
 import org.apache.poi.ss.usermodel.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.*;
 
-public class ReadApplicants {
-    public List<Applicant> readApplicantsFromExcel(Workbook workbook) throws IOException {
+@NoArgsConstructor
 
-        List<ApplicantSkill> applicantSkillList = new ArrayList<>();
+@Service
+public class ReadApplicants {
+
+    private ApplicantService applicantService;
+    private SkillService skillService;
+    private ApplicantSkillService applicantSkillService;
+
+    @Autowired
+    public ReadApplicants(ApplicantService applicantService, SkillService skillService, ApplicantSkillService applicantSkillService){
+        this.applicantService = applicantService;
+        this.skillService = skillService;
+        this.applicantSkillService = applicantSkillService;
+    }
+
+    public List<Applicant> readApplicantsFromExcel(Workbook workbook) throws IOException, SkillNotFoundException {
+
+        //List<ApplicantSkill> applicantSkillList = new ArrayList<>();
 
         Sheet sheet = workbook.getSheetAt(0);
 
@@ -31,23 +54,28 @@ public class ReadApplicants {
             a.setLevel(row.getCell(5).getStringCellValue());
             a.setAvailable(true);
 
-            applicants.add(a);
             //save a stous applicants sth vasi
+            applicants.add(a); // den xreaizetai
+            applicantService.addApplicant(a);
+
             int skillsCountCell = 6;
+            //List<String> skills = new ArrayList<>();
 
-            List<String> skills = new ArrayList<>();
+//            while (row.getCell(skillsCountCell) != null) {
+//
+//                String skillName = row.getCell(skillsCountCell).getStringCellValue();
+//
+//                ApplicantSkill applicantSkill = new ApplicantSkill();
+//                applicantSkill.setApplicant(a);
+//                Skill skill = skillService.findSkillByName(skillName);
+//                applicantSkill.setSkill(skill);
+//                // applicantSkillList.add(applicantSkill); xreiazetai?? thelei sth vasi
+//                applicantSkillService.addApplicantSkill(a.getId(),skill.getId());
+//
+//                skillsCountCell++;
+//            }
 
-            while (row.getCell(skillsCountCell) != null) {
 
-                String skill = row.getCell(skillsCountCell).getStringCellValue();
-
-                ApplicantSkill applicantSkill = new ApplicantSkill();
-                applicantSkill.setApplicant(a);
-                //Skill skill = SkillRepository.findByName(skill);
-                //applicantSkill.setSkill(skill);
-               // applicantSkillList.add(applicantSkill); xreiazetai?? thelei sth vasi
-                skillsCountCell++;
-            }
 
         }
 
