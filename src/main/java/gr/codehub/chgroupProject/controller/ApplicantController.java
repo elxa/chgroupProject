@@ -41,4 +41,13 @@ public class ApplicantController {
         return applicantService.addApplicant(applicant);
     }
 
+    ;
+
+    @PutMapping("applicant/{applicantId}")
+    public Applicant updateApplicant(@RequestBody Applicant applicant,
+                                     @PathVariable int applicantId)
+            throws ApplicantNotFoundException {
+        return applicantService.updateApplicant(applicant, applicantId);
+    }
+
 }
