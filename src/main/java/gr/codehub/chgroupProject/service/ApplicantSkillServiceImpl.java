@@ -1,5 +1,6 @@
 package gr.codehub.chgroupProject.service;
 
+import gr.codehub.chgroupProject.excheption.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.model.ApplicantSkill;
@@ -25,13 +26,11 @@ public class ApplicantSkillServiceImpl implements ApplicantSkillService {
 
 
     @Override
-    public ApplicantSkill addApplicantSkill(int applicantId, int skillId) throws SkillNotFoundException
+    public ApplicantSkill addApplicantSkill(int applicantId, int skillId) throws SkillNotFoundException, ApplicantNotFoundException
     //TODO throws ApplicantNotFoundException , SkillNotFoundException
     {
-        Applicant applicantInDb = applicantRepo.findById(applicantId).get();
-//        .orElseThrow(
-//                      ()-> new ApplicantNotFound("No such applicant")
-//                );
+        Applicant applicantInDb = applicantRepo.findById(applicantId).orElseThrow(
+                ()-> new ApplicantNotFoundException("Applicant Not Found "));
 
         Skill skillInDb = skillRepo.findById(skillId)
                 .orElseThrow(

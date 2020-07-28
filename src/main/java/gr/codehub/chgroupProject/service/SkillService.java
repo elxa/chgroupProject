@@ -5,6 +5,7 @@ import gr.codehub.chgroupProject.excheption.SkillNotValidFields;
 import gr.codehub.chgroupProject.model.Skill;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SkillService {
     List<Skill> getSkills();

@@ -1,6 +1,5 @@
 package gr.codehub.chgroupProject.controller;
 
-import gr.codehub.chgroupProject.excheption.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.ApplicantSkill;
 import gr.codehub.chgroupProject.model.JobOfferSkill;
 import gr.codehub.chgroupProject.service.ApplicantSkillService;
@@ -21,8 +20,9 @@ public class MatchController {
 
     //******************************************** ApplicantSkill Controller********************************************
     @PostMapping("applicant/{applicantId}/skill/{skillId}")
-    public ApplicantSkill addApplicantSkill(@PathVariable int applicantId, @PathVariable int skillId) throws SkillNotFoundException
-
+    public ApplicantSkill addApplicantSkill(@PathVariable int applicantId, @PathVariable int skillId)
+            throws ApplicantNotFoundException
+    // TODO SkillCreationException
     {
         return applicantSkillService.addApplicantSkill(applicantId, skillId);
     }
