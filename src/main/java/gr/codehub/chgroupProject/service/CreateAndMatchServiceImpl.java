@@ -3,6 +3,7 @@ package gr.codehub.chgroupProject.service;
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.CreateAndMatchNotFound;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
+import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOffer;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CreateAndMatchServiceImpl implements CreateAndMatchService {
@@ -25,7 +27,7 @@ public class CreateAndMatchServiceImpl implements CreateAndMatchService {
     private JobOfferRepository jobOfferRepo;
 
     @Override
-    public List<CreateAndMatch> getCreateAndMatch() {
+    public List<CreateAndMatch> getCreateAndMatches() {
         return camRepo.findAll();
     }
 
@@ -59,4 +61,21 @@ public class CreateAndMatchServiceImpl implements CreateAndMatchService {
         return camRepo.save(createAndMatchInDb);
 
     }
+
+//    @Override
+//    public CreateAndMatch checkIfApplicantIdAndJobOfferIdExist(int applicantId, int jobOfferId) {
+//        Optional<CreateAndMatch> createAndMatchInDb = camRepo.checkIfApplicantIdAndJobOfferIdExist(applicantId, jobOfferId);
+//        if (createAndMatchInDb.isPresent()) {
+//            return createAndMatchInDb.get();
+//        }
+//        else throw new SkillNotFoundException("Job Offer Not Found");
+//    }
+//@Override
+//public boolean checkIfApplicantIdAndJobOfferIdExist(int applicantId, int jobOfferId) {
+//    CreateAndMatch createAndMatchInDb = camRepo.checkIfApplicantIdAndJobOfferIdExist(applicantId, jobOfferId);
+//    if (createAndMatchInDb != null ) {
+//        return true;
+//    }
+//    return false;
+//}
 }

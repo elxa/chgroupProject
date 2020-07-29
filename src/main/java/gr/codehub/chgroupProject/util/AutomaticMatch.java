@@ -32,7 +32,7 @@ public class AutomaticMatch {
         this.createAndMatchService = createAndMatchService;
     }
 
-    public List<List<Integer>> DoAutomaticMatch() throws ApplicantNotFoundException, JobOfferNotFoundException {
+    public List<CreateAndMatch> DoAutomaticMatch() throws ApplicantNotFoundException, JobOfferNotFoundException, SkillNotFoundException {
 
         List<Applicant> applicantList = applicantService.getApplicants();
         List<JobOffer> jobOfferList = jobOfferService.getJobOffers();
@@ -73,21 +73,25 @@ public class AutomaticMatch {
         for (int i = 0; i < jobOfferList.size(); i++) {
             List<Integer> skillsIdJob = jobOfferSkillsIdList.get(i);
 
-            //if (!jobOfferList.get(i).getAvailable()) continue;
+            if (!jobOfferList.get(i).getAvailable()) continue;
 
             for (int j = 0; j < applicantList.size(); j++) {
                 List<Integer> skillsIdApp = applicantSkillsIdList.get(j);
 
-             //   if (!applicantList.get(j).getAvailable()) continue;
+                if (!applicantList.get(j).getAvailable()) continue;
+                if (!jobOfferList.get(i).getLevel().equals(applicantList.get(j).getLevel())) continue;
 
                 if (skillsIdApp.containsAll(skillsIdJob)) {
                     System.out.println("***MATCH***" + jobOfferList.get(i) + "WITH APPLICANT" + applicantList.get(j));
 
-                    createAndMatchService.addCreateAndMatch(applicantList.get(j).getId(), jobOfferList.get(i).getId());
+
+                    //if(!createAndMatchService.checkIfApplicantIdAndJobOfferIdExist(applicantList.get(j).getId(), jobOfferList.get(i).getId())){
+                        createAndMatchService.addCreateAndMatch(applicantList.get(j).getId(), jobOfferList.get(i).getId());
+                    //}
                 }
             }
         }
-        return applicantSkillsIdList;
+        return createAndMatchService.getCreateAndMatches();
 
 
     }

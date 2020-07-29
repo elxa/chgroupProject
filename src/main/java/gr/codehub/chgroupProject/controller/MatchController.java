@@ -4,6 +4,7 @@ import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.ApplicantSkill;
+import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOfferSkill;
 import gr.codehub.chgroupProject.service.ApplicantSkillService;
 import gr.codehub.chgroupProject.service.JobOfferSkillService;
@@ -41,8 +42,8 @@ public class MatchController {
         return jobOfferSkillService.addJobOfferSkill(jobOfferId, skillId);
     }
 
-    @GetMapping ("match")
-    public List<List<Integer>> DoMatch() throws ApplicantNotFoundException, JobOfferNotFoundException {
+    @GetMapping ("matching")
+    public List<CreateAndMatch> doMatch() throws ApplicantNotFoundException, JobOfferNotFoundException, SkillNotFoundException {
         return automaticMatch.DoAutomaticMatch();
     }
 

@@ -20,7 +20,7 @@ public class CreateAndMatchContoller {
 
     @GetMapping("createAndMatch")
     public List<CreateAndMatch> getListOfCreateAndMatch() {
-        return createAndMatchService.getCreateAndMatch();
+        return createAndMatchService.getCreateAndMatches();
     }
 
     @PostMapping("createAndMatch")
