@@ -48,9 +48,9 @@ class JobOfferServiceImplTest {
         jo2.setId(2);
 
         //jos.addJobOffer(jo1) kaloume thn sunarthsh apo to service pou epistrefei jobOffer
+
         jobOffers.add(jos.addJobOffer(jo1));  //epistrefoun mia job offer opote gia na dw oti trexei kala h sunarthsh 8a ta balw sthn arraylist pou eftia3a
         jobOffers.add(jos.addJobOffer(jo2));
-
         assertEquals(2, jobOffers.size());
     }
 
