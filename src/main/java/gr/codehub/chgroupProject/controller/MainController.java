@@ -1,9 +1,6 @@
 package gr.codehub.chgroupProject.controller;
 
-import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
-import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
-import gr.codehub.chgroupProject.exception.JobOfferNotValidFields;
-import gr.codehub.chgroupProject.exception.SkillNotFoundException;
+import gr.codehub.chgroupProject.exception.*;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.model.Skill;
@@ -37,19 +34,20 @@ public class MainController {
     }
 
     @GetMapping("createDbSkills")
-    public List<Skill> createDbSkills() throws IOException, SkillNotFoundException {
+    public List<Skill> createDbSkills() throws IOException, SkillNotFoundException, SkillNotValidFields {
         return readSkills.ReadSkillsFromExcel(workbook);
     }
 
     @GetMapping("createDbApplicants")
-    public List<Applicant> createDbApplicants() throws IOException, ApplicantNotFoundException {
+    public List<Applicant> createDbApplicants() throws IOException, ApplicantNotFoundException, ApplicantNotValidFields, SkillNotFoundException, SkillNotValidFields {
         return readApplicants.readApplicantsFromExcel(workbook);
     }
 
     @GetMapping("createDbJobOffers")
-    public List<JobOffer> createDbJobOffers() throws IOException, JobOfferNotFoundException, JobOfferNotValidFields {
+    public List<JobOffer> createDbJobOffers() throws IOException, JobOfferNotFoundException, JobOfferNotValidFields, SkillNotFoundException, SkillNotValidFields {
         return readJobOffers.ReadJobOffersFromExcel(workbook);
     }
 
 
 }
+

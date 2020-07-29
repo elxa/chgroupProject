@@ -1,6 +1,9 @@
 package gr.codehub.chgroupProject.util;
 
+import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
+import gr.codehub.chgroupProject.exception.ApplicantNotValidFields;
 import gr.codehub.chgroupProject.exception.SkillNotFoundException;
+import gr.codehub.chgroupProject.exception.SkillNotValidFields;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.model.ApplicantSkill;
 import gr.codehub.chgroupProject.model.Skill;
@@ -31,7 +34,7 @@ public class ReadApplicants {
         this.applicantSkillService = applicantSkillService;
     }
 
-    public List<Applicant> readApplicantsFromExcel(Workbook workbook) throws IOException {
+    public List<Applicant> readApplicantsFromExcel(Workbook workbook) throws IOException, ApplicantNotValidFields, ApplicantNotFoundException, SkillNotFoundException, SkillNotValidFields {
 
 
         Sheet sheet = workbook.getSheetAt(0);
