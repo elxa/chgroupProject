@@ -62,6 +62,7 @@ public class SkillServiceImpl implements SkillService {
         return true;
     }
 
+    //todo se enan controller
     @Override
     public Skill getSkillById(int skillId) throws SkillNotFoundException {
         Optional<Skill> oSkill = skillRepo.findById(skillId);
