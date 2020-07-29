@@ -61,6 +61,8 @@ public class Applicant {
     @OneToMany(mappedBy = "applicant")
     private List<ApplicantSkill> applicantSkills;
 
+    @JsonIgnore
+    @ToString.Exclude
     @OneToMany(mappedBy = "applicant")
     private List<CreateAndMatch> createAndMatches;
 }

@@ -36,8 +36,6 @@ public class ReadSkills {
 
         }
 
-       // workbook.close(); to kleinw ston appstartup
-        System.out.println(skills);
         return skills;
     }
 }

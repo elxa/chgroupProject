@@ -38,6 +38,7 @@ public class ReadJobOffers {
         List<JobOffer> jobOffers = new ArrayList<>();
         boolean firstTime = true;
 
+
         for (Row row : sheet) {
             if (firstTime) {
                 firstTime = false;
@@ -57,6 +58,7 @@ public class ReadJobOffers {
             jobOfferService.addJobOffer(jb);
 
             int skillsCountCell = 4;
+
 
             while (row.getCell(skillsCountCell) != null) {
 

@@ -42,6 +42,8 @@ public class ReadApplicants {
         List<Applicant> applicants = new ArrayList<>();
         boolean firstTime = true;
 
+        List<List<Integer>> applicantSkillsIdList = new ArrayList<>(); //NEW
+
         for (Row row : sheet) {
             if (firstTime) {
                 firstTime = false;

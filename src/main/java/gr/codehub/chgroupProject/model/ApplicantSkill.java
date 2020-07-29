@@ -29,5 +29,6 @@ public class ApplicantSkill {
      */
     @ManyToOne
     @JsonIgnore
+    @ToString.Exclude
     private Applicant applicant;
 }
