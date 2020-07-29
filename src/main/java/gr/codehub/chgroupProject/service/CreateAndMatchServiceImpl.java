@@ -62,6 +62,15 @@ public class CreateAndMatchServiceImpl implements CreateAndMatchService {
 
     }
 
+    @Override
+    public boolean checkIfApplicantIdAndJobOfferIdExist(Applicant applicant, JobOffer jobOffer) {
+        Optional<CreateAndMatch> createAndMatchInDb = camRepo.findCreateAndMatchByJobOfferAndApplicant(jobOffer, applicant);
+        if (createAndMatchInDb.isPresent()) {
+            return true;
+        } else
+            return false;
+    }
+
 //    @Override
 //    public CreateAndMatch checkIfApplicantIdAndJobOfferIdExist(int applicantId, int jobOfferId) {
 //        Optional<CreateAndMatch> createAndMatchInDb = camRepo.checkIfApplicantIdAndJobOfferIdExist(applicantId, jobOfferId);

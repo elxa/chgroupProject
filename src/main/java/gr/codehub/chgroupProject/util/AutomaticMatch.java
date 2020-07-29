@@ -85,9 +85,9 @@ public class AutomaticMatch {
                     System.out.println("***MATCH***" + jobOfferList.get(i) + "WITH APPLICANT" + applicantList.get(j));
 
 
-                    //if(!createAndMatchService.checkIfApplicantIdAndJobOfferIdExist(applicantList.get(j).getId(), jobOfferList.get(i).getId())){
+                    if(!createAndMatchService.checkIfApplicantIdAndJobOfferIdExist(applicantList.get(j), jobOfferList.get(i))){
                         createAndMatchService.addCreateAndMatch(applicantList.get(j).getId(), jobOfferList.get(i).getId());
-                    //}
+                    }
                 }
             }
         }

@@ -67,9 +67,6 @@ public class ReadApplicants {
 
             int skillsCountCell = 6;
 
-            List<Integer> skillIdList = new ArrayList<>(); //NEW
-            applicantSkillsIdList.add(skillIdList);  // NEW
-
             while (row.getCell(skillsCountCell) != null) {
 
                 String skillName = row.getCell(skillsCountCell).getStringCellValue();
@@ -87,9 +84,6 @@ public class ReadApplicants {
 
                 }
 
-
-                skillIdList.add(skill.getId()); //NEW
-
                 applicantSkill.setSkill(skill);
                 applicantSkillList.add(applicantSkill);
                 applicantSkillService.addApplicantSkill(a.getId(), skill.getId());
@@ -100,7 +94,6 @@ public class ReadApplicants {
             a.setApplicantSkills(applicantSkillList);
 
         }
-        //System.out.println("************" + applicantSkillsIdList);
         return applicants;
     }
 }

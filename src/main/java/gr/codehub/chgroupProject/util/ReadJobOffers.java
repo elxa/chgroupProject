@@ -38,7 +38,6 @@ public class ReadJobOffers {
         List<JobOffer> jobOffers = new ArrayList<>();
         boolean firstTime = true;
 
-        List<List<Integer>> jobOfferSkillsIdList = new ArrayList<>(); //NEW
 
         for (Row row : sheet) {
             if (firstTime) {
@@ -60,8 +59,6 @@ public class ReadJobOffers {
 
             int skillsCountCell = 4;
 
-            List<Integer> skillIdList = new ArrayList<>(); //NEW
-            jobOfferSkillsIdList.add(skillIdList);  // NEW
 
             while (row.getCell(skillsCountCell) != null) {
 
@@ -81,8 +78,6 @@ public class ReadJobOffers {
 
                 }
 
-                skillIdList.add(skill.getId()); //NEW
-
                 jobOfferSkill.setSkill(skill);
                 jobOfferSkillList.add(jobOfferSkill);
                 jobOfferSkillService.addJobOfferSkill(jb.getId(), skill.getId());
@@ -93,7 +88,6 @@ public class ReadJobOffers {
             jb.setJobOfferSkill(jobOfferSkillList);
         }
 
-        //System.out.println("************" + jobOfferSkillsIdList);
         return jobOffers;
     }
 }
