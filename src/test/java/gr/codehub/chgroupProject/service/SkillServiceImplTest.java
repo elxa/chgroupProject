@@ -61,7 +61,19 @@ class SkillServiceImplTest {
         skill.setNameOfSkill("java");
         skillService.addSkill(skill);
         assertThat(skillService.findSkillByName("java"));
-    }}
+    }
+@Test
+    void updateSkill() throws SkillNotFoundException,SkillNotValidFields{
+        Skill skill=new Skill();
+        skill.setNameOfSkill("web");
+        skillService.addSkill(skill);
+    int skillId = 1;
+    skillService.updateSkill(skill, skillId);
+    assertThat(skillService.updateSkill(skill,1 ));
+}
+
+
+}
 
     //TODO update test
 
