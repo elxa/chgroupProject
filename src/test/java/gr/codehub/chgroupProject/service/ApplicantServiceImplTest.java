@@ -57,42 +57,44 @@ class ApplicantServiceImplTest {
         a1.setAddress("Kolokotroni 1");
         a1.setLevel("Junior");
 
-        Applicant a2 = new Applicant();
-        a2.setFirstName("KalisF");
-        a2.setLastName("KoliaGT");
-        a2.setAvailable(true);
-        a2.setRegion("Crete");
-        a2.setEducation("IT");
-        a2.setAddress("Kolokotroni 45");
-        a2.setLevel("Mid");
-
         applicantService.addApplicant(a1);
-        applicantService.addApplicant(a2);
 
         List<Applicant> applicants2 = applicantService.getApplicants();
 
-        assertEquals(4, applicants2.size());
+
+        assertEquals(1, applicants2.size());
 
     }
 
     @Test
     void getApplicantById() throws ApplicantNotFoundException, ApplicantNotValidFields {
-        Applicant applicant = new Applicant();
-        applicant.setFirstName("John");
-        applicant.setLastName("Kikl");
-        applicant.setAddress("Johngt 21");
-        applicant.setRegion("Athens");
-        applicant.setEducation("IT");
-        applicant.setLevel("Junior");
-        applicant.setAvailable(true);
+        Applicant a1 = new Applicant();
+        a1.setFirstName("Kalis");
+        a1.setLastName("Kolia");
+        a1.setAvailable(true);
+        a1.setRegion("Athens");
+        a1.setEducation("IT");
+        a1.setAddress("Kolokotroni 1");
+        a1.setLevel("Junior");
+
+        Applicant a2 = new Applicant();
+        a2.setFirstName("Kalis");
+        a2.setLastName("Kolia");
+        a2.setAvailable(true);
+        a2.setRegion("Athens");
+        a2.setEducation("IT");
+        a2.setAddress("Kolokotroni 1");
+        a2.setLevel("Junior");
 
 
-        applicantService.addApplicant(applicant);
+        applicantService.addApplicant(a1);
+        applicantService.addApplicant(a2);
 
-        int id = 1;
-        Applicant app= applicantService.getApplicantById(1);
+        int id = 2;
+        Applicant app= applicantService.getApplicantById(2);
 
        assertThat(app.getId()).isEqualTo(id);
+
 
     }
 
