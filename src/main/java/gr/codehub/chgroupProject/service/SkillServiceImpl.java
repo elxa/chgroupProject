@@ -56,6 +56,10 @@ public class SkillServiceImpl implements SkillService {
         }
         return skillRepo.save(skill);
     }
+    @Override
+    public List<Skill> getAllSkills(){
+        return skillRepo.findAll();
+    }
 
     /**
      * We create this method in order to be able to update a skill

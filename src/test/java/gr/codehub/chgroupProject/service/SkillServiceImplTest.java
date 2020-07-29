@@ -7,104 +7,62 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class SkillServiceImplTest {
-
-    @Autowired
-    SkillService ss;
-
+@Autowired
+    private SkillService skillService;
     @Test
-    void getSkills() throws SkillNotFoundException, SkillNotValidFields {
-        List<Skill> skills1 = ss.getSkills();
-
-        Skill skill = new Skill();
+    void getSkill() throws SkillNotValidFields, SkillNotFoundException{
+        List<Skill> skill1=skillService.getAllSkills();
+        assertEquals(0, skill1.size());
+        Skill skill=new Skill();
         skill.setNameOfSkill("java");
-
-        ss.addSkill(skill);
-        List<Skill> skills = ss.getSkills("java");
-
-
-        assertEquals(1, skills.size());
     }
-//        Skill ss1=new Skill();
-//        ss1.setNameOfSkill("Databases");
-//        ss1.setId(1);
-//
-//        ss.addSkill(ss1);
-//        ss.addSkill(ss1);
-//
-//        assertEquals(2, ss.getSkills(null).size());
-
-
     @Test
-    void addSkill() throws SkillNotValidFields, SkillNotFoundException{
-        List<Skill> skills=new ArrayList<>();
-        Skill ss1=new Skill();
-        ss1.setNameOfSkill("Databases");
-        ss1.setId(1);
-
-        Skill ss2=new Skill();
-        ss2.setNameOfSkill("Scrum");
-        ss2.setId(2);
-
-        skills.add(ss.addSkill(ss1));
-        skills.add(ss.addSkill(ss2));
-
-        assertEquals(2, skills.size());
+    void addSkill() throws SkillNotFoundException, SkillNotValidFields{
+        Skill s1=new Skill();
+        s1.setNameOfSkill("Databases");
+        Skill s2=new Skill();
+        s2.setNameOfSkill("web");
+        skillService.addSkill(s1);
+        skillService.addSkill(s2);
+        List<Skill> skill2=skillService.getAllSkills();
+        assertEquals(2, skill2.size());
     }
-
-    @Test
-    void getSkill() throws SkillNotFoundException, SkillNotValidFields{
-//        List<Skill> skills1=ss.getSkills();
-//
-//        Skill skill=new Skill();
-//        skill.setNameOfSkill("java");
-//
-//        ss.addSkill(skill);
-//        List<Skill> skills=ss.getSkills("java");
-//
-//        assertEquals(1, skills.size());
-
-    }
-
-
-//    void getSkill() throws SkillNotFoundException,SkillNotValidFields{
-//        Skill ss1=new Skill();
-//        ss1.setNameOfSkill("Databases");
-//        ss1.setId(1);
-//
-//        ss.addSkill(ss1);
-//        assertEquals(1, ss.getSkillById((1)));
-//    }
-
     @Test
     void deleteSkill() throws SkillNotFoundException, SkillNotValidFields {
         Skill ss1 = new Skill();
         ss1.setNameOfSkill("Angular");
         ss1.setId(1);
 
-        ss.addSkill(ss1);
+        skillService.addSkill(ss1);
 
-        assertEquals(true , ss.deleteSkill((1)));
+        assertEquals(true , skillService.deleteSkill((1)));
     }
-
 
     @Test
-    void findSkillByName() throws SkillNotFoundException, SkillNotValidFields {
-        Skill ss1=new Skill();
-        ss1.setNameOfSkill("Databases");
-
-        ss.addSkill(ss1);
-
-        assertEquals( "Databases", ss.findSkillByName(toString()));
-
+    void getSkillById() throws SkillNotValidFields, SkillNotFoundException{
+        Skill skill=new Skill();
+        skill.setNameOfSkill("java");
+        skillService.addSkill(skill);
+        int id=1;
+        Skill ss=skillService.getSkillById(1);
+        assertThat(ss.getId()).isEqualTo(id);
     }
 
-//TODO update test
+    @Test
+    void getSkillByName() throws SkillNotFoundException, SkillNotValidFields {
+        Skill skill=new Skill();
+        skill.setNameOfSkill("java");
+        skillService.addSkill(skill);
+        assertThat(skillService.findSkillByName("java"));
+    }}
 
-}
+    //TODO update test
+
+
