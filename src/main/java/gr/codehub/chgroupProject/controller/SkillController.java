@@ -17,7 +17,10 @@ public class SkillController {
 
     //auto douleuei
     @GetMapping("skill")
-    public List<Skill> getListOfSkills(@RequestParam(required = false) String skillName) throws SkillNotFoundException {
+    public List<Skill> getListOfSkills(
+            @RequestParam(required = false) String skillName)
+            throws SkillNotFoundException
+    {
         return skillService.getSkills(skillName); //ean o xrhsths dwsei kapoia parametro tote 8a emfanisei mono ta skills me bash to onoma pou exei dwsei alliws 8a emfanisei olh th lista me
     }
 

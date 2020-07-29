@@ -24,6 +24,7 @@ public class Skill {
 
     @JsonIgnore
     @OneToMany(mappedBy = "skill")
+    @ToString.Exclude
     private List<ApplicantSkill> applicantSkills;
     @JsonIgnore
     @OneToMany(mappedBy = "skill")
