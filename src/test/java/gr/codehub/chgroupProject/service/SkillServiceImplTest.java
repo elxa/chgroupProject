@@ -19,16 +19,27 @@ class SkillServiceImplTest {
     SkillService ss;
 
     @Test
-    void getSkills() throws SkillNotFoundException, SkillNotValidFields{
-        Skill ss1=new Skill();
-        ss1.setNameOfSkill("Databases");
-        ss1.setId(1);
+    void getSkills() throws SkillNotFoundException, SkillNotValidFields {
+        List<Skill> skills1 = ss.getSkills();
 
-        ss.addSkill(ss1);
-        ss.addSkill(ss1);
+        Skill skill = new Skill();
+        skill.setNameOfSkill("java");
 
-        assertEquals(2, ss.getSkills(null).size());
+        ss.addSkill(skill);
+        List<Skill> skills = ss.getSkills("java");
+
+
+        assertEquals(1, skills.size());
     }
+//        Skill ss1=new Skill();
+//        ss1.setNameOfSkill("Databases");
+//        ss1.setId(1);
+//
+//        ss.addSkill(ss1);
+//        ss.addSkill(ss1);
+//
+//        assertEquals(2, ss.getSkills(null).size());
+
 
     @Test
     void addSkill() throws SkillNotValidFields, SkillNotFoundException{
@@ -48,14 +59,28 @@ class SkillServiceImplTest {
     }
 
     @Test
-    void getSkill() throws SkillNotFoundException,SkillNotValidFields{
-        Skill ss1=new Skill();
-        ss1.setNameOfSkill("Databases");
-        ss1.setId(1);
+    void getSkill() throws SkillNotFoundException, SkillNotValidFields{
+//        List<Skill> skills1=ss.getSkills();
+//
+//        Skill skill=new Skill();
+//        skill.setNameOfSkill("java");
+//
+//        ss.addSkill(skill);
+//        List<Skill> skills=ss.getSkills("java");
+//
+//        assertEquals(1, skills.size());
 
-        ss.addSkill(ss1);
-        assertEquals(1, ss.getSkillById((1)));
     }
+
+
+//    void getSkill() throws SkillNotFoundException,SkillNotValidFields{
+//        Skill ss1=new Skill();
+//        ss1.setNameOfSkill("Databases");
+//        ss1.setId(1);
+//
+//        ss.addSkill(ss1);
+//        assertEquals(1, ss.getSkillById((1)));
+//    }
 
     @Test
     void deleteSkill() throws SkillNotFoundException, SkillNotValidFields {

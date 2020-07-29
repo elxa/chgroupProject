@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 //todo na paroume mia lista me ola ta applicantSkill
 
 
+
 @Service
 public class ApplicantSkillServiceImpl implements ApplicantSkillService {
 
@@ -23,6 +24,15 @@ public class ApplicantSkillServiceImpl implements ApplicantSkillService {
     private ApplicantRepository applicantRepo;
     @Autowired
     public SkillRepository skillRepo;
+
+    /**
+     * We create a method in order to add a new applicant skill
+     * @param applicantId
+     * @param skillId
+     * @return a
+     * @throws SkillNotFoundException
+     * @throws ApplicantNotFoundException
+     */
 
 
     @Override

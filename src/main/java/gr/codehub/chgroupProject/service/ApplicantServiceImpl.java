@@ -11,11 +11,7 @@ import java.util.Optional;
 
 //TODO UPDATE , EXTEPTIONSAPPLICANT, TODO APPLICANT UPDATE AVAILABLE
 
-/**
- * We directly call the ApplicantRepo
- *
- * @Service
- */
+
 @Service
 public class ApplicantServiceImpl implements ApplicantService {
 
@@ -23,21 +19,24 @@ public class ApplicantServiceImpl implements ApplicantService {
     private ApplicantRepository applicantRepo;
 
     /**
-     * We call the methods of the Interfect
-     *
-     * @return Return the List of the Applicants from the dattabase
-     * @Override
+     * In this method we get  all applicants
+     * @return a list with all applicants
      */
     @Override
     public List<Applicant> getApplicants() {
         return applicantRepo.findAll();
     }
 
-    /**
-     * @param applicant
-     * @return add the applicant on the datatbase
-     */
+
     //todo prepei na tsekaroume an o xrhsths bazei swsta thn hmeromhnia alliws exei la8os
+
+    /**
+     *
+     * @param applicant
+     * @return a certain applicant
+     * @throws ApplicantNotFoundException
+     * @throws ApplicantNotValidFields
+     */
     @Override
     public Applicant addApplicant(Applicant applicant) throws ApplicantNotFoundException, ApplicantNotValidFields {
         if (applicant == null)
@@ -54,6 +53,14 @@ public class ApplicantServiceImpl implements ApplicantService {
         return applicantRepo.save(applicant);
     }
 
+    /**
+     * We create a method in order to update the applicant
+     * @param applicant
+     * @param applicantId
+     * @return applicantInDB
+     * @throws ApplicantNotFoundException
+     */
+
     @Override
     public Applicant updateApplicant(Applicant applicant, int applicantId) throws ApplicantNotFoundException {
         Applicant applicantInDb = applicantRepo.findById(applicantId)
@@ -67,9 +74,13 @@ public class ApplicantServiceImpl implements ApplicantService {
     }
 
     /**
-     * @param applicantId specific applicant
-     * @return Return a specific applicant.
+     * We create a method in order to get the id of applicant
+     * @param applicantId
+     * @return the applicant of id
+     * @throws ApplicantNotFoundException
      */
+
+
     @Override
     public Applicant getApplicantById(int applicantId) throws ApplicantNotFoundException {
         Optional<Applicant> oApplicant = applicantRepo.findById(applicantId);
