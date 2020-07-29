@@ -4,11 +4,10 @@ import gr.codehub.chgroupProject.model.ApplicantSkill;
 import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOfferSkill;
 import gr.codehub.chgroupProject.service.ApplicantSkillService;
+import gr.codehub.chgroupProject.service.CreateAndMatchService;
 import gr.codehub.chgroupProject.service.JobOfferSkillService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MatchController {
@@ -17,6 +16,8 @@ public class MatchController {
     private ApplicantSkillService applicantSkillService;
     @Autowired
     private JobOfferSkillService jobOfferSkillService;
+    @Autowired
+    private CreateAndMatchService createAndMatchService;
 
 
     //******************************************** ApplicantSkill Controller********************************************
@@ -40,4 +41,10 @@ public class MatchController {
 //
 //        return
 //    }
+
+    @GetMapping("dokimh")
+    public void JobOffer() {
+
+        createAndMatchService.autoCreateMatch();
+    }
 }

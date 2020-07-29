@@ -15,4 +15,6 @@ public interface CreateAndMatchService {
 
     List<CreateAndMatch> autoCreateAndMatch();
 
+    boolean autoCreateMatch();
+
 }

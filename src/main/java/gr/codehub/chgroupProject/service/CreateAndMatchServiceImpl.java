@@ -56,9 +56,11 @@ public class CreateAndMatchServiceImpl implements CreateAndMatchService {
     @Autowired
     CreateAndMatchRepository createAndMatchRepo;
     @Autowired
-    ApplicantSkillRepository applicantSkillRepository;
+    ApplicantSkillRepository applicantSkillRepo;
     @Autowired
     JobOfferSkillRepository jobOfferSkillRepository;
+    @Autowired
+    ApplicantRepository applicantRepo;
 
     @Override
     public List<CreateAndMatch> getCreateAndMatchs() {
@@ -70,23 +72,13 @@ public class CreateAndMatchServiceImpl implements CreateAndMatchService {
 
         return null;
     }
-
-//    @Override
-//    public CreateAndMatch addCreateAndMatch(int applicantId, int jobOfferId) throws ApplicantNotFoundException, JobOfferNotFoundException {
-//        Applicant applicantInDb = applicantRepo.findById(applicantId)
-//                .orElseThrow(() -> new ApplicantNotFoundException("Applicant Not found"));
-//
-//        JobOffer jobOfferInDb = jobOfferRepo.findById(jobOfferId)
-//                .orElseThrow(() -> new JobOfferNotFoundException("JobOffer Not found"));
-//
-//        CreateAndMatch createAndMatch = new CreateAndMatch();
-//        createAndMatch.setApplicant(applicantInDb);
-//        createAndMatch.setJobOffer(jobOfferInDb);
-//        //todo swso format gia thn hmeromhnia
-//
-//
-//        return createAndMatchRepo.save(createAndMatch);
-//    }
+    @Override
+    public boolean autoCreateMatch(){
+        List<ApplicantSkill> askills = applicantSkillRepo.findAll();
+       // System.out.println("***********************************"+askills.get(0).getApplicantSkills().get(0).getSkill().getId() +"**************");
+        System.out.println("***********************************"+askills.get(0).getSkill().getId()+"**************");
+return true;
+    }
 
 
 }
