@@ -42,7 +42,7 @@ public class MatchController {
     }
 
     @GetMapping ("match")
-    public List<List<Integer>> DoMatch(){
+    public List<List<Integer>> DoMatch() throws ApplicantNotFoundException, JobOfferNotFoundException {
         return automaticMatch.DoAutomaticMatch();
     }
 

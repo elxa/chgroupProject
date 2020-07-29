@@ -6,6 +6,7 @@ import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -35,6 +36,7 @@ public class JobOffer {
     private List<JobOfferSkill> jobOfferSkill;
 
     @JsonIgnore
+    @ToString.Exclude
     @OneToMany(mappedBy = "jobOffer")
     private List<CreateAndMatch> createAndMatche;
 }
