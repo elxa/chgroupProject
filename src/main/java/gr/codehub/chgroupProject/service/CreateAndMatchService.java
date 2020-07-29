@@ -15,6 +15,6 @@ public interface CreateAndMatchService {
 
     List<CreateAndMatch> autoCreateAndMatch();
 
-    boolean autoCreateMatch();
+    boolean autoCreateMatch() throws JobOfferNotFoundException;
 
 }

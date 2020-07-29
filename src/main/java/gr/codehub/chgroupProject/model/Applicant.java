@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Create an Applicant table in database
@@ -62,4 +63,17 @@ public class Applicant {
 
     @OneToMany(mappedBy = "applicant")
     private List<CreateAndMatch> createAndMatches;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Applicant)) return false;
+        Applicant applicant = (Applicant) o;
+        return id == applicant.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

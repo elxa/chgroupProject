@@ -1,5 +1,6 @@
 package gr.codehub.chgroupProject.controller;
 
+import gr.codehub.chgroupProject.excheption.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.model.ApplicantSkill;
 import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOfferSkill;
@@ -43,7 +44,7 @@ public class MatchController {
 //    }
 
     @GetMapping("dokimh")
-    public void JobOffer() {
+    public void JobOffer() throws JobOfferNotFoundException {
 
         createAndMatchService.autoCreateMatch();
     }

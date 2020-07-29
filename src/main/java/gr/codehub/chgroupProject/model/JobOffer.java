@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -37,4 +38,17 @@ public class JobOffer {
     @JsonIgnore
     @OneToMany(mappedBy = "jobOffer")
     private List<CreateAndMatch> createAndMatche;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof JobOffer)) return false;
+        JobOffer jobOffer = (JobOffer) o;
+        return id == jobOffer.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
