@@ -1,11 +1,14 @@
 package gr.codehub.chgroupProject.service;
 
+
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.ApplicantNotValidFields;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.repository.ApplicantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -42,13 +45,14 @@ public class ApplicantServiceImpl implements ApplicantService {
     public Applicant addApplicant(Applicant applicant) throws ApplicantNotFoundException, ApplicantNotValidFields {
         if (applicant == null)
             throw new ApplicantNotFoundException("Applicant Not found");
-        if (applicant.getFirstName() == null || applicant.getFirstName().equals("")
-                || applicant.getLastName() == null || applicant.getLastName().equals("")
-                || applicant.getAddress() == null || applicant.getAddress().equals("")
-                || applicant.getRegion() == null || applicant.getEducation().equals("")
-                || applicant.getEducation() == null || applicant.getEducation().equals("")
-                || applicant.getLevel() == null || applicant.getLevel().equals("")
-                || applicant.getAvailable() == null || applicant.getAvailable().equals("")
+        // StringUtils.isEmpty(applicant.getFirstName())
+        if (StringUtils.isEmpty(applicant.getFirstName())
+                || StringUtils.isEmpty(applicant.getLastName())
+                || StringUtils.isEmpty(applicant.getAddress())
+                || StringUtils.isEmpty(applicant.getRegion())
+                || StringUtils.isEmpty(applicant.getEducation())
+                || StringUtils.isEmpty(applicant.getLevel())
+                || StringUtils.isEmpty(applicant.getAvailable())
         )
             throw new ApplicantNotValidFields("Applicant fields must not be null");
         return applicantRepo.save(applicant);

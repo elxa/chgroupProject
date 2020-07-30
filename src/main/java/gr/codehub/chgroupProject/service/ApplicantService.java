@@ -5,7 +5,7 @@ import gr.codehub.chgroupProject.exception.ApplicantNotValidFields;
 import gr.codehub.chgroupProject.model.Applicant;
 
 import java.util.List;
-//todo update applicant
+
 public interface ApplicantService {
 
     List<Applicant> getApplicants();

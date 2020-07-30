@@ -26,21 +26,15 @@ public class ApplicantSkillServiceImpl implements ApplicantSkillService {
 
 
     @Override
-    public ApplicantSkill addApplicantSkill(int applicantId, int skillId) throws SkillNotFoundException, ApplicantNotFoundException
-    {
+    public ApplicantSkill addApplicantSkill(int applicantId, int skillId)
+            throws SkillNotFoundException, ApplicantNotFoundException {
         Applicant applicantInDb = applicantRepo.findById(applicantId)
-                .orElseThrow(
-                        ()-> new ApplicantNotFoundException("Applicant Not Found "));
-
+                .orElseThrow(()-> new ApplicantNotFoundException("Applicant Not Found "));
         Skill skillInDb = skillRepo.findById(skillId)
-                .orElseThrow(
-                       () -> new SkillNotFoundException("Skill not found")
-               );
-
+                .orElseThrow(() -> new SkillNotFoundException("Skill not found"));
         ApplicantSkill applicantSkill= new ApplicantSkill();
         applicantSkill.setApplicant(applicantInDb);
         applicantSkill.setSkill(skillInDb);
-
         applicantSkillRepo.save(applicantSkill);
         return applicantSkill;
 

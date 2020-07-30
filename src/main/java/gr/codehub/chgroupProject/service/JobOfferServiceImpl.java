@@ -6,6 +6,7 @@ import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.repository.JobOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,13 +44,14 @@ public class JobOfferServiceImpl implements JobOfferService{
         if(jobOffer == null){
             throw new JobOfferNotFoundException("Job Offer Not found");
         }
-        if( jobOffer.getCompanyName().equals("") || jobOffer.getCompanyName().equals("")
-                || jobOffer.getPosition().equals("") || jobOffer.getPosition().equals("")
-                || jobOffer.getRegion().equals("") || jobOffer.getRegion().equals("")
-                || jobOffer.getLevel().equals("") || jobOffer.getLevel().equals("")
-                || jobOffer.getAvailable().equals("") || jobOffer.getAvailable().equals("")){ //ean den balei email xtupaei null pointer excheption paizei rolo h seira edw
+        if( StringUtils.isEmpty(jobOffer.getCompanyName())
+                || StringUtils.isEmpty(jobOffer.getPosition())
+                || StringUtils.isEmpty(jobOffer.getRegion())
+                || StringUtils.isEmpty(jobOffer.getLevel())
+                || StringUtils.isEmpty(jobOffer.getAvailable())
+        ) //ean den balei email xtupaei null pointer excheption paizei rolo h seira edw
             throw new JobOfferNotValidFields("Job Offer fields must not be null");
-        }
+
         return jobOfferRepo.save(jobOffer);
     }
 

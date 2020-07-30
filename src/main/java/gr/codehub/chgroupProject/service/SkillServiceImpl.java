@@ -37,7 +37,7 @@ public class SkillServiceImpl implements SkillService {
         if (skill == null) {
             throw new SkillNotFoundException("null skill");
         }
-        if (skill.getNameOfSkill().equals("") || skill.getNameOfSkill() == null) { //ean den balei email xtupaei null pointer excheption paizei rolo h seira edw
+        if (skill.getNameOfSkill().equals("") || skill.getNameOfSkill() == null) {
             throw new SkillNotValidFields("Skill fields must not be null");
         }
         return skillRepo.save(skill);
@@ -78,6 +78,6 @@ public class SkillServiceImpl implements SkillService {
         }
         else throw new SkillNotFoundException("Skill with this name Not Found");
     }
-    }
+}
 
 
