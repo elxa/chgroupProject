@@ -17,7 +17,7 @@ public class ApplicantController {
 
     /**
      * Getting all applicants
-     * @return list of aplicants
+     * @return list of applicants
      */
     @GetMapping("applicant")
     public List<Applicant> getListApplicants() {
@@ -25,7 +25,7 @@ public class ApplicantController {
     }
 
     /**
-     * Getting a certain applicant according with ther id
+     * Getting a certain applicant according with their id
      * @param applicantId specific applicant
      * @return give us back a specific applicant
      */

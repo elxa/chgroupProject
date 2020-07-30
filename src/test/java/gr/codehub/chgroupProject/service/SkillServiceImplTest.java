@@ -3,6 +3,7 @@ package gr.codehub.chgroupProject.service;
 import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.exception.SkillNotValidFields;
 import gr.codehub.chgroupProject.model.Skill;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class SkillServiceImplTest {
 @Autowired
     private SkillService skillService;
+
+
     @Test
     void getSkill() throws SkillNotValidFields, SkillNotFoundException{
         List<Skill> skill1=skillService.getAllSkills();
@@ -34,6 +37,27 @@ class SkillServiceImplTest {
         List<Skill> skill2=skillService.getAllSkills();
         assertEquals(2, skill2.size());
     }
+
+    @Test
+    void getSkillNotFoundException(){
+        Skill s1=null;
+        Assertions.assertThrows(SkillNotFoundException.class,()-> {
+            skillService.addSkill(s1);
+        });
+    }
+
+    @Test
+    void getSkillNotValidFields() throws SkillNotFoundException,SkillNotValidFields{
+        Skill skill1=new Skill();
+        skill1.setNameOfSkill("");
+        Assertions.assertThrows(SkillNotValidFields.class,()->{
+            skillService.addSkill(skill1);
+        });
+    }
+
+
+
+
     @Test
     void deleteSkill() throws SkillNotFoundException, SkillNotValidFields {
         Skill ss1 = new Skill();
@@ -56,6 +80,20 @@ class SkillServiceImplTest {
     }
 
     @Test
+    void getSkillByIdSkillNotFound() throws SkillNotValidFields,SkillNotFoundException{
+        Skill skill1=new Skill();
+        skill1.setNameOfSkill("java");
+        Skill skill2=new Skill();
+        skill2.setNameOfSkill("java");
+        skillService.addSkill(skill1);
+        skillService.addSkill(skill2);
+        Assertions.assertThrows(SkillNotFoundException.class,()-> {
+            Skill sk=skillService.getSkillById(10);
+            assertThat(sk.getId()).isEqualTo(10);
+        });
+    }
+
+    @Test
     void getSkillByName() throws SkillNotFoundException, SkillNotValidFields {
         Skill skill=new Skill();
         skill.setNameOfSkill("java");
@@ -72,9 +110,22 @@ class SkillServiceImplTest {
     assertThat(skillService.updateSkill(skill,1 ));
 }
 
+@Test
+void updateSkillByIdSkillNotFound() throws SkillNotFoundException, SkillNotValidFields{
+        Skill skill=new Skill();
+        skill.setNameOfSkill("javadjd");
+        skillService.addSkill(skill);
+        List<Skill> skills=skillService.getAllSkills();
+        assertEquals(1, skills.size());
+        Assertions.assertThrows(SkillNotFoundException.class,()->{
+            skill.setNameOfSkill("javadjd");
+            skillService.updateSkill(skill,10);
+        });
+}
+
 
 }
 
-    //TODO update test
+
 
 
