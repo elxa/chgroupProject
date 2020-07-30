@@ -8,11 +8,10 @@ import gr.codehub.chgroupProject.model.ApplicantSkill;
 import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOfferSkill;
 import gr.codehub.chgroupProject.service.ApplicantSkillService;
-import gr.codehub.chgroupProject.service.CreateAndMatchService;
+import gr.codehub.chgroupProject.service.matcher.CreateManualMatchService;
 import gr.codehub.chgroupProject.service.JobOfferSkillService;
-import gr.codehub.chgroupProject.util.AutomaticMatch;
-import gr.codehub.chgroupProject.util.Finalize;
-import io.swagger.models.auth.In;
+import gr.codehub.chgroupProject.service.matcher.AutomaticMatchServiceImpl;
+import gr.codehub.chgroupProject.service.matcher.FinalizeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class MatchController {
+public class AutomaticMatchAndFinalizeController {
 
     @Autowired
     private ApplicantSkillService applicantSkillService;
@@ -30,13 +29,13 @@ public class MatchController {
     private JobOfferSkillService jobOfferSkillService;
 
     @Autowired
-    private  CreateAndMatchService createAndMatchService;
+    private CreateManualMatchService createManualMatchService;
 
     @Autowired
-    private AutomaticMatch automaticMatch;
+    private AutomaticMatchServiceImpl automaticMatchServiceImpl;
 
     @Autowired
-    private Finalize finalize;
+    private FinalizeServiceImpl finalizeServiceImpl;
 
 
     //******************************************** ApplicantSkill Controller********************************************
@@ -54,12 +53,12 @@ public class MatchController {
     @GetMapping ("matching")
     public List<CreateAndMatch> doMatch() throws ApplicantNotFoundException, JobOfferNotFoundException,
             SkillNotFoundException {
-        return automaticMatch.DoAutomaticMatch();
+        return automaticMatchServiceImpl.DoAutomaticMatch();
     }
 
     @GetMapping("finalize/{createAndMatchId}")
     public CreateAndMatch finalizeMatch(@PathVariable int createAndMatchId) throws CreateAndMatchNotFound, ApplicantNotFoundException, JobOfferNotFoundException {
-            return finalize.doFinalize(createAndMatchService.findCreateAndMatch(createAndMatchId));
+            return finalizeServiceImpl.doFinalize(createManualMatchService.findCreateAndMatch(createAndMatchId));
     }
 
 }

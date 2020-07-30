@@ -1,4 +1,4 @@
-package gr.codehub.chgroupProject.util;
+package gr.codehub.chgroupProject.service.matcher;
 
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.CreateAndMatchNotFound;
@@ -7,37 +7,34 @@ import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOffer;
-import gr.codehub.chgroupProject.repository.CreateAndMatchRepository;
 import gr.codehub.chgroupProject.service.ApplicantService;
-import gr.codehub.chgroupProject.service.CreateAndMatchService;
 import gr.codehub.chgroupProject.service.JobOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class Finalize {
+public class FinalizeServiceImpl implements FinalizeService {
 
-    private CreateAndMatchService createAndMatchService;
+    private CreateManualMatchService createManualMatchService;
     private ApplicantService applicantService;
     private JobOfferService jobOfferService;
 
-    private AutomaticMatch automaticMatch;
+    private AutomaticMatchServiceImpl automaticMatchServiceImpl;
 
     @Autowired
-    public Finalize(CreateAndMatchService createAndMatchService, ApplicantService applicantService,
-                    JobOfferService jobOfferService, AutomaticMatch automaticMatch)
+    public FinalizeServiceImpl(CreateManualMatchService createManualMatchService, ApplicantService applicantService,
+                               JobOfferService jobOfferService, AutomaticMatchServiceImpl automaticMatchServiceImpl)
             throws JobOfferNotFoundException, ApplicantNotFoundException, SkillNotFoundException {
 
-        this.createAndMatchService = createAndMatchService;
+        this.createManualMatchService = createManualMatchService;
         this.applicantService = applicantService;
         this.jobOfferService = jobOfferService;
 
-        this.automaticMatch = automaticMatch;
+        this.automaticMatchServiceImpl = automaticMatchServiceImpl;
     }
 
 
+    @Override
     public CreateAndMatch doFinalize(CreateAndMatch createAndMatch) throws
             CreateAndMatchNotFound, ApplicantNotFoundException, JobOfferNotFoundException {
         Applicant applicant = createAndMatch.getApplicant();
@@ -46,7 +43,7 @@ public class Finalize {
         if (createAndMatch.getFinalized() == false) {
             if (applicant.getAvailable() && jobOffer.getAvailable()) {
                 createAndMatch.setFinalized(true);
-                createAndMatchService.updateCreateAndMatch(createAndMatch, createAndMatch.getId());
+                createManualMatchService.updateCreateAndMatch(createAndMatch, createAndMatch.getId());
 
                 applicant.setAvailable(false);
                 applicantService.updateApplicant(applicant, applicant.getId());

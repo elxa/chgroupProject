@@ -1,9 +1,8 @@
-package gr.codehub.chgroupProject.service;
+package gr.codehub.chgroupProject.service.matcher;
 
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.CreateAndMatchNotFound;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
-import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOffer;
@@ -13,13 +12,12 @@ import gr.codehub.chgroupProject.repository.JobOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CreateAndMatchServiceImpl implements CreateAndMatchService {
+public class CreateManualMatchServiceImpl implements CreateManualMatchService {
 
     @Autowired
     private CreateAndMatchRepository camRepo;

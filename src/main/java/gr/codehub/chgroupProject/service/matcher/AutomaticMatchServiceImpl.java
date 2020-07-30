@@ -1,4 +1,4 @@
-package gr.codehub.chgroupProject.util;
+package gr.codehub.chgroupProject.service.matcher;
 
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
@@ -8,30 +8,29 @@ import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.service.ApplicantService;
-import gr.codehub.chgroupProject.service.CreateAndMatchService;
 import gr.codehub.chgroupProject.service.JobOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AutomaticMatch {
+public class AutomaticMatchServiceImpl implements AutomaticMatchService{
 
     private ApplicantService applicantService;
     private JobOfferService jobOfferService;
-    private CreateAndMatchService createAndMatchService;
+    private CreateManualMatchService createManualMatchService;
 
     @Autowired
-    public AutomaticMatch(ApplicantService applicantService, JobOfferService jobOfferService,
-                          CreateAndMatchService createAndMatchService) {
+    public AutomaticMatchServiceImpl (ApplicantService applicantService, JobOfferService jobOfferService,
+                                     CreateManualMatchService createManualMatchService) {
         this.applicantService = applicantService;
         this.jobOfferService = jobOfferService;
-        this.createAndMatchService = createAndMatchService;
+        this.createManualMatchService = createManualMatchService;
     }
 
+    @Override
     public List<CreateAndMatch> DoAutomaticMatch()
             throws ApplicantNotFoundException, JobOfferNotFoundException, SkillNotFoundException {
 
@@ -85,7 +84,7 @@ public class AutomaticMatch {
 
                     //   if(!createAndMatchService.checkIfApplicantIdAndJobOfferIdExist(applicantList.get(j), jobOfferList.get(i))){
 
-                    CreateAndMatch createAndMatch = createAndMatchService.addCreateAndMatch(applicantList.get(j).getId(), jobOfferList.get(i).getId());
+                    CreateAndMatch createAndMatch = createManualMatchService.addCreateAndMatch(applicantList.get(j).getId(), jobOfferList.get(i).getId());
                     currentMatches.add(createAndMatch);
                     //    }
                 }

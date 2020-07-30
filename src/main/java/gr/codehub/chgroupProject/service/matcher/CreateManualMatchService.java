@@ -1,4 +1,4 @@
-package gr.codehub.chgroupProject.service;
+package gr.codehub.chgroupProject.service.matcher;
 
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.CreateAndMatchNotFound;
@@ -10,7 +10,7 @@ import gr.codehub.chgroupProject.model.JobOffer;
 import java.util.List;
 import java.util.Optional;
 
-public interface CreateAndMatchService {
+public interface CreateManualMatchService {
     List<CreateAndMatch> getCreateAndMatches();
     CreateAndMatch addCreateAndMatch (int applicantId, int jobOfferId) throws ApplicantNotFoundException, JobOfferNotFoundException;
     CreateAndMatch updateCreateAndMatch(CreateAndMatch createAndMatch, int createAndMatchId) throws CreateAndMatchNotFound;
