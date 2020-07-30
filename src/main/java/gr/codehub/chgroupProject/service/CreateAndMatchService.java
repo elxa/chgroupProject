@@ -19,4 +19,7 @@ public interface CreateAndMatchService {
     boolean checkIfApplicantIdAndJobOfferIdExist(Applicant applicant, JobOffer jobOffer);
 
   //  public List<CreateAndMatch> DoAutomaticMatch() throws ApplicantNotFoundException, JobOfferNotFoundException, SkillNotFoundException;
+
+    List<CreateAndMatch> listOfManualCreateAndMatch();
+    List<CreateAndMatch> listOfAutomaticCreateAndMatch();
 }

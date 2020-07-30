@@ -1,5 +1,6 @@
 package gr.codehub.chgroupProject.service;
 
+import gr.codehub.chgroupProject.controller.Reporter;
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.exception.SkillNotFoundException;
@@ -10,6 +11,9 @@ import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.service.ApplicantService;
 import gr.codehub.chgroupProject.service.CreateAndMatchService;
 import gr.codehub.chgroupProject.service.JobOfferService;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class AutomaticMatch {
+
+    Logger logger = LoggerFactory.getLogger(AutomaticMatch.class);
 
     private ApplicantService applicantService;
     private JobOfferService jobOfferService;
@@ -33,6 +40,8 @@ public class AutomaticMatch {
     }
 
     public List<CreateAndMatch> DoAutomaticMatch() throws ApplicantNotFoundException, JobOfferNotFoundException, SkillNotFoundException {
+
+        logger.info("Return a list with automatic match");
 
         List<Applicant> applicantList = applicantService.getApplicants();  //pairnei mia lista me tous applicants apo th bash
         List<JobOffer> jobOfferList = jobOfferService.getJobOffers(); //pairnei mia lista me ta job Offer apo th bash

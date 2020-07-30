@@ -4,6 +4,7 @@ import gr.codehub.chgroupProject.dto.ApplicantSkillDTO;
 import gr.codehub.chgroupProject.dto.JobOfferSkillDTO;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.exception.SkillNotFoundException;
+import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOfferSkill;
 
 import java.util.List;

@@ -53,10 +53,9 @@ public class SkillServiceImpl implements SkillService {
         return skillRepo.save(skill);
     }
 
-
-   // todo ****************************************************************
     @Override
     public Skill updateSkill(Skill skill, int skillId) throws SkillNotFoundException {
+        logger.info("Update skill in db");
         Skill skillInDb = skillRepo.findById(skillId)
                 .orElseThrow(() -> new SkillNotFoundException("skill not found")
                 );
@@ -70,6 +69,7 @@ public class SkillServiceImpl implements SkillService {
     //todo na tsekaroume an xtupaei la8os se periptwsh pou den uparxei to exception
     @Override
     public boolean deleteSkill(int skillId) {
+        logger.info("Delete a skill in db");
         skillRepo.deleteById(skillId);
         return true;
     }
@@ -77,6 +77,7 @@ public class SkillServiceImpl implements SkillService {
     //todo se enan controller
     @Override
     public Skill getSkillById(int skillId) throws SkillNotFoundException {
+        logger.info("Get skill by id");
         Optional<Skill> oSkill = skillRepo.findById(skillId);
         if (oSkill.isPresent()) {
             return oSkill.get();
@@ -85,6 +86,7 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public Skill findSkillByName(String skillName) throws SkillNotFoundException {
+        logger.info("Get a skill by name");
         Optional<Skill> oSkill = skillRepo.findSkillByName(skillName);
         if (oSkill.isPresent()) { //ean uparxei epistrefei to jobOffer
             return oSkill.get();

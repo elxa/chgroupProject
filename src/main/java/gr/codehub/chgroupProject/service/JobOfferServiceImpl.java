@@ -1,9 +1,13 @@
 package gr.codehub.chgroupProject.service;
 
+import gr.codehub.chgroupProject.controller.Reporter;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.exception.JobOfferNotValidFields;
 import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.repository.JobOfferRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,18 +20,23 @@ import java.util.Optional;
 //todo exception if user does not put a field
 
 @Service
+@Slf4j
 public class JobOfferServiceImpl implements JobOfferService{
+
+    Logger logger = LoggerFactory.getLogger(JobOfferServiceImpl.class);
 
     @Autowired
     private JobOfferRepository jobOfferRepo;
 
     @Override
     public List<JobOffer> getJobOffers() {
+        logger.info("Return a list of job offer ");
         return jobOfferRepo.findAll();
     }
 
     @Override
     public JobOffer updateJobOffer(JobOffer jobOffer, int jobOfferId) throws JobOfferNotFoundException {
+        logger.info("Update a job offer");
         JobOffer jobOfferInDb = jobOfferRepo.findById(jobOfferId)
                 .orElseThrow(
                         () -> new JobOfferNotFoundException("Job Offer Not Found"));
@@ -40,6 +49,7 @@ public class JobOfferServiceImpl implements JobOfferService{
 
     @Override
     public JobOffer addJobOffer(JobOffer jobOffer) throws JobOfferNotFoundException, JobOfferNotValidFields {
+        logger.info("Add a job offer in db");
         if(jobOffer == null){
             throw new JobOfferNotFoundException("Job Offer Not found");
         }
@@ -76,6 +86,7 @@ public class JobOfferServiceImpl implements JobOfferService{
 
     @Override
     public JobOffer getJobOfferById(int jobOfferId) throws JobOfferNotFoundException{
+        logger.info("Get Job Offer By Id ");
         Optional<JobOffer> oJobOffer= jobOfferRepo.findById(jobOfferId);
         if (oJobOffer.isPresent()){ //ean uparxei epistrefei to jobOffer
             return oJobOffer.get();

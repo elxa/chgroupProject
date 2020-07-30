@@ -3,7 +3,9 @@ package gr.codehub.chgroupProject.controller;
 import gr.codehub.chgroupProject.dto.ApplicantSkillDTO;
 import gr.codehub.chgroupProject.dto.JobOfferSkillDTO;
 import gr.codehub.chgroupProject.dto.skillsDontMatchToApplicantsDTO;
+import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.service.ApplicantSkillService;
+import gr.codehub.chgroupProject.service.CreateAndMatchService;
 import gr.codehub.chgroupProject.service.JobOfferSkillService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -26,6 +28,8 @@ public class Reporter {
     ApplicantSkillService applicantSkillService;
     @Autowired
     JobOfferSkillService jobOfferSkillService;
+    @Autowired
+    CreateAndMatchService createAndMatchService;
 
     @GetMapping("applicantSkills")
     public List<ApplicantSkillDTO> theMostOfferedSkillsinApplicants() {
@@ -40,6 +44,16 @@ public class Reporter {
     @GetMapping("skillsWithNoApplicant")
     public List<skillsDontMatchToApplicantsDTO> skillsThatDontMathesToApplicants() {
         return applicantSkillService.skillsWhichDontMatchesToApplicants();
+    }
+
+    @GetMapping("automaticCreateAndMatch")
+    public List<CreateAndMatch> listOfAutomaticCreateAndMatch() {
+        return createAndMatchService.listOfAutomaticCreateAndMatch();
+    }
+
+    @GetMapping("manualCreateAndMatch")
+    public List<CreateAndMatch> listOfManualCreateAndMatch() {
+        return createAndMatchService.listOfManualCreateAndMatch();
     }
 
     @RequestMapping("/")
