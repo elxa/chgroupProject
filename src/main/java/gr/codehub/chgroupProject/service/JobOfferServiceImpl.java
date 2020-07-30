@@ -111,6 +111,11 @@ public class JobOfferServiceImpl implements JobOfferService{
         }
         else throw new JobOfferNotFoundException("Job Offer Not Found");
     }
+
+    @Override
+    public void addJobOfferSkill() {
+
+    }
 }
 
 
