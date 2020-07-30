@@ -1,5 +1,6 @@
 package gr.codehub.chgroupProject.service;
 
+import gr.codehub.chgroupProject.dto.JobOfferSkillDTO;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.JobOffer;
@@ -8,6 +9,8 @@ import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 //todo na paroume mia lista me ola ta applicantSkill
 
@@ -41,5 +44,10 @@ public class JobOfferSkillServiceImpl implements JobOfferSkillService {
         return jobOfferSkill;
 
 
+    }
+
+    @Override
+    public List<JobOfferSkillDTO> theMostOfferedSkillsInJobOffers() {
+        return jobOfferRepo.howManyTimesSkillAppearsInJobOfferSkills();
     }
 }

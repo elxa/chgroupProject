@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface CreateAndMatchRepository extends JpaRepository<CreateAndMatch, Integer> {
-//    @Query("SELECT cam FROM CreateAndMatch cam WHERE cam.applicant_id = ?1 AND cam.jobOffer_id = ?2")
-//    JobOffer checkIfApplicantIdAndJobOfferIdExist(int applicantId, int jobOfferId);
+
     Optional<CreateAndMatch> findCreateAndMatchByJobOfferAndApplicant(JobOffer jobOffer, Applicant applicant); //query lookup strategy
 }

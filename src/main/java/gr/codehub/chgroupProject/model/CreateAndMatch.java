@@ -21,9 +21,10 @@ public class CreateAndMatch {
     private boolean manualMatch;
     private boolean available = false;
 
+//    @JoinColumn(name = "applicant", referencedColumnName = "applicant")
     @ManyToOne
     private Applicant applicant;
-
+//    @JoinColumn(name = "jobOffer", referencedColumnName = "jobOffer")
     @ManyToOne
     private JobOffer jobOffer;
 }

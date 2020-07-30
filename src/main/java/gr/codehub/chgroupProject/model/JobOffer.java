@@ -32,11 +32,11 @@ public class JobOffer {
     private Boolean available = true;
 
 
-    @OneToMany(mappedBy = "jobOffer")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobOffer")
     private List<JobOfferSkill> jobOfferSkill;
 
     @JsonIgnore
     @ToString.Exclude
-    @OneToMany(mappedBy = "jobOffer")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobOffer")
     private List<CreateAndMatch> createAndMatche;
 }

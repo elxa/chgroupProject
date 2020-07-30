@@ -1,5 +1,7 @@
 package gr.codehub.chgroupProject.service;
 
+import gr.codehub.chgroupProject.dto.ApplicantSkillDTO;
+import gr.codehub.chgroupProject.dto.skillsDontMatchToApplicantsDTO;
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
@@ -10,6 +12,8 @@ import gr.codehub.chgroupProject.repository.ApplicantSkillRepository;
 import gr.codehub.chgroupProject.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 //todo na paroume mia lista me ola ta applicantSkill
 
@@ -43,6 +47,17 @@ public class ApplicantSkillServiceImpl implements ApplicantSkillService {
 
         applicantSkillRepo.save(applicantSkill);
         return applicantSkill;
-
     }
+
+    @Override
+    public List<ApplicantSkillDTO> theMostOfferedSkills() {
+        return applicantRepo.howManyTimesSkillAppearsInApplicantSkills();
+    }
+
+    @Override
+    public List<skillsDontMatchToApplicantsDTO> skillsWhichDontMatchesToApplicants() {
+        return applicantSkillRepo.skillsWhichDontMatchesToApplicants();
+    }
+
+
 }

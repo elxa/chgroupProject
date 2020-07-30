@@ -3,6 +3,7 @@ package gr.codehub.chgroupProject.service;
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.CreateAndMatchNotFound;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
+import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOffer;
@@ -16,4 +17,6 @@ public interface CreateAndMatchService {
     CreateAndMatch updateCreateAndMatch(CreateAndMatch createAndMatch, int createAndMatchId) throws CreateAndMatchNotFound;
    // boolean checkIfApplicantIdAndJobOfferIdExist(int applicantId, int jobOfferId);
     boolean checkIfApplicantIdAndJobOfferIdExist(Applicant applicant, JobOffer jobOffer);
+
+  //  public List<CreateAndMatch> DoAutomaticMatch() throws ApplicantNotFoundException, JobOfferNotFoundException, SkillNotFoundException;
 }

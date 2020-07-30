@@ -1,4 +1,4 @@
-package gr.codehub.chgroupProject.util;
+package gr.codehub.chgroupProject.service;
 
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
@@ -34,14 +34,13 @@ public class AutomaticMatch {
 
     public List<CreateAndMatch> DoAutomaticMatch() throws ApplicantNotFoundException, JobOfferNotFoundException, SkillNotFoundException {
 
-        List<Applicant> applicantList = applicantService.getApplicants();
-        List<JobOffer> jobOfferList = jobOfferService.getJobOffers();
+        List<Applicant> applicantList = applicantService.getApplicants();  //pairnei mia lista me tous applicants apo th bash
+        List<JobOffer> jobOfferList = jobOfferService.getJobOffers(); //pairnei mia lista me ta job Offer apo th bash
 
-
-        List<List<Integer>> applicantSkillsIdList = new ArrayList<>(); //NEW
+        List<List<Integer>> applicantSkillsIdList = new ArrayList<>(); //NEW   //dhmiourgw muia lista opou periexei ta ids twn skills tou applicant
 
         for (int i = 0; i < applicantList.size(); i++) {
-            List<Integer> skillIdListApp = new ArrayList<>(); //NEW
+            List<Integer> skillIdListApp = new ArrayList<>(); //NEW  //dhmiourgw mia lista apo skills
             applicantSkillsIdList.add(skillIdListApp);  // NEW
 
             Applicant applicant = applicantList.get(i);
@@ -52,7 +51,7 @@ public class AutomaticMatch {
             }
         }
 
-        List<List<Integer>> jobOfferSkillsIdList = new ArrayList<>(); //NEW
+        List<List<Integer>> jobOfferSkillsIdList = new ArrayList<>(); //NEW  //kanw to idio k me to job offer
 
         for (int i = 0; i < jobOfferList.size(); i++) {
             List<Integer> skillIdListJob = new ArrayList<>(); //NEW
@@ -65,10 +64,6 @@ public class AutomaticMatch {
                 skillIdListJob.add(skill.getId()); //NEW
             }
         }
-
-        // System.out.println(jobOfferSkillsIdList);
-        //return applicantSkillsIdList;
-
 
         for (int i = 0; i < jobOfferList.size(); i++) {
             List<Integer> skillsIdJob = jobOfferSkillsIdList.get(i);
@@ -85,14 +80,12 @@ public class AutomaticMatch {
                     System.out.println("***MATCH***" + jobOfferList.get(i) + "WITH APPLICANT" + applicantList.get(j));
 
 
-                    if(!createAndMatchService.checkIfApplicantIdAndJobOfferIdExist(applicantList.get(j), jobOfferList.get(i))){
+                    if(!createAndMatchService.checkIfApplicantIdAndJobOfferIdExist(applicantList.get(j), jobOfferList.get(i))){  //gia na mhn 3anagemisei h bash me ta ids pou hdh uparxoun
                         createAndMatchService.addCreateAndMatch(applicantList.get(j).getId(), jobOfferList.get(i).getId());
                     }
                 }
             }
         }
         return createAndMatchService.getCreateAndMatches();
-
-
     }
 }

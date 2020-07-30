@@ -20,6 +20,7 @@ public class ApplicantSkill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+//    @JoinColumn(name = "skill", referencedColumnName = "skill")
     @ManyToOne
     private Skill skill;
 
@@ -27,6 +28,7 @@ public class ApplicantSkill {
      * Specify a relationship from the embeddable class to an entity class.
      * @ManyToOne
      */
+//    @JoinColumn(name = "applicant", referencedColumnName = "applicant")
     @ManyToOne
     @JsonIgnore
     @ToString.Exclude
