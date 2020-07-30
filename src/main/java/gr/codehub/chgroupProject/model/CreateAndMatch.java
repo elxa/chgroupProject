@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -17,9 +18,9 @@ public class CreateAndMatch {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private LocalDate dom;
+    private LocalDateTime dom;
     private boolean manualMatch;
-    private Boolean available;
+    private Boolean finalized = false;
 
     @ManyToOne
     private Applicant applicant;

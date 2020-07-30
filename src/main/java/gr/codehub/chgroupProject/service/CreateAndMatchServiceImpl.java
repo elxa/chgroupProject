@@ -13,6 +13,8 @@ import gr.codehub.chgroupProject.repository.JobOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,8 +47,11 @@ public class CreateAndMatchServiceImpl implements CreateAndMatchService {
 
 
         CreateAndMatch createAndMatch = new CreateAndMatch();
+        createAndMatch.setDom(LocalDateTime.now());
         createAndMatch.setApplicant(applicantInDb);
         createAndMatch.setJobOffer(jobOfferInDb);
+        createAndMatch.setManualMatch(false);
+        createAndMatch.setFinalized(false);
 
         return camRepo.save(createAndMatch);
     }
@@ -57,7 +62,7 @@ public class CreateAndMatchServiceImpl implements CreateAndMatchService {
                 .orElseThrow(
                         () -> new CreateAndMatchNotFound("Match Not Found"));
 
-        createAndMatchInDb.setAvailable(createAndMatch.getAvailable());
+        createAndMatchInDb.setFinalized(createAndMatch.getFinalized());
         return camRepo.save(createAndMatchInDb);
 
     }

@@ -38,26 +38,26 @@ public class Finalize {
     }
 
 
-   // List<CreateAndMatch> currentMatches = automaticMatch.DoAutomaticMatch();
-
-    public CreateAndMatch doFinalize(CreateAndMatch createAndMatch) throws CreateAndMatchNotFound, ApplicantNotFoundException, JobOfferNotFoundException {
+    public CreateAndMatch doFinalize(CreateAndMatch createAndMatch) throws
+            CreateAndMatchNotFound, ApplicantNotFoundException, JobOfferNotFoundException {
         Applicant applicant = createAndMatch.getApplicant();
         JobOffer jobOffer = createAndMatch.getJobOffer();
 
-//        if(!currentMatches.contains(createAndMatch))
-//                throw new CreateAndMatchNotFound("Match not Found");
-//        else {
-            createAndMatch.setAvailable(false);
-            createAndMatchService.updateCreateAndMatch(createAndMatch, createAndMatch.getId());
+        if (createAndMatch.getFinalized() == false) {
+            if (applicant.getAvailable() && jobOffer.getAvailable()) {
+                createAndMatch.setFinalized(true);
+                createAndMatchService.updateCreateAndMatch(createAndMatch, createAndMatch.getId());
 
-            applicant.setAvailable(false);
-            applicantService.updateApplicant(applicant,applicant.getId());
+                applicant.setAvailable(false);
+                applicantService.updateApplicant(applicant, applicant.getId());
 
-            jobOffer.setAvailable(false);
-            jobOfferService.updateJobOffer(jobOffer, jobOffer.getId());
+                jobOffer.setAvailable(false);
+                jobOfferService.updateJobOffer(jobOffer, jobOffer.getId());
 
-            return createAndMatch ;
 
-       // }
+                return createAndMatch;
+            } else throw new CreateAndMatchNotFound("IT IS NOT AVAILABLE");
+
+        } else throw new CreateAndMatchNotFound("IT IS NOT AVAILABLE");
     }
 }
