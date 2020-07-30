@@ -1,9 +1,13 @@
 package gr.codehub.chgroupProject.service;
 
+import gr.codehub.chgroupProject.controller.Reporter;
 import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.exception.SkillNotValidFields;
 import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.repository.SkillRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +16,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class SkillServiceImpl implements SkillService {
+
+    Logger logger = LoggerFactory.getLogger(SkillServiceImpl.class);
 
     @Autowired
     private SkillRepository skillRepo;
@@ -26,14 +33,17 @@ public class SkillServiceImpl implements SkillService {
             Optional<Skill> oSkill = skillRepo.findSkillByName(skillName);
             if (oSkill.isPresent()) { //ean uparxei epistrefei to jobOffer
                 skills.add(oSkill.get());
+                logger.info("Return a skill by name");
                 return skills;
             } else throw new SkillNotFoundException("Skill with this name Not Found");
         }
+        logger.info("Return a list of skills");
         return skillRepo.findAll();
     }
 
     @Override
     public Skill addSkill(Skill skill) throws SkillNotFoundException, SkillNotValidFields {
+        logger.info("Add a skill in db");
         if (skill == null) {
             throw new SkillNotFoundException("null skill");
         }
@@ -43,6 +53,8 @@ public class SkillServiceImpl implements SkillService {
         return skillRepo.save(skill);
     }
 
+
+   // todo ****************************************************************
     @Override
     public Skill updateSkill(Skill skill, int skillId) throws SkillNotFoundException {
         Skill skillInDb = skillRepo.findById(skillId)

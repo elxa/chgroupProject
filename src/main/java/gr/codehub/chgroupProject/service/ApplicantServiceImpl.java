@@ -1,9 +1,13 @@
 package gr.codehub.chgroupProject.service;
 
+import gr.codehub.chgroupProject.controller.Reporter;
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.ApplicantNotValidFields;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.repository.ApplicantRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -17,8 +21,10 @@ import java.util.Optional;
  * @Service
  */
 @Service
+@Slf4j
 public class ApplicantServiceImpl implements ApplicantService {
 
+    Logger logger = LoggerFactory.getLogger(ApplicantServiceImpl.class);
     @Autowired
     private ApplicantRepository applicantRepo;
 
@@ -30,16 +36,22 @@ public class ApplicantServiceImpl implements ApplicantService {
      */
     @Override
     public List<Applicant> getApplicants() {
+        logger.info("Get a list of Applicants from db");
+
         return applicantRepo.findAll();
     }
 
     /**
+     *
      * @param applicant
-     * @return add the applicant on the datatbase
+     * @return
+     * @throws ApplicantNotFoundException
+     * @throws ApplicantNotValidFields
      */
     //todo prepei na tsekaroume an o xrhsths bazei swsta thn hmeromhnia alliws exei la8os
     @Override
     public Applicant addApplicant(Applicant applicant) throws ApplicantNotFoundException, ApplicantNotValidFields {
+        logger.info("Add an applicant in db");
         if (applicant == null)
             throw new ApplicantNotFoundException("Applicant Not found");
         if (applicant.getFirstName() == null || applicant.getFirstName().equals("")
@@ -56,6 +68,8 @@ public class ApplicantServiceImpl implements ApplicantService {
 
     @Override
     public Applicant updateApplicant(Applicant applicant, int applicantId) throws ApplicantNotFoundException {
+        logger.info("Update an applicant in db");
+
         Applicant applicantInDb = applicantRepo.findById(applicantId)
                 .orElseThrow(
                         () -> new ApplicantNotFoundException("Applicant Not Found"));
@@ -72,6 +86,7 @@ public class ApplicantServiceImpl implements ApplicantService {
      */
     @Override
     public Applicant getApplicantById(int applicantId) throws ApplicantNotFoundException {
+        logger.info("Get applicant in db");
         Optional<Applicant> oApplicant = applicantRepo.findById(applicantId);
         if (oApplicant.isPresent()) {
             return oApplicant.get();

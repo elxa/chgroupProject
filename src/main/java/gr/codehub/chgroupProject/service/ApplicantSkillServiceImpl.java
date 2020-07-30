@@ -1,5 +1,6 @@
 package gr.codehub.chgroupProject.service;
 
+import gr.codehub.chgroupProject.controller.Reporter;
 import gr.codehub.chgroupProject.dto.ApplicantSkillDTO;
 import gr.codehub.chgroupProject.dto.skillsDontMatchToApplicantsDTO;
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
@@ -10,6 +11,9 @@ import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.repository.ApplicantRepository;
 import gr.codehub.chgroupProject.repository.ApplicantSkillRepository;
 import gr.codehub.chgroupProject.repository.SkillRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +23,10 @@ import java.util.List;
 
 
 @Service
+@Slf4j
 public class ApplicantSkillServiceImpl implements ApplicantSkillService {
+
+    Logger logger = LoggerFactory.getLogger(Reporter.class);
 
     @Autowired
     private ApplicantSkillRepository applicantSkillRepo;
@@ -32,6 +39,7 @@ public class ApplicantSkillServiceImpl implements ApplicantSkillService {
     @Override
     public ApplicantSkill addApplicantSkill(int applicantId, int skillId) throws SkillNotFoundException, ApplicantNotFoundException
     {
+        logger.info("Make match an applicant in skill");
         Applicant applicantInDb = applicantRepo.findById(applicantId)
                 .orElseThrow(
                         ()-> new ApplicantNotFoundException("Applicant Not Found "));
@@ -51,11 +59,13 @@ public class ApplicantSkillServiceImpl implements ApplicantSkillService {
 
     @Override
     public List<ApplicantSkillDTO> theMostOfferedSkills() {
+        logger.info("The most offered skills");
         return applicantRepo.howManyTimesSkillAppearsInApplicantSkills();
     }
 
     @Override
     public List<skillsDontMatchToApplicantsDTO> skillsWhichDontMatchesToApplicants() {
+        logger.info("The skills that required in jobs and dont match with applicants");
         return applicantSkillRepo.skillsWhichDontMatchesToApplicants();
     }
 
