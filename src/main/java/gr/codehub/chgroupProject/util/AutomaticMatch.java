@@ -32,66 +32,68 @@ public class AutomaticMatch {
         this.createAndMatchService = createAndMatchService;
     }
 
-    public List<CreateAndMatch> DoAutomaticMatch() throws ApplicantNotFoundException, JobOfferNotFoundException, SkillNotFoundException {
+    public List<CreateAndMatch> DoAutomaticMatch()
+            throws ApplicantNotFoundException, JobOfferNotFoundException, SkillNotFoundException {
 
         List<Applicant> applicantList = applicantService.getApplicants();
         List<JobOffer> jobOfferList = jobOfferService.getJobOffers();
 
 
-        List<List<Integer>> applicantSkillsIdList = new ArrayList<>(); //NEW
+        List<List<Integer>> applicantSkillsIdList = new ArrayList<>();
 
         for (int i = 0; i < applicantList.size(); i++) {
-            List<Integer> skillIdListApp = new ArrayList<>(); //NEW
-            applicantSkillsIdList.add(skillIdListApp);  // NEW
+            List<Integer> skillIdListApp = new ArrayList<>();
+            applicantSkillsIdList.add(skillIdListApp);
 
             Applicant applicant = applicantList.get(i);
             for (int j = 0; j < applicant.getApplicantSkills().size(); j++) {
-                //Skill skill = new Skill();
+
                 Skill skill = applicant.getApplicantSkills().get(j).getSkill();
-                skillIdListApp.add(skill.getId()); //NEW
+                skillIdListApp.add(skill.getId());
             }
         }
 
-        List<List<Integer>> jobOfferSkillsIdList = new ArrayList<>(); //NEW
+        List<List<Integer>> jobOfferSkillsIdList = new ArrayList<>();
 
         for (int i = 0; i < jobOfferList.size(); i++) {
-            List<Integer> skillIdListJob = new ArrayList<>(); //NEW
-            jobOfferSkillsIdList.add(skillIdListJob);  // NEW
+            List<Integer> skillIdListJob = new ArrayList<>();
+            jobOfferSkillsIdList.add(skillIdListJob);
 
             JobOffer joboffer = jobOfferList.get(i);
             for (int j = 0; j < joboffer.getJobOfferSkill().size(); j++) {
                 // Skill skill = new Skill();
                 Skill skill = joboffer.getJobOfferSkill().get(j).getSkill();
-                skillIdListJob.add(skill.getId()); //NEW
+                skillIdListJob.add(skill.getId());
             }
         }
 
-        // System.out.println(jobOfferSkillsIdList);
-        //return applicantSkillsIdList;
-
+        List<CreateAndMatch> currentMatches = new ArrayList<>();
 
         for (int i = 0; i < jobOfferList.size(); i++) {
             List<Integer> skillsIdJob = jobOfferSkillsIdList.get(i);
 
-            if (!jobOfferList.get(i).getAvailable()) continue;
+         if (!jobOfferList.get(i).getAvailable()) continue;
 
             for (int j = 0; j < applicantList.size(); j++) {
                 List<Integer> skillsIdApp = applicantSkillsIdList.get(j);
 
-                if (!applicantList.get(j).getAvailable()) continue;
+               if (!applicantList.get(j).getAvailable()) continue;
                 if (!jobOfferList.get(i).getLevel().equals(applicantList.get(j).getLevel())) continue;
 
                 if (skillsIdApp.containsAll(skillsIdJob)) {
                     System.out.println("***MATCH***" + jobOfferList.get(i) + "WITH APPLICANT" + applicantList.get(j));
 
+                    //   if(!createAndMatchService.checkIfApplicantIdAndJobOfferIdExist(applicantList.get(j), jobOfferList.get(i))){
 
-                    if(!createAndMatchService.checkIfApplicantIdAndJobOfferIdExist(applicantList.get(j), jobOfferList.get(i))){
-                        createAndMatchService.addCreateAndMatch(applicantList.get(j).getId(), jobOfferList.get(i).getId());
-                    }
+                    CreateAndMatch createAndMatch = createAndMatchService.addCreateAndMatch(applicantList.get(j).getId(), jobOfferList.get(i).getId());
+                    currentMatches.add(createAndMatch);
+                    //    }
                 }
             }
         }
-        return createAndMatchService.getCreateAndMatches();
+        // return createAndMatchService.getCreateAndMatches();
+
+        return currentMatches;
 
 
     }

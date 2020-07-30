@@ -57,7 +57,7 @@ public class CreateAndMatchServiceImpl implements CreateAndMatchService {
                 .orElseThrow(
                         () -> new CreateAndMatchNotFound("Match Not Found"));
 
-        createAndMatchInDb.setAvailable(createAndMatch.isAvailable());
+        createAndMatchInDb.setAvailable(createAndMatch.getAvailable());
         return camRepo.save(createAndMatchInDb);
 
     }
@@ -69,6 +69,15 @@ public class CreateAndMatchServiceImpl implements CreateAndMatchService {
             return true;
         } else
             return false;
+    }
+
+    @Override
+    public CreateAndMatch findCreateAndMatch(int createAndMatch) throws CreateAndMatchNotFound {
+        Optional<CreateAndMatch> oCreateAndMatch = camRepo.findById(createAndMatch);
+        if(oCreateAndMatch.isPresent()){
+            return oCreateAndMatch.get();
+        }
+        else throw new CreateAndMatchNotFound("Match Not Found");
     }
 
 //    @Override

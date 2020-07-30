@@ -16,4 +16,5 @@ public interface CreateAndMatchService {
     CreateAndMatch updateCreateAndMatch(CreateAndMatch createAndMatch, int createAndMatchId) throws CreateAndMatchNotFound;
    // boolean checkIfApplicantIdAndJobOfferIdExist(int applicantId, int jobOfferId);
     boolean checkIfApplicantIdAndJobOfferIdExist(Applicant applicant, JobOffer jobOffer);
+    CreateAndMatch findCreateAndMatch (int createAndMatch) throws CreateAndMatchNotFound;
 }

@@ -19,7 +19,7 @@ public class CreateAndMatch {
 
     private LocalDate dom;
     private boolean manualMatch;
-    private boolean available = false;
+    private Boolean available;
 
     @ManyToOne
     private Applicant applicant;

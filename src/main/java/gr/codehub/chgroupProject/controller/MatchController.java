@@ -1,14 +1,17 @@
 package gr.codehub.chgroupProject.controller;
 
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
+import gr.codehub.chgroupProject.exception.CreateAndMatchNotFound;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.ApplicantSkill;
 import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOfferSkill;
 import gr.codehub.chgroupProject.service.ApplicantSkillService;
+import gr.codehub.chgroupProject.service.CreateAndMatchService;
 import gr.codehub.chgroupProject.service.JobOfferSkillService;
 import gr.codehub.chgroupProject.util.AutomaticMatch;
+import gr.codehub.chgroupProject.util.Finalize;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +30,13 @@ public class MatchController {
     private JobOfferSkillService jobOfferSkillService;
 
     @Autowired
+    private  CreateAndMatchService createAndMatchService;
+
+    @Autowired
     private AutomaticMatch automaticMatch;
+
+    @Autowired
+    private Finalize finalize;
 
 
     //******************************************** ApplicantSkill Controller********************************************
@@ -43,8 +52,14 @@ public class MatchController {
     }
 
     @GetMapping ("matching")
-    public List<CreateAndMatch> doMatch() throws ApplicantNotFoundException, JobOfferNotFoundException, SkillNotFoundException {
+    public List<CreateAndMatch> doMatch() throws ApplicantNotFoundException, JobOfferNotFoundException,
+            SkillNotFoundException {
         return automaticMatch.DoAutomaticMatch();
+    }
+
+    @GetMapping("finalize/{createAndMatchId}")
+    public CreateAndMatch finalizeMatch(@PathVariable int createAndMatchId) throws CreateAndMatchNotFound, ApplicantNotFoundException, JobOfferNotFoundException {
+            return finalize.doFinalize(createAndMatchService.findCreateAndMatch(createAndMatchId));
     }
 
 }
