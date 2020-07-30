@@ -1,4 +1,4 @@
-package gr.codehub.chgroupProject.service.matcher;
+package gr.codehub.chgroupProject.service;
 
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
@@ -7,8 +7,6 @@ import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.model.Skill;
-import gr.codehub.chgroupProject.service.ApplicantService;
-import gr.codehub.chgroupProject.service.JobOfferService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

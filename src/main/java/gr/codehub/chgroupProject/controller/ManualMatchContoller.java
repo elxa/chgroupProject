@@ -4,7 +4,7 @@ import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.CreateAndMatchNotFound;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.model.CreateAndMatch;
-import gr.codehub.chgroupProject.service.matcher.CreateManualMatchService;
+import gr.codehub.chgroupProject.service.CreateManualMatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
