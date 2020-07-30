@@ -53,13 +53,11 @@ class ApplicantServiceImplTest {
         applicantService.addApplicant(applicant1);
         List<Applicant> applicants2 = applicantService.getApplicants();
         assertEquals(1, applicants2.size());
-        // asserts for newly added item
-
     }
 
     @Test
     @Transactional
-    void getApplicantNotFoundException() {
+    void addApplicantNotFoundException() throws ApplicantNotValidFields, ApplicantNotFoundException {
         Applicant a1 = null;
         Assertions.assertThrows(ApplicantNotFoundException.class, () -> {
             applicantService.addApplicant(a1);
@@ -68,7 +66,7 @@ class ApplicantServiceImplTest {
 
     @Test
     @Transactional
-    void getApplicantNotValidExceptiond() throws ApplicantNotValidFields, ApplicantNotFoundException {
+    void addApplicantNotValidExceptiond() throws ApplicantNotValidFields, ApplicantNotFoundException {
         Applicant applicant1 = new Applicant();
         applicant1.setFirstName("Kalis");
         applicant1.setLastName("Kolia");
@@ -105,7 +103,6 @@ class ApplicantServiceImplTest {
         applicantService.addApplicant(applicant2);
         Applicant app = applicantService.getApplicantById(3);
         assertThat(app.getId()).isEqualTo(3);
-
     }
 
     @Test
@@ -133,8 +130,6 @@ class ApplicantServiceImplTest {
             Applicant app = applicantService.getApplicantById(10);
             assertThat(app.getId()).isEqualTo(10);
         });
-
-
     }
 
     @Test
@@ -173,15 +168,7 @@ class ApplicantServiceImplTest {
             applicant.setAvailable(false);
             applicantService.updateApplicant(applicant, 10);
         });
-
-
-
-        //applicants = applicantService.getApplicants();
-        //assertTrue(applicants.get(1).getAvailable());
-
     }
-
-
 
 
 }

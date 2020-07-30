@@ -32,6 +32,8 @@ public class SkillServiceImpl implements SkillService {
         return skillRepo.findAll();
     }
 
+
+
     @Override
     public Skill addSkill(Skill skill) throws SkillNotFoundException, SkillNotValidFields {
         if (skill == null) {
@@ -41,6 +43,11 @@ public class SkillServiceImpl implements SkillService {
             throw new SkillNotValidFields("Skill fields must not be null");
         }
         return skillRepo.save(skill);
+    }
+
+    @Override
+    public List<Skill> getAllSkills() {
+        return skillRepo.findAll();
     }
 
     @Override

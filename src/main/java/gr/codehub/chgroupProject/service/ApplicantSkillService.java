@@ -6,5 +6,6 @@ import gr.codehub.chgroupProject.model.ApplicantSkill;
 
 public interface ApplicantSkillService {
 
-    ApplicantSkill addApplicantSkill(int applicantId, int skillId) throws ApplicantNotFoundException, SkillNotFoundException;
+    ApplicantSkill addApplicantSkill(int applicantId, int skillId)
+            throws ApplicantNotFoundException, SkillNotFoundException;
 }
