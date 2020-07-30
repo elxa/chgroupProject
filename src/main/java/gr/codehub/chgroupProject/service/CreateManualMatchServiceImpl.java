@@ -3,7 +3,6 @@ package gr.codehub.chgroupProject.service;
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.CreateAndMatchNotFound;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
-import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOffer;
@@ -13,11 +12,12 @@ import gr.codehub.chgroupProject.repository.JobOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CreateAndMatchServiceImpl implements CreateAndMatchService {
+public class CreateManualMatchServiceImpl implements CreateManualMatchService {
 
     @Autowired
     private CreateAndMatchRepository camRepo;
@@ -26,6 +26,7 @@ public class CreateAndMatchServiceImpl implements CreateAndMatchService {
     @Autowired
     private JobOfferRepository jobOfferRepo;
 
+    //TODO na svistei!!
     @Override
     public List<CreateAndMatch> getCreateAndMatches() {
         return camRepo.findAll();
@@ -45,8 +46,11 @@ public class CreateAndMatchServiceImpl implements CreateAndMatchService {
 
 
         CreateAndMatch createAndMatch = new CreateAndMatch();
+        createAndMatch.setDom(LocalDateTime.now());
         createAndMatch.setApplicant(applicantInDb);
         createAndMatch.setJobOffer(jobOfferInDb);
+        createAndMatch.setManualMatch(false);
+        createAndMatch.setFinalized(false);
 
         return camRepo.save(createAndMatch);
     }
@@ -57,7 +61,7 @@ public class CreateAndMatchServiceImpl implements CreateAndMatchService {
                 .orElseThrow(
                         () -> new CreateAndMatchNotFound("Match Not Found"));
 
-        createAndMatchInDb.setAvailable(createAndMatch.isAvailable());
+        createAndMatchInDb.setFinalized(createAndMatch.getFinalized());
         return camRepo.save(createAndMatchInDb);
 
     }
@@ -69,6 +73,15 @@ public class CreateAndMatchServiceImpl implements CreateAndMatchService {
             return true;
         } else
             return false;
+    }
+
+    @Override
+    public CreateAndMatch findCreateAndMatch(int createAndMatch) throws CreateAndMatchNotFound {
+        Optional<CreateAndMatch> oCreateAndMatch = camRepo.findById(createAndMatch);
+        if(oCreateAndMatch.isPresent()){
+            return oCreateAndMatch.get();
+        }
+        else throw new CreateAndMatchNotFound("Match Not Found");
     }
 
 //    @Override
