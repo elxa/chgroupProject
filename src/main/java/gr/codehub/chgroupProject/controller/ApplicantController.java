@@ -2,8 +2,11 @@ package gr.codehub.chgroupProject.controller;
 
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.ApplicantNotValidFields;
+import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
+import gr.codehub.chgroupProject.model.ApplicantSkill;
 import gr.codehub.chgroupProject.service.ApplicantService;
+import gr.codehub.chgroupProject.service.ApplicantSkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +17,9 @@ public class ApplicantController {
 
     @Autowired
     private ApplicantService applicantService;
+
+    @Autowired
+    private ApplicantSkillService applicantSkillService;
 
     /**
      * @return list off aplicants
@@ -45,5 +51,12 @@ public class ApplicantController {
     public Applicant addApplicant(@RequestBody Applicant applicant) throws ApplicantNotFoundException, ApplicantNotValidFields {
         return applicantService.addApplicant(applicant);
     }
+
+    //******************************************** ApplicantSkill Controller********************************************
+    @PostMapping("applicant/{applicantId}/skill/{skillId}")
+    public ApplicantSkill addApplicantSkill(@PathVariable int applicantId, @PathVariable int skillId) throws ApplicantNotFoundException, SkillNotFoundException {
+        return applicantSkillService.addApplicantSkill(applicantId, skillId);
+    }
+
 
 }

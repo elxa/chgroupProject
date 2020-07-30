@@ -26,6 +26,7 @@ public class CreateManualMatchServiceImpl implements CreateManualMatchService {
     @Autowired
     private JobOfferRepository jobOfferRepo;
 
+    //TODO na svistei!!
     @Override
     public List<CreateAndMatch> getCreateAndMatches() {
         return camRepo.findAll();

@@ -16,12 +16,13 @@ public class ManualMatchContoller {
     @Autowired
     private CreateManualMatchService createManualMatchService;
 
+    //TODO GYRNAEI OLI THN VASI DEN XREAIZETAI
     @GetMapping("createAndMatch")
     public List<CreateAndMatch> getListOfCreateAndMatch() {
         return createManualMatchService.getCreateAndMatches();
     }
 
-    @PostMapping("createAndMatch")
+    @PostMapping("createAndMatch/{applicantId}/{jobOfferId}")
     public CreateAndMatch addCreateAndMatch(@PathVariable int applicantId,@PathVariable int jobOfferId)
             throws ApplicantNotFoundException, JobOfferNotFoundException {
         return createManualMatchService.addCreateAndMatch(applicantId,jobOfferId);

@@ -2,8 +2,11 @@ package gr.codehub.chgroupProject.controller;
 
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.exception.JobOfferNotValidFields;
+import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.JobOffer;
+import gr.codehub.chgroupProject.model.JobOfferSkill;
 import gr.codehub.chgroupProject.service.JobOfferService;
+import gr.codehub.chgroupProject.service.JobOfferSkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +17,9 @@ public class JobOfferController {
 
     @Autowired
     private JobOfferService jobOfferService;
+
+    @Autowired
+    private JobOfferSkillService jobOfferSkillService;
 
     @GetMapping("jobOffer")
     public List<JobOffer> getListOfJobOffers() {
@@ -32,7 +38,14 @@ public class JobOfferController {
     }
 
     @PutMapping("jobOffer/{jobOfferId}")
-    public JobOffer updateJobOffer(@RequestBody JobOffer jobOffer, @PathVariable int jobOfferId) throws JobOfferNotFoundException {
+    public JobOffer updateJobOffer(@RequestBody JobOffer jobOffer, @PathVariable int jobOfferId)
+            throws JobOfferNotFoundException {
         return jobOfferService.updateJobOffer(jobOffer,jobOfferId);
+    }
+
+    //******************************************** JobOfferSkill Controller*********************************************
+    @PostMapping("jobOffer/{jobOfferId}/skill/{skillId}")
+    public JobOfferSkill JobOfferSkillService(@PathVariable int jobOfferId, @PathVariable int skillId) throws SkillNotFoundException, JobOfferNotFoundException {
+        return jobOfferSkillService.addJobOfferSkill(jobOfferId, skillId);
     }
 }

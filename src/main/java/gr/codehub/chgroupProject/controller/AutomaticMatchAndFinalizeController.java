@@ -22,11 +22,6 @@ import java.util.List;
 public class AutomaticMatchAndFinalizeController {
 
     @Autowired
-    private ApplicantSkillService applicantSkillService;
-    @Autowired
-    private JobOfferSkillService jobOfferSkillService;
-
-    @Autowired
     private CreateManualMatchService createManualMatchService;
 
     @Autowired
@@ -35,18 +30,6 @@ public class AutomaticMatchAndFinalizeController {
     @Autowired
     private FinalizeServiceImpl finalizeServiceImpl;
 
-
-    //******************************************** ApplicantSkill Controller********************************************
-    @PostMapping("applicant/{applicantId}/skill/{skillId}")
-    public ApplicantSkill addApplicantSkill(@PathVariable int applicantId, @PathVariable int skillId) throws ApplicantNotFoundException, SkillNotFoundException {
-        return applicantSkillService.addApplicantSkill(applicantId, skillId);
-    }
-
-    //******************************************** JobOfferSkill Controller*********************************************
-    @PostMapping("jobOffer/{jobOfferId}/skill/{skillId}")
-    public JobOfferSkill JobOfferSkillService(@PathVariable int jobOfferId, @PathVariable int skillId) throws SkillNotFoundException, JobOfferNotFoundException {
-        return jobOfferSkillService.addJobOfferSkill(jobOfferId, skillId);
-    }
 
     @GetMapping("matching")
     public List<CreateAndMatch> doMatch(@RequestParam(required = false) boolean partial)
