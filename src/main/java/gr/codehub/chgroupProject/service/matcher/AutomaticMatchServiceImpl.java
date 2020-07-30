@@ -9,6 +9,7 @@ import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.service.ApplicantService;
 import gr.codehub.chgroupProject.service.JobOfferService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,7 @@ public class AutomaticMatchServiceImpl implements AutomaticMatchService{
     }
 
     @Override
-    public List<CreateAndMatch> DoAutomaticMatch()
+    public List<CreateAndMatch> DoAutomaticMatch(boolean partial)
             throws ApplicantNotFoundException, JobOfferNotFoundException, SkillNotFoundException {
 
         List<Applicant> applicantList = applicantService.getApplicants();
@@ -83,10 +84,20 @@ public class AutomaticMatchServiceImpl implements AutomaticMatchService{
                     System.out.println("***MATCH***" + jobOfferList.get(i) + "WITH APPLICANT" + applicantList.get(j));
 
                     //   if(!createAndMatchService.checkIfApplicantIdAndJobOfferIdExist(applicantList.get(j), jobOfferList.get(i))){
-
                     CreateAndMatch createAndMatch = createManualMatchService.addCreateAndMatch(applicantList.get(j).getId(), jobOfferList.get(i).getId());
                     currentMatches.add(createAndMatch);
                     //    }
+                }
+                else {
+                    if (partial == true) {
+                        if (CollectionUtils.containsAny(skillsIdApp, skillsIdJob)) {
+
+                            System.out.println("***MATCH***" + jobOfferList.get(i) + "WITH APPLICANT" + applicantList.get(j));
+                            CreateAndMatch createAndMatch = createManualMatchService.addCreateAndMatch(applicantList.get(j).getId(), jobOfferList.get(i).getId());
+                            currentMatches.add(createAndMatch);
+                        }
+
+                    }
                 }
             }
         }

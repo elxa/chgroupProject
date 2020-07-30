@@ -13,12 +13,10 @@ import gr.codehub.chgroupProject.service.JobOfferSkillService;
 import gr.codehub.chgroupProject.service.matcher.AutomaticMatchServiceImpl;
 import gr.codehub.chgroupProject.service.matcher.FinalizeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 public class AutomaticMatchAndFinalizeController {
@@ -50,15 +48,21 @@ public class AutomaticMatchAndFinalizeController {
         return jobOfferSkillService.addJobOfferSkill(jobOfferId, skillId);
     }
 
-    @GetMapping ("matching")
-    public List<CreateAndMatch> doMatch() throws ApplicantNotFoundException, JobOfferNotFoundException,
+    @GetMapping("matching")
+    public List<CreateAndMatch> doMatch(@RequestParam(required = false) boolean partial)
+            throws ApplicantNotFoundException, JobOfferNotFoundException,
             SkillNotFoundException {
-        return automaticMatchServiceImpl.DoAutomaticMatch();
+
+        return automaticMatchServiceImpl.DoAutomaticMatch(partial);
     }
 
     @GetMapping("finalize/{createAndMatchId}")
-    public CreateAndMatch finalizeMatch(@PathVariable int createAndMatchId) throws CreateAndMatchNotFound, ApplicantNotFoundException, JobOfferNotFoundException {
-            return finalizeServiceImpl.doFinalize(createManualMatchService.findCreateAndMatch(createAndMatchId));
+    public CreateAndMatch finalizeMatch(@PathVariable int createAndMatchId)
+            throws CreateAndMatchNotFound, ApplicantNotFoundException, JobOfferNotFoundException {
+
+        return finalizeServiceImpl.doFinalize(createManualMatchService.findCreateAndMatch(createAndMatchId));
+
+
     }
 
 }

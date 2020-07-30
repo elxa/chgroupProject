@@ -8,7 +8,7 @@ import gr.codehub.chgroupProject.model.CreateAndMatch;
 import java.util.List;
 
 public interface AutomaticMatchService {
-    List<CreateAndMatch> DoAutomaticMatch()
+    List<CreateAndMatch> DoAutomaticMatch(boolean partial)
             throws ApplicantNotFoundException, JobOfferNotFoundException, SkillNotFoundException ;
 
 }
