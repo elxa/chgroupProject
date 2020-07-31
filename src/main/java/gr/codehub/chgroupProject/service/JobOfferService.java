@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface JobOfferService {
     // List<JobOffer> getJobOffers() throws JobOfferNotFoundException;
-    List<JobOffer> getJobOffers(String companyName, String region, String nameOfSkill) throws JobOfferNotFoundException;
+    List<JobOffer> getJobOffers(String companyName, String region, String nameOfSkill, String dateOfRegister) throws JobOfferNotFoundException;
     JobOffer updateJobOffer(JobOffer jobOffer, int jobOfferId)
             throws JobOfferNotFoundException;
     JobOffer addJobOffer(JobOffer jobOffer) throws JobOfferNotFoundException, JobOfferNotValidFields; //throws CustomerCreationException; //gia na epibebaiwsoume oti autos o customer mphke

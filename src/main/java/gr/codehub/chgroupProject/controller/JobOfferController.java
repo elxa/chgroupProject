@@ -30,9 +30,10 @@ public class JobOfferController {
     @GetMapping("jobOffer")
     public List<JobOffer> getListOfJobOffers(@RequestParam(required = false) String companyName,
                                              @RequestParam(required = false) String region,
-                                             @RequestParam(required = false) String nameOfSkill) throws JobOfferNotFoundException {
+                                             @RequestParam(required = false) String nameOfSkill,
+                                         @RequestParam(required = false) String dateOfRegister) throws JobOfferNotFoundException {
         logger.info("Return a list of job Offers");
-        return jobOfferService.getJobOffers(companyName, region, nameOfSkill);
+        return jobOfferService.getJobOffers(companyName, region, nameOfSkill, dateOfRegister);
     }
 
 

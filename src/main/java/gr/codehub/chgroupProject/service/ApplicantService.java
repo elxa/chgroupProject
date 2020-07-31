@@ -8,7 +8,7 @@ import java.util.List;
 //todo update applicant
 public interface ApplicantService {
 
-    List<Applicant> getApplicants(String firstName, String lastName) throws ApplicantNotFoundException;
+    List<Applicant> getApplicants(String firstName, String lastName, String dateOfRegister) throws ApplicantNotFoundException;
 
     Applicant addApplicant(Applicant applicant) throws ApplicantNotValidFields, ApplicantNotFoundException;
 

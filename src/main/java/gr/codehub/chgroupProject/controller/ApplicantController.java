@@ -31,9 +31,10 @@ public class ApplicantController {
      */
     @GetMapping("applicant")
     public List<Applicant> getListApplicants(@RequestParam(required = false) String firstName,
-                                             @RequestParam(required = false) String lastName) throws ApplicantNotFoundException {
+                                             @RequestParam(required = false) String lastName,
+                                             @RequestParam(required = false) String dateOfRegister) throws ApplicantNotFoundException {
         logger.info("Take a list of applicants");
-        return applicantService.getApplicants(firstName, lastName);
+        return applicantService.getApplicants(firstName, lastName, dateOfRegister);
     }
 
     /**
@@ -47,7 +48,8 @@ public class ApplicantController {
     }
 
     @PutMapping("applicant/{applicantId}")
-    public Applicant updateApplicant(@RequestBody Applicant applicant, @PathVariable int applicantId) throws ApplicantNotFoundException {
+    public Applicant updateApplicant(@RequestBody Applicant applicant,
+                                     @PathVariable int applicantId) throws ApplicantNotFoundException {
         logger.info("Take an  updated Applicant");
         return applicantService.updateApplicant(applicant, applicantId);
     }

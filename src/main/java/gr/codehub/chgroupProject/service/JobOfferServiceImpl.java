@@ -36,7 +36,7 @@ public class JobOfferServiceImpl implements JobOfferService {
 //    }
 
     @Override
-    public List<JobOffer> getJobOffers(String companyName, String region, String nameOfSkill) throws JobOfferNotFoundException {
+    public List<JobOffer> getJobOffers(String companyName, String region, String nameOfSkill, String dateOfRegister) throws JobOfferNotFoundException {
         logger.info("Get a list of JobOffers from db");
 
         List<JobOffer> jobOffers = new ArrayList<>();
@@ -50,6 +50,9 @@ public class JobOfferServiceImpl implements JobOfferService {
         }
         if (nameOfSkill != null) {
             return jobOfferRepo.findListOfJobOfferWithSkillName(nameOfSkill);
+        }
+        if (dateOfRegister != null) {
+            return jobOfferRepo.findJobOfferListtWithDateOfRegister();
         }
         return jobOfferRepo.findAll();
     }

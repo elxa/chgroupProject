@@ -44,7 +44,7 @@ public class ApplicantServiceImpl implements ApplicantService {
 //        return applicantRepo.findAll();
 //    }
     @Override
-    public List<Applicant> getApplicants(String firstName, String lastName) throws ApplicantNotFoundException {
+    public List<Applicant> getApplicants(String firstName, String lastName, String dateOfRegister) throws ApplicantNotFoundException {
         logger.info("Get a list of Applicants from db");
 
         List<Applicant> applicants = new ArrayList<>();
@@ -66,7 +66,9 @@ public class ApplicantServiceImpl implements ApplicantService {
                 return applicants;
             } else throw new ApplicantNotFoundException("Applicant with this name Not Found");
         }
-
+        if (dateOfRegister != null) {
+                return applicantRepo.findApplicantListWithDateOfRegister();
+        }
         logger.info("Return a list of applicants");
         return applicantRepo.findAll();
     }
