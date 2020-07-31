@@ -31,4 +31,5 @@ public class Skill {
     private List<JobOfferSkill> jobOfferSkills;
 
 
+
 }
