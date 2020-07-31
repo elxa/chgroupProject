@@ -22,13 +22,28 @@ public class JobOfferServiceImpl implements JobOfferService{
     @Autowired
     private JobOfferRepository jobOfferRepo;
 
+    /**
+     * A methods to view all the job offers
+     * @return a list of all the available job offers
+     */
+
+
     @Override
     public List<JobOffer> getJobOffers() {
         return jobOfferRepo.findAll();
     }
 
+    /**
+     * A method to update the existing job offer list
+     * @param jobOffer
+     * @param jobOfferId
+     * @return a list with the updated job offer list
+     * @throws JobOfferNotFoundException
+     */
+
     @Override
-    public JobOffer updateJobOffer(JobOffer jobOffer, int jobOfferId) throws JobOfferNotFoundException {
+    public JobOffer updateJobOffer(JobOffer jobOffer, int jobOfferId)
+            throws JobOfferNotFoundException {
         JobOffer jobOfferInDb = jobOfferRepo.findById(jobOfferId)
                 .orElseThrow(
                         () -> new JobOfferNotFoundException("Job Offer Not Found"));
@@ -39,8 +54,16 @@ public class JobOfferServiceImpl implements JobOfferService{
         return jobOfferInDb;
     }
 
+    /**
+     * A method to add a new job offer
+     * @param jobOffer
+     * @return the new job offer list with the added job offer
+     * @throws JobOfferNotFoundException
+     * @throws JobOfferNotValidFields
+     */
     @Override
-    public JobOffer addJobOffer(JobOffer jobOffer) throws JobOfferNotFoundException, JobOfferNotValidFields {
+    public JobOffer addJobOffer(JobOffer jobOffer)
+            throws JobOfferNotFoundException, JobOfferNotValidFields {
         if(jobOffer == null){
             throw new JobOfferNotFoundException("Job Offer Not found");
         }
@@ -75,6 +98,12 @@ public class JobOfferServiceImpl implements JobOfferService{
 //
 //    }
 
+    /**
+     * A method that get the job offer by Id
+     * @param jobOfferId
+     * @return job0ffer
+     * @throws JobOfferNotFoundException
+     */
 
     @Override
     public JobOffer getJobOfferById(int jobOfferId) throws JobOfferNotFoundException{
@@ -83,6 +112,11 @@ public class JobOfferServiceImpl implements JobOfferService{
             return oJobOffer.get();
         }
         else throw new JobOfferNotFoundException("Job Offer Not Found");
+    }
+
+    @Override
+    public void addJobOfferSkill() {
+
     }
 }
 

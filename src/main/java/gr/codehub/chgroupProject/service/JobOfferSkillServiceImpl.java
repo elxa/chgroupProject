@@ -20,9 +20,17 @@ public class JobOfferSkillServiceImpl implements JobOfferSkillService {
     @Autowired
     JobOfferRepository jobOfferRepo;
 
-
+    /**
+     * We use this method in order to be able to add a specific job offer skill
+     * @param jobOfferId
+     * @param skillId
+     * @return jobOfferSkill
+     * @throws SkillNotFoundException
+     * @throws JobOfferNotFoundException
+     */
     @Override
-    public JobOfferSkill addJobOfferSkill(int jobOfferId, int skillId) throws SkillNotFoundException, JobOfferNotFoundException {
+    public JobOfferSkill addJobOfferSkill(int jobOfferId, int skillId)
+            throws SkillNotFoundException, JobOfferNotFoundException {
         JobOffer jobOfferInDb = jobOfferRepo.findById(jobOfferId)
                         .orElseThrow(
                         () -> new JobOfferNotFoundException("Job offer not found")

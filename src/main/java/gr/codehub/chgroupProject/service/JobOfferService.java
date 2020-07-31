@@ -13,4 +13,5 @@ public interface JobOfferService {
     JobOffer addJobOffer(JobOffer jobOffer) throws JobOfferNotFoundException, JobOfferNotValidFields; //throws CustomerCreationException; //gia na epibebaiwsoume oti autos o customer mphke
     JobOffer getJobOfferById(int jobOfferId) throws JobOfferNotFoundException; //throws CustomerNotFoundException;//to exception auto anaferetai sto otan den briskei ton pelath
 
+    void addJobOfferSkill();
 }

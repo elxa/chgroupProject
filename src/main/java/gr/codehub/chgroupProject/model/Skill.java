@@ -29,4 +29,7 @@ public class Skill {
     @OneToMany(mappedBy = "skill")
     @ToString.Exclude
     private List<JobOfferSkill> jobOfferSkills;
+
+
+
 }

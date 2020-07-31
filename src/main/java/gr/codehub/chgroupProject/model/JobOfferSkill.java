@@ -22,4 +22,7 @@ public class JobOfferSkill {
     @ManyToOne
     @JsonIgnore
     private JobOffer jobOffer;
+
+
+
 }

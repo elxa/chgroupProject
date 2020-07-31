@@ -16,13 +16,27 @@ public class CreateAndMatchContoller {
     @Autowired
     private CreateAndMatchService createAndMatchService;
 
+    /**
+     * @return a list of all the matches
+     */
+
     @GetMapping("createAndMatch")
     public List<CreateAndMatch> getListOfCreateAndMatch() {
         return createAndMatchService.getCreateAndMatch();
     }
 
+    /**
+     *
+     * @param applicantId
+     * @param jobOfferId
+     * @return the list with the new match we created
+     * @throws ApplicantNotFoundException
+     * @throws JobOfferNotFoundException
+     */
+
     @PostMapping("createAndMatch")
-    public CreateAndMatch addCreateAndMatch(@PathVariable int applicantId,@PathVariable int jobOfferId) throws ApplicantNotFoundException, JobOfferNotFoundException {
+    public CreateAndMatch addCreateAndMatch(@PathVariable int applicantId,@PathVariable int jobOfferId)
+            throws ApplicantNotFoundException, JobOfferNotFoundException {
         return createAndMatchService.addCreateAndMatch(applicantId,jobOfferId);
     }
 
@@ -30,6 +44,14 @@ public class CreateAndMatchContoller {
 //    public CreateAndMatch getCreateAndMatchById(@PathVariable int createAndMatchId) throws CreateAndMatchNotFound {
 //        return createAndMatchService.getCreateAndMatchById(createAndMatchId);
 //    }
+
+    /**
+     *
+     * @param createAndMatch
+     * @param createAndMatchId
+     * @return the updated createAndMatch list by their id
+     * @throws CreateAndMatchNotFound
+     */
 
     @PutMapping("createAndMatch/{createAndMatchId}")
     public CreateAndMatch updateCreateAndMatch(@RequestBody CreateAndMatch createAndMatch, @PathVariable int createAndMatchId) throws CreateAndMatchNotFound {

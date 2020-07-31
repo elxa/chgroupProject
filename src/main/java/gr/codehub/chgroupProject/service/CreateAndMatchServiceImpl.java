@@ -24,11 +24,24 @@ public class CreateAndMatchServiceImpl implements CreateAndMatchService {
     @Autowired
     private JobOfferRepository jobOfferRepo;
 
+    /**
+     * In this method we are able to see all the available matches
+      * @return a list of all matches
+     */
+
     @Override
     public List<CreateAndMatch> getCreateAndMatch() {
         return camRepo.findAll();
     }
 
+    /**
+     * In this method we create manually a match
+     * @param applicantId
+     * @param jobOfferId
+     * @return a new match
+     * @throws ApplicantNotFoundException
+     * @throws JobOfferNotFoundException
+     */
     @Override
     public CreateAndMatch addCreateAndMatch(int applicantId, int jobOfferId) throws ApplicantNotFoundException, JobOfferNotFoundException {
         Applicant applicantInDb = applicantRepo.findById(applicantId)
@@ -49,8 +62,16 @@ public class CreateAndMatchServiceImpl implements CreateAndMatchService {
         return camRepo.save(createAndMatch);
     }
 
+    /**
+     * In this method we update a match
+     * @param createAndMatch
+     * @param createAndMatchId
+     * @return the new updated list of matches
+     * @throws CreateAndMatchNotFound
+     */
     @Override
-    public CreateAndMatch updateCreateAndMatch(CreateAndMatch createAndMatch, int createAndMatchId) throws CreateAndMatchNotFound {
+    public CreateAndMatch updateCreateAndMatch(CreateAndMatch createAndMatch, int createAndMatchId)
+            throws CreateAndMatchNotFound {
         CreateAndMatch createAndMatchInDb = camRepo.findById(createAndMatchId)
                 .orElseThrow(
                         () -> new CreateAndMatchNotFound("Match Not Found"));
