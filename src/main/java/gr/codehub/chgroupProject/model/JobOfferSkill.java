@@ -18,8 +18,10 @@ public class JobOfferSkill {
     private int id;
 
 
+    //    @JoinColumn(name = "skill", referencedColumnName = "skill")
     @ManyToOne
     private Skill skill;
+    //    @JoinColumn(name = "jobOffer", referencedColumnName = "jobOffer")
     @ManyToOne
     @JsonIgnore
     @ToString.Exclude

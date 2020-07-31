@@ -1,4 +1,4 @@
-package gr.codehub.chgroupProject.service;
+package gr.codehub.chgroupProject.service.Matcher;
 
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.CreateAndMatchNotFound;
@@ -8,13 +8,20 @@ import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOffer;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CreateManualMatchService {
     List<CreateAndMatch> getCreateAndMatches();
     CreateAndMatch addCreateAndMatch (int applicantId, int jobOfferId) throws ApplicantNotFoundException, JobOfferNotFoundException;
     CreateAndMatch updateCreateAndMatch(CreateAndMatch createAndMatch, int createAndMatchId) throws CreateAndMatchNotFound;
-   // boolean checkIfApplicantIdAndJobOfferIdExist(int applicantId, int jobOfferId);
+    // boolean checkIfApplicantIdAndJobOfferIdExist(int applicantId, int jobOfferId);
     boolean checkIfApplicantIdAndJobOfferIdExist(Applicant applicant, JobOffer jobOffer);
+
+
     CreateAndMatch findCreateAndMatch (int createAndMatch) throws CreateAndMatchNotFound;
+
+    List<CreateAndMatch> listOfManualCreateAndMatch();
+
+    List<CreateAndMatch> listOfAutomaticCreateAndMatch();
+
+//    List<CreateAndMatch> finalizedList();
 }

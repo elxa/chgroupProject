@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -54,15 +55,17 @@ public class Applicant {
     private String level;
     private Boolean available = true;
 
+    private LocalDateTime dateOfApplicant;
+
 
     /**
      * Set the Foreign key
      */
-    @OneToMany(mappedBy = "applicant")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "applicant")
     private List<ApplicantSkill> applicantSkills;
 
     @JsonIgnore
     @ToString.Exclude
-    @OneToMany(mappedBy = "applicant")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "applicant")
     private List<CreateAndMatch> createAndMatches;
 }

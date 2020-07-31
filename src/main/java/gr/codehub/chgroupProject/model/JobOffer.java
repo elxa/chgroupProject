@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -31,12 +32,14 @@ public class JobOffer {
     private String level;
     private Boolean available = true;
 
+    private LocalDateTime dateOfJobOffer;
 
-    @OneToMany(mappedBy = "jobOffer")
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobOffer")
     private List<JobOfferSkill> jobOfferSkill;
 
     @JsonIgnore
     @ToString.Exclude
-    @OneToMany(mappedBy = "jobOffer")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobOffer")
     private List<CreateAndMatch> createAndMatche;
 }

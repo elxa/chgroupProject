@@ -1,4 +1,4 @@
-package gr.codehub.chgroupProject.service;
+package gr.codehub.chgroupProject.service.Matcher;
 
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.CreateAndMatchNotFound;
@@ -7,8 +7,13 @@ import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOffer;
+import gr.codehub.chgroupProject.repository.CreateAndMatchRepository;
+import gr.codehub.chgroupProject.service.ApplicantService;
+import gr.codehub.chgroupProject.service.JobOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class FinalizeServiceImpl implements FinalizeService {
@@ -16,18 +21,20 @@ public class FinalizeServiceImpl implements FinalizeService {
     private CreateManualMatchService createManualMatchService;
     private ApplicantService applicantService;
     private JobOfferService jobOfferService;
+    private CreateAndMatchRepository createAndMatchRepo;
 
     private AutomaticMatchServiceImpl automaticMatchServiceImpl;
 
     @Autowired
-    public FinalizeServiceImpl(CreateManualMatchService createManualMatchService, ApplicantService applicantService,
-                               JobOfferService jobOfferService, AutomaticMatchServiceImpl automaticMatchServiceImpl)
-            throws JobOfferNotFoundException, ApplicantNotFoundException, SkillNotFoundException {
-
+    public FinalizeServiceImpl(CreateManualMatchService createManualMatchService,
+                               ApplicantService applicantService,
+                               JobOfferService jobOfferService,
+                               CreateAndMatchRepository createAndMatchRepo,
+                               AutomaticMatchServiceImpl automaticMatchServiceImpl) {
         this.createManualMatchService = createManualMatchService;
         this.applicantService = applicantService;
         this.jobOfferService = jobOfferService;
-
+        this.createAndMatchRepo = createAndMatchRepo;
         this.automaticMatchServiceImpl = automaticMatchServiceImpl;
     }
 
@@ -55,4 +62,10 @@ public class FinalizeServiceImpl implements FinalizeService {
 
         } else throw new CreateAndMatchNotFound("IT IS NOT AVAILABLE");
     }
+
+    @Override
+    public List<CreateAndMatch> finalizedList() {
+        return createAndMatchRepo.finalizedList();
+    }
+
 }

@@ -14,4 +14,5 @@ import java.util.Optional;
 public interface SkillRepository extends JpaRepository<Skill, Integer> {
     @Query("SELECT s FROM Skill s WHERE s.nameOfSkill = ?1")
     Optional<Skill> findSkillByName(String skillName);
+
 }

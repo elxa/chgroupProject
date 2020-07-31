@@ -1,4 +1,4 @@
-package gr.codehub.chgroupProject.service;
+package gr.codehub.chgroupProject.service.Matcher;
 
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;

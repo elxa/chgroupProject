@@ -10,6 +10,6 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 public class ErrorDetails {
     private String message;
-   // private HttpStatus status;
+    // private HttpStatus status;
     private String details;
 }

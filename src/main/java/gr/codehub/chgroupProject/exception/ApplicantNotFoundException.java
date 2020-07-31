@@ -5,3 +5,4 @@ public class ApplicantNotFoundException extends BusinessException{
         super(message);
     }
 }
+

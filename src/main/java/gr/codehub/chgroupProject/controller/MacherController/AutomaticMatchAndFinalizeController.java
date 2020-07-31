@@ -1,4 +1,4 @@
-package gr.codehub.chgroupProject.controller;
+package gr.codehub.chgroupProject.controller.MacherController;
 
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.CreateAndMatchNotFound;
