@@ -5,6 +5,7 @@ import gr.codehub.chgroupProject.exception.CreateAndMatchNotFound;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.service.CreateManualMatchService;
+import gr.codehub.chgroupProject.service.FinalizeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,9 @@ public class ManualMatchContoller {
 
     @Autowired
     private CreateManualMatchService createManualMatchService;
+
+    @Autowired
+    private FinalizeServiceImpl finalizeServiceImpl;
 
     //TODO GYRNAEI OLI THN VASI DEN XREAIZETAI
     @GetMapping("createAndMatch")
@@ -36,5 +40,14 @@ public class ManualMatchContoller {
     @PutMapping("createAndMatch/{createAndMatchId}")
     public CreateAndMatch updateCreateAndMatch(@RequestBody CreateAndMatch createAndMatch, @PathVariable int createAndMatchId) throws CreateAndMatchNotFound {
         return createManualMatchService.updateCreateAndMatch(createAndMatch,createAndMatchId);
+    }
+
+    @GetMapping("finalizeManually/{createAndMatchId}")
+    public CreateAndMatch finalizeMatchManually (@PathVariable int createAndMatchId)
+            throws CreateAndMatchNotFound, ApplicantNotFoundException, JobOfferNotFoundException {
+
+        return finalizeServiceImpl.doFinalize(createManualMatchService.findCreateAndMatch(createAndMatchId));
+
+
     }
 }
