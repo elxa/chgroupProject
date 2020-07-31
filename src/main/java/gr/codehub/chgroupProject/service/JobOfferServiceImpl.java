@@ -99,7 +99,7 @@ public class JobOfferServiceImpl implements JobOfferService {
                 || StringUtils.isEmpty(jobOffer.getAvailable())
         ) //ean den balei email xtupaei null pointer excheption paizei rolo h seira edw
             throw new JobOfferNotValidFields("Job Offer fields must not be null");
-        }
+
         jobOffer.setDateOfJobOffer(LocalDateTime.now());
         return jobOfferRepo.save(jobOffer);
     }

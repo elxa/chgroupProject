@@ -6,8 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class CreateAndMatchServiceImplTest {
 
-   @Autowired
-    CreateAndMatchService createAndMatchService;
+//   @Autowired
+//    CreateAndMatchService createAndMatchService;
 //
 //    @Test
 //    void getCreateAndMatch()

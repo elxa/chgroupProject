@@ -27,20 +27,20 @@ class JobOfferServiceImplTest {
     @InjectMocks
     private JobOfferService jobOfferService = new JobOfferServiceImpl();
 
-    @Test
-    void getJobOffersSuccessful() {
-        JobOffer jobOffer = new JobOffer();
-        jobOffer.setId(1);
-        jobOffer.setPosition("accentue");
-        jobOffer.setAvailable(true);
-        jobOffer.setRegion("athens");
-        jobOffer.setCompanyName("Accenture");
-        jobOffer.setLevel("Mid");
-        List<JobOffer> jobOffers = Arrays.asList(jobOffer);
-        when(jobOfferRepository.findAll()).thenReturn(jobOffers);
-        List<JobOffer> jobOffersRetrieved = jobOfferService.getJobOffers();
-        assertEquals(1, jobOffersRetrieved.size());
-    }
+//    @Test
+//    void getJobOffersSuccessful() {
+//        JobOffer jobOffer = new JobOffer();
+//        jobOffer.setId(1);
+//        jobOffer.setPosition("accentue");
+//        jobOffer.setAvailable(true);
+//        jobOffer.setRegion("athens");
+//        jobOffer.setCompanyName("Accenture");
+//        jobOffer.setLevel("Mid");
+//        List<JobOffer> jobOffers = Arrays.asList(jobOffer);
+//        when(jobOfferRepository.findAll()).thenReturn(jobOffers);
+//        List<JobOffer> jobOffersRetrieved = jobOfferService.getJobOffers();
+//        assertEquals(1, jobOffersRetrieved.size());
+//    }
 
     @Test
     void addJobOffer() throws JobOfferNotFoundException, JobOfferNotValidFields {

@@ -27,22 +27,22 @@ class ApplicantServiceImplTest {
     @InjectMocks
     private ApplicantService applicantService = new ApplicantServiceImpl();
 
-    @Test
-    void getApplicantsSuccessful() {
-        Applicant applicant1 = new Applicant();
-        applicant1.setId(1);
-        applicant1.setFirstName("John");
-        applicant1.setLastName("Kikl");
-        applicant1.setAddress("Johngt 21");
-        applicant1.setRegion("Athens");
-        applicant1.setEducation("IT");
-        applicant1.setLevel("Junior");
-        applicant1.setAvailable(true);
-        List<Applicant> applicants = Arrays.asList(applicant1);
-        when(applicantRepo.findAll()).thenReturn(applicants);
-        List<Applicant> applicantsRetrieved = applicantService.getApplicants();
-        assertEquals(1, applicantsRetrieved.size());
-    }
+//    @Test
+//    void getApplicantsSuccessful() {
+//        Applicant applicant1 = new Applicant();
+//        applicant1.setId(1);
+//        applicant1.setFirstName("John");
+//        applicant1.setLastName("Kikl");
+//        applicant1.setAddress("Johngt 21");
+//        applicant1.setRegion("Athens");
+//        applicant1.setEducation("IT");
+//        applicant1.setLevel("Junior");
+//        applicant1.setAvailable(true);
+//        List<Applicant> applicants = Arrays.asList(applicant1);
+//        when(applicantRepo.findAll()).thenReturn(applicants);
+//        List<Applicant> applicantsRetrieved = applicantService.getApplicants();
+//        assertEquals(1, applicantsRetrieved.size());
+//    }
 
     @Test
     void addApplicantSuccessful() throws ApplicantNotFoundException, ApplicantNotValidFields {
