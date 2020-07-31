@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,12 +30,15 @@ public class JobOfferServiceImpl implements JobOfferService {
     @Autowired
     private JobOfferRepository jobOfferRepo;
 
+    /**
+     * A methods to view all the job offers
+     * @return a list of all the available job offers
+     */
 
-//    @Override
-//    public List<JobOffer> getJobOffers() throws JobOfferNotFoundException {
-//        return jobOfferRepo.findAll();
-//    }
-
+    /**
+     * A methods to view all the job offers
+     * @return a list of all the available job offers
+     */
     @Override
     public List<JobOffer> getJobOffers(String companyName, String region, String nameOfSkill) throws JobOfferNotFoundException {
         logger.info("Get a list of JobOffers from db");
@@ -54,6 +58,14 @@ public class JobOfferServiceImpl implements JobOfferService {
         return jobOfferRepo.findAll();
     }
 
+    /**
+     * A method to update the existing job offer list
+     * @param jobOffer
+     * @param jobOfferId
+     * @return a list with the updated job offer list
+     * @throws JobOfferNotFoundException
+     */
+
     @Override
     public JobOffer updateJobOffer(JobOffer jobOffer, int jobOfferId) throws JobOfferNotFoundException {
         logger.info("Update a job offer");
@@ -67,17 +79,25 @@ public class JobOfferServiceImpl implements JobOfferService {
         return jobOfferInDb;
     }
 
+    /**
+     * A method to add a new job offer
+     * @param jobOffer
+     * @return the new job offer list with the added job offer
+     * @throws JobOfferNotFoundException
+     * @throws JobOfferNotValidFields
+     */
     @Override
     public JobOffer addJobOffer(JobOffer jobOffer) throws JobOfferNotFoundException, JobOfferNotValidFields {
         logger.info("Add a job offer in db");
         if(jobOffer == null){
             throw new JobOfferNotFoundException("Job Offer Not found");
         }
-        if( jobOffer.getCompanyName().equals("") || jobOffer.getCompanyName().equals("")
-                || jobOffer.getPosition().equals("") || jobOffer.getPosition().equals("")
-                || jobOffer.getRegion().equals("") || jobOffer.getRegion().equals("")
-                || jobOffer.getLevel().equals("") || jobOffer.getLevel().equals("")
-                || jobOffer.getAvailable().equals("") || jobOffer.getAvailable().equals("")){ //ean den balei email xtupaei null pointer excheption paizei rolo h seira edw
+        if( StringUtils.isEmpty(jobOffer.getCompanyName())
+                || StringUtils.isEmpty(jobOffer.getPosition())
+                || StringUtils.isEmpty(jobOffer.getRegion())
+                || StringUtils.isEmpty(jobOffer.getLevel())
+                || StringUtils.isEmpty(jobOffer.getAvailable())
+        ) //ean den balei email xtupaei null pointer excheption paizei rolo h seira edw
             throw new JobOfferNotValidFields("Job Offer fields must not be null");
         }
         jobOffer.setDateOfJobOffer(LocalDateTime.now());
@@ -104,22 +124,29 @@ public class JobOfferServiceImpl implements JobOfferService {
 //
 //    }
 
+    /**
+     * A method that get the job offer by Id
+     * @param jobOfferId
+     * @return job0ffer
+     * @throws JobOfferNotFoundException
+     */
 
     @Override
     public JobOffer getJobOfferById(int jobOfferId) throws JobOfferNotFoundException{
         logger.info("Get Job Offer By Id ");
         Optional<JobOffer> oJobOffer= jobOfferRepo.findById(jobOfferId);
-        if (oJobOffer.isPresent()) { //ean uparxei epistrefei to jobOffer
+        if (oJobOffer.isPresent()){ //ean uparxei epistrefei to jobOffer
             return oJobOffer.get();
-        } else throw new JobOfferNotFoundException("Job Offer Not Found");
+        }
+        else throw new JobOfferNotFoundException("Job Offer Not Found");
     }
-
-
 
     public List<JobOffer> getJobOfferList() throws JobOfferNotFoundException {
 
         return jobOfferRepo.findAll();
     }
 
+
 }
+
 

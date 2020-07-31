@@ -30,4 +30,7 @@ public class Skill {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "skill")
     @ToString.Exclude
     private List<JobOfferSkill> jobOfferSkills;
+
+
+
 }

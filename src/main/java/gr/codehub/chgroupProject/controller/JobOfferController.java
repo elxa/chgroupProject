@@ -27,6 +27,11 @@ public class JobOfferController {
     @Autowired
     private JobOfferSkillService jobOfferSkillService;
 
+    /**
+     *
+     * @return a list of all available job offers
+     */
+
     @GetMapping("jobOffer")
     public List<JobOffer> getListOfJobOffers(@RequestParam(required = false) String companyName,
                                              @RequestParam(required = false) String region,
@@ -35,12 +40,26 @@ public class JobOfferController {
         return jobOfferService.getJobOffers(companyName, region, nameOfSkill);
     }
 
+    /**
+     *Adding a new job offe3r
+     * @param JobOffer
+     * @return the new job offer
+     * @throws JobOfferNotFoundException
+     * @throws JobOfferNotValidFields
+     */
 
     @PostMapping("jobOffer")
     public JobOffer addJobOffer(@RequestBody JobOffer JobOffer) throws JobOfferNotFoundException, JobOfferNotValidFields {
         logger.info("Add a job Offer in db");
         return jobOfferService.addJobOffer(JobOffer);
     }
+
+    /**
+     * Getting a certain job offer according with their id
+     * @param jobOfferId
+     * @return
+     * @throws JobOfferNotFoundException
+     */
 
     @GetMapping("jobOffer/{jobOfferId}")
     public JobOffer getJobOfferById(@PathVariable int jobOfferId)
@@ -49,6 +68,13 @@ public class JobOfferController {
         return jobOfferService.getJobOfferById(jobOfferId);//epistrefei ena json
     }
 
+    /**
+     * Updating the joboffer
+     * @param jobOffer
+     * @param jobOfferId
+     * @return the updated jobOfferId and the jobOffer
+     * @throws JobOfferNotFoundException
+     */
     @PutMapping("jobOffer/{jobOfferId}")
     public JobOffer updateJobOffer(@RequestBody JobOffer jobOffer, @PathVariable int jobOfferId) throws JobOfferNotFoundException {
         logger.info("Update a job Offer");

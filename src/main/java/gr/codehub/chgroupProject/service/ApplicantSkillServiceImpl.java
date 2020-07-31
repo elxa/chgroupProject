@@ -35,6 +35,15 @@ public class ApplicantSkillServiceImpl implements ApplicantSkillService {
     @Autowired
     public SkillRepository skillRepo;
 
+    /**
+     * We create a method in order to add a new applicant skill
+     * @param applicantId
+     * @param skillId
+     * @return a
+     * @throws SkillNotFoundException
+     * @throws ApplicantNotFoundException
+     */
+
 
     @Override
     public ApplicantSkill addApplicantSkill(int applicantId, int skillId) throws SkillNotFoundException, ApplicantNotFoundException

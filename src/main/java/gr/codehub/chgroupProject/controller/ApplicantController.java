@@ -27,7 +27,8 @@ public class ApplicantController {
     private ApplicantSkillService applicantSkillService;
 
     /**
-     * @return list off aplicants
+     * Getting all applicants
+     * @return list of applicants
      */
     @GetMapping("applicant")
     public List<Applicant> getListApplicants(@RequestParam(required = false) String firstName,
@@ -37,6 +38,7 @@ public class ApplicantController {
     }
 
     /**
+     * Getting a certain applicant according with their id
      * @param applicantId specific applicant
      * @return give us back a specific applicant
      */
@@ -45,6 +47,14 @@ public class ApplicantController {
         logger.info("Take an  Applicant By Id");
         return applicantService.getApplicantById(applicantId);
     }
+
+    /**
+     * Updating applicant according with their id
+     * @param applicant
+     * @param applicantId
+     * @return updated applicant
+     * @throws ApplicantNotFoundException
+     */
 
     @PutMapping("applicant/{applicantId}")
     public Applicant updateApplicant(@RequestBody Applicant applicant, @PathVariable int applicantId) throws ApplicantNotFoundException {

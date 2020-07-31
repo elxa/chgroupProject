@@ -26,4 +26,7 @@ public class JobOfferSkill {
     @JsonIgnore
     @ToString.Exclude
     private JobOffer jobOffer;
+
+
+
 }

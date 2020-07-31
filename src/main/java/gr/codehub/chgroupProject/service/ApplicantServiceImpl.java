@@ -87,13 +87,13 @@ public class ApplicantServiceImpl implements ApplicantService {
         logger.info("Add an applicant in db");
         if (applicant == null)
             throw new ApplicantNotFoundException("Applicant Not found");
-        if (applicant.getFirstName() == null || applicant.getFirstName().equals("")
-                || applicant.getLastName() == null || applicant.getLastName().equals("")
-                || applicant.getAddress() == null || applicant.getAddress().equals("")
-                || applicant.getRegion() == null || applicant.getEducation().equals("")
-                || applicant.getEducation() == null || applicant.getEducation().equals("")
-                || applicant.getLevel() == null || applicant.getLevel().equals("")
-                || applicant.getAvailable() == null || applicant.getAvailable().equals("")
+        if (StringUtils.isEmpty(applicant.getFirstName())
+                || StringUtils.isEmpty(applicant.getLastName())
+                || StringUtils.isEmpty(applicant.getAddress())
+                || StringUtils.isEmpty(applicant.getRegion())
+                || StringUtils.isEmpty(applicant.getEducation())
+                || StringUtils.isEmpty(applicant.getLevel())
+                || StringUtils.isEmpty(applicant.getAvailable())
         )
             throw new ApplicantNotValidFields("Applicant fields must not be null");
         applicant.setDateOfApplicant(LocalDateTime.now());

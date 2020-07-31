@@ -13,7 +13,8 @@ import java.util.List;
 public interface ApplicantSkillService {
 
     ApplicantSkill addApplicantSkill(int applicantId, int skillId) throws ApplicantNotFoundException, SkillNotFoundException;
-    List<ApplicantSkillDTO> theMostOfferedSkills();
-    List<skillsDontMatchToApplicantsDTO> skillsWhichDontMatchesToApplicants();
 
+    List<ApplicantSkillDTO> theMostOfferedSkills();
+
+    List<skillsDontMatchToApplicantsDTO> skillsWhichDontMatchesToApplicants();
 }

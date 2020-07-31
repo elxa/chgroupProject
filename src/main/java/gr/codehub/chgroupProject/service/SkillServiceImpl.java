@@ -53,6 +53,14 @@ public class SkillServiceImpl implements SkillService {
         return skillRepo.save(skill);
     }
 
+    /**
+     * We create this method in order to be able to update a skill
+     *
+     * @param skill
+     * @param skillId
+     * @return skillInDb
+     * @throws SkillNotFoundException
+     */
     @Override
     public Skill updateSkill(Skill skill, int skillId) throws SkillNotFoundException {
         logger.info("Update skill in db");
@@ -67,6 +75,12 @@ public class SkillServiceImpl implements SkillService {
     }
 
     //todo na tsekaroume an xtupaei la8os se periptwsh pou den uparxei to exception
+    /**
+     * We create this method in order to be able to delete an existing skill
+     *
+     * @param skillId
+     * @return true
+     */
     @Override
     public boolean deleteSkill(int skillId) {
         logger.info("Delete a skill in db");
@@ -75,6 +89,13 @@ public class SkillServiceImpl implements SkillService {
     }
 
     //todo se enan controller
+    /**
+     * Wr create this method in order to get all skills
+     *
+     * @param skillName
+     * @return a list with all skills of the repo
+     * @throws SkillNotFoundException
+     */
     @Override
     public Skill getSkillById(int skillId) throws SkillNotFoundException {
         logger.info("Get skill by id");
