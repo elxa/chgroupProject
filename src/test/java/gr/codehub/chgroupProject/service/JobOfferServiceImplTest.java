@@ -118,7 +118,6 @@ class JobOfferServiceImplTest {
     }
 
     @Test
-    @Transactional
     void updateJobOfferNotFound() throws JobOfferNotFoundException, JobOfferNotValidFields {
         Assertions.assertThrows(JobOfferNotFoundException.class, () -> {
             jobOfferService.updateJobOffer(new JobOffer(), 4);
