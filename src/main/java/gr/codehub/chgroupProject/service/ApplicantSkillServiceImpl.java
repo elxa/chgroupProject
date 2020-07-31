@@ -22,7 +22,7 @@ public class ApplicantSkillServiceImpl implements ApplicantSkillService {
     @Autowired
     private ApplicantRepository applicantRepo;
     @Autowired
-    public SkillRepository skillRepo;
+    private SkillRepository skillRepo;
 
 
     @Override

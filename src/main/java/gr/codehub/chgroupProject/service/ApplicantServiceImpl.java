@@ -61,9 +61,8 @@ public class ApplicantServiceImpl implements ApplicantService {
     @Override
     public Applicant updateApplicant(Applicant applicant, int applicantId) throws ApplicantNotFoundException {
         Applicant applicantInDb = applicantRepo.findById(applicantId)
-                .orElseThrow(
-                        () -> new ApplicantNotFoundException("Applicant Not Found"));
-//todo na dw an xreiazetai gia ola ta pedia
+                .orElseThrow(() -> new ApplicantNotFoundException("Applicant Not Found"));
+        //todo na dw an xreiazetai gia ola ta pedia
         applicantInDb.setAvailable(applicant.getAvailable());
         applicantRepo.save(applicantInDb);
 

@@ -3,30 +3,34 @@ package gr.codehub.chgroupProject.service;
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.ApplicantNotValidFields;
 import gr.codehub.chgroupProject.model.Applicant;
+import gr.codehub.chgroupProject.repository.ApplicantRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 
 @SpringBootTest
 class ApplicantServiceImplTest {
 
+    @Mock
+    private ApplicantRepository applicantRepo;
 
-    @Autowired
-    private ApplicantService applicantService;
-
+    @InjectMocks
+    private ApplicantService applicantService = new ApplicantServiceImpl();
 
     @Test
-    @Transactional
-    void getApplicantsSuccessful() throws ApplicantNotValidFields, ApplicantNotFoundException {
+    void getApplicantsSuccessful() {
         Applicant applicant1 = new Applicant();
+        applicant1.setId(1);
         applicant1.setFirstName("John");
         applicant1.setLastName("Kikl");
         applicant1.setAddress("Johngt 21");
@@ -34,13 +38,13 @@ class ApplicantServiceImplTest {
         applicant1.setEducation("IT");
         applicant1.setLevel("Junior");
         applicant1.setAvailable(true);
-        applicantService.addApplicant(applicant1);
-        List<Applicant> applicants = applicantService.getApplicants();
-        assertEquals(1, applicants.size());
+        List<Applicant> applicants = Arrays.asList(applicant1);
+        when(applicantRepo.findAll()).thenReturn(applicants);
+        List<Applicant> applicantsRetrieved = applicantService.getApplicants();
+        assertEquals(1, applicantsRetrieved.size());
     }
 
     @Test
-    @Transactional
     void addApplicantSuccessful() throws ApplicantNotFoundException, ApplicantNotValidFields {
         Applicant applicant1 = new Applicant();
         applicant1.setFirstName("Kalis");
@@ -50,14 +54,14 @@ class ApplicantServiceImplTest {
         applicant1.setEducation("IT");
         applicant1.setAddress("Kolokotroni 1");
         applicant1.setLevel("Junior");
-        applicantService.addApplicant(applicant1);
-        List<Applicant> applicants2 = applicantService.getApplicants();
-        assertEquals(1, applicants2.size());
+        when(applicantRepo.save(applicant1)).thenReturn(applicant1);
+        Applicant applicant = applicantService.addApplicant(applicant1);
+        assertNotNull(applicant);
+        assertEquals(applicant1.getFirstName(), applicant.getFirstName());
     }
 
     @Test
-    @Transactional
-    void addApplicantNotFoundException() throws ApplicantNotValidFields, ApplicantNotFoundException {
+    void addApplicantNotFoundException() {
         Applicant a1 = null;
         Assertions.assertThrows(ApplicantNotFoundException.class, () -> {
             applicantService.addApplicant(a1);
@@ -65,8 +69,7 @@ class ApplicantServiceImplTest {
     }
 
     @Test
-    @Transactional
-    void addApplicantNotValidExceptiond() throws ApplicantNotValidFields, ApplicantNotFoundException {
+    void addApplicantNotValidFieldsException() {
         Applicant applicant1 = new Applicant();
         applicant1.setFirstName("Kalis");
         applicant1.setLastName("Kolia");
@@ -81,9 +84,9 @@ class ApplicantServiceImplTest {
     }
 
     @Test
-    @Transactional
-    void getApplicantByIdSuccessful() throws ApplicantNotFoundException, ApplicantNotValidFields {
+    void getApplicantByIdSuccessful() throws ApplicantNotFoundException {
         Applicant applicant1 = new Applicant();
+        applicant1.setId(1);
         applicant1.setFirstName("Kalis");
         applicant1.setLastName("Kolia");
         applicant1.setAvailable(true);
@@ -91,50 +94,22 @@ class ApplicantServiceImplTest {
         applicant1.setEducation("IT");
         applicant1.setAddress("Kolokotroni 1");
         applicant1.setLevel("Junior");
-        applicantService.addApplicant(applicant1);
-        Applicant applicant2 = new Applicant();
-        applicant2.setFirstName("Kalis");
-        applicant2.setLastName("Kolia");
-        applicant2.setAvailable(true);
-        applicant2.setRegion("Athens");
-        applicant2.setEducation("IT");
-        applicant2.setAddress("Kolokotroni 1");
-        applicant2.setLevel("Junior");
-        applicantService.addApplicant(applicant2);
-        Applicant app = applicantService.getApplicantById(3);
-        assertThat(app.getId()).isEqualTo(3);
+        Optional<Applicant> optionalApplicant = Optional.of(applicant1);
+        when(applicantRepo.findById(1)).thenReturn(optionalApplicant);
+        Applicant app = applicantService.getApplicantById(1);
+        assertEquals(1, app.getId());
     }
 
     @Test
-    @Transactional
-    void getApplicantByIdApplicantNotFound () throws ApplicantNotValidFields, ApplicantNotFoundException {
-        Applicant applicant1 = new Applicant();
-        applicant1.setFirstName("Kalis");
-        applicant1.setLastName("Kolia");
-        applicant1.setAvailable(true);
-        applicant1.setRegion("Athens");
-        applicant1.setEducation("IT");
-        applicant1.setAddress("Kolokotroni 1");
-        applicant1.setLevel("Junior");
-        Applicant applicant2 = new Applicant();
-        applicant2.setFirstName("Kalis");
-        applicant2.setLastName("Kolia");
-        applicant2.setAvailable(true);
-        applicant2.setRegion("Athens");
-        applicant2.setEducation("IT");
-        applicant2.setAddress("Kolokotroni 1");
-        applicant2.setLevel("Junior");
-        applicantService.addApplicant(applicant1);
-        applicantService.addApplicant(applicant2);
+    void getApplicantByIdApplicantNotFound() {
+        when(applicantRepo.findById(1)).thenReturn(Optional.empty());
         Assertions.assertThrows(ApplicantNotFoundException.class, () -> {
-            Applicant app = applicantService.getApplicantById(10);
-            assertThat(app.getId()).isEqualTo(10);
+            applicantService.getApplicantById(1);
         });
     }
 
     @Test
-    @Transactional
-    void updateApplicantSuccessful () throws ApplicantNotValidFields, ApplicantNotFoundException {
+    void updateApplicantSuccessful() throws ApplicantNotFoundException {
         Applicant applicant = new Applicant();
         applicant.setFirstName("Kalistffr");
         applicant.setLastName("Kolia");
@@ -143,32 +118,18 @@ class ApplicantServiceImplTest {
         applicant.setEducation("IT");
         applicant.setAddress("Kolokotroni 1");
         applicant.setLevel("Junior");
-        applicantService.addApplicant(applicant);
-        List<Applicant> applicants = applicantService.getApplicants();
-        assertEquals(1, applicants.size());
+        when(applicantRepo.findById(1)).thenReturn(Optional.of(applicant));
+        Applicant applicantDB = applicantService.updateApplicant(applicant, 1);
+        assertTrue(applicantDB.getAvailable());
         applicant.setAvailable(false);
-        applicantService.updateApplicant(applicant, 2);
+        applicantDB  = applicantService.updateApplicant(applicant,1);
+        assertFalse(applicantDB.getAvailable());
     }
 
     @Test
-    @Transactional
-    void updateApplicantByIdApplicantNotFound() throws ApplicantNotFoundException, ApplicantNotValidFields {
-        Applicant applicant = new Applicant();
-        applicant.setFirstName("Kalistffr");
-        applicant.setLastName("Kolia");
-        applicant.setAvailable(true);
-        applicant.setRegion("Athens");
-        applicant.setEducation("IT");
-        applicant.setAddress("Kolokotroni 1");
-        applicant.setLevel("Junior");
-        applicantService.addApplicant(applicant);
-        List<Applicant> applicants = applicantService.getApplicants();
-        assertEquals(1, applicants.size());
+    void updateApplicantByIdApplicantNotFound() {
         Assertions.assertThrows(ApplicantNotFoundException.class, () -> {
-            applicant.setAvailable(false);
-            applicantService.updateApplicant(applicant, 10);
+            applicantService.updateApplicant(new Applicant(), 10);
         });
     }
-
-
 }
