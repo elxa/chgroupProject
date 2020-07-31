@@ -3,7 +3,6 @@ package gr.codehub.chgroupProject.service.Matcher;
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.CreateAndMatchNotFound;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
-import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOffer;
@@ -13,12 +12,13 @@ import gr.codehub.chgroupProject.service.JobOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class FinalizeServiceImpl implements FinalizeService {
 
-    private CreateManualMatchService createManualMatchService;
+    private ManualMatchService manualMatchService;
     private ApplicantService applicantService;
     private JobOfferService jobOfferService;
     private CreateAndMatchRepository createAndMatchRepo;
@@ -26,12 +26,12 @@ public class FinalizeServiceImpl implements FinalizeService {
     private AutomaticMatchServiceImpl automaticMatchServiceImpl;
 
     @Autowired
-    public FinalizeServiceImpl(CreateManualMatchService createManualMatchService,
+    public FinalizeServiceImpl(ManualMatchService manualMatchService,
                                ApplicantService applicantService,
                                JobOfferService jobOfferService,
                                CreateAndMatchRepository createAndMatchRepo,
                                AutomaticMatchServiceImpl automaticMatchServiceImpl) {
-        this.createManualMatchService = createManualMatchService;
+        this.manualMatchService = manualMatchService;
         this.applicantService = applicantService;
         this.jobOfferService = jobOfferService;
         this.createAndMatchRepo = createAndMatchRepo;
@@ -48,7 +48,8 @@ public class FinalizeServiceImpl implements FinalizeService {
         if (createAndMatch.getFinalized() == false) {
             if (applicant.getAvailable() && jobOffer.getAvailable()) {
                 createAndMatch.setFinalized(true);
-                createManualMatchService.updateCreateAndMatch(createAndMatch, createAndMatch.getId());
+                createAndMatch.setDom(LocalDateTime.now());
+                manualMatchService.updateCreateAndMatch(createAndMatch, createAndMatch.getId());
 
                 applicant.setAvailable(false);
                 applicantService.updateApplicant(applicant, applicant.getId());

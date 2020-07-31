@@ -20,23 +20,23 @@ class ApplicantServiceImplTest {
     @Autowired
     ApplicantService appl;
 
-    @Test
-    void getApplicant() throws ApplicantNotFoundException, ApplicantNotValidFields {
-        Applicant a1 = new Applicant();
-        a1.setFirstName("Kalis");
-        a1.setLastName("Kolia");
-        a1.setAvailable(true);
-        a1.setRegion("Athens");
-        a1.setEducation("IT");
-        a1.setAddress("Kolokotroni 1");
-        a1.setId(1);
-
-        appl.addApplicant(a1);
-        appl.addApplicant(a1);
-
-        assertEquals(1, appl.getApplicants().size());
-
-    }
+//    @Test
+//    void getApplicant() throws ApplicantNotFoundException, ApplicantNotValidFields {
+//        Applicant a1 = new Applicant();
+//        a1.setFirstName("Kalis");
+//        a1.setLastName("Kolia");
+//        a1.setAvailable(true);
+//        a1.setRegion("Athens");
+//        a1.setEducation("IT");
+//        a1.setAddress("Kolokotroni 1");
+//        a1.setId(1);
+//
+//        appl.addApplicant(a1);
+//        appl.addApplicant(a1);
+//
+//        assertEquals(1, appl.getApplicants().size());
+//
+//    }
 
     @Test
     void addApplicant() throws ApplicantNotFoundException, ApplicantNotValidFields {

@@ -18,19 +18,19 @@ class JobOfferServiceImplTest {
     @Autowired
     JobOfferService jos;
 
-    @Test
-    void getJobOffers() throws JobOfferNotFoundException, JobOfferNotValidFields {
-        JobOffer jo1 = new JobOffer();
-        jo1.setPosition("accentue");
-        jo1.setAvailable(true);
-        jo1.setRegion("athens");
-        jo1.setId(1);
-
-        jos.addJobOffer(jo1);
-        jos.addJobOffer(jo1);
-
-        assertEquals(2, jos.getJobOffers().size()); //TODO NA TO 3ANADW
-    }
+//    @Test
+//    void getJobOffers() throws JobOfferNotFoundException, JobOfferNotValidFields {
+//        JobOffer jo1 = new JobOffer();
+//        jo1.setPosition("accentue");
+//        jo1.setAvailable(true);
+//        jo1.setRegion("athens");
+//        jo1.setId(1);
+//
+//        jos.addJobOffer(jo1);
+//        jos.addJobOffer(jo1);
+//
+//        assertEquals(2, jos.getJobOffers().size()); //TODO NA TO 3ANADW
+//    }
 
     @Test
     void addJobOffer() throws JobOfferNotFoundException, JobOfferNotValidFields {

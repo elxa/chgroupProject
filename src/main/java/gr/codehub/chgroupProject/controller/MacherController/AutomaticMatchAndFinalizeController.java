@@ -5,7 +5,7 @@ import gr.codehub.chgroupProject.exception.CreateAndMatchNotFound;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.model.CreateAndMatch;
-import gr.codehub.chgroupProject.service.Matcher.CreateManualMatchService;
+import gr.codehub.chgroupProject.service.Matcher.ManualMatchService;
 import gr.codehub.chgroupProject.service.Matcher.AutomaticMatchServiceImpl;
 import gr.codehub.chgroupProject.service.Matcher.FinalizeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.List;
 public class AutomaticMatchAndFinalizeController {
 
     @Autowired
-    private CreateManualMatchService createManualMatchService;
+    private ManualMatchService manualMatchService;
 
     @Autowired
     private AutomaticMatchServiceImpl automaticMatchServiceImpl;
@@ -39,7 +39,7 @@ public class AutomaticMatchAndFinalizeController {
     public CreateAndMatch finalizeMatch(@PathVariable int createAndMatchId)
             throws CreateAndMatchNotFound, ApplicantNotFoundException, JobOfferNotFoundException {
 
-        return finalizeServiceImpl.doFinalize(createManualMatchService.findCreateAndMatch(createAndMatchId));
+        return finalizeServiceImpl.doFinalize(manualMatchService.findCreateAndMatch(createAndMatchId));
 
 
     }

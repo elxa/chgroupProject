@@ -16,4 +16,5 @@ public interface ApplicantService {
 
     Applicant getApplicantById(int applicantId) throws ApplicantNotFoundException;
 
+    List<Applicant> getListApplicants() throws ApplicantNotFoundException;
 }

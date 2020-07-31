@@ -43,6 +43,9 @@ public class ApplicantServiceImpl implements ApplicantService {
 //
 //        return applicantRepo.findAll();
 //    }
+
+
+
     @Override
     public List<Applicant> getApplicants(String firstName, String lastName) throws ApplicantNotFoundException {
         logger.info("Get a list of Applicants from db");
@@ -123,6 +126,15 @@ public class ApplicantServiceImpl implements ApplicantService {
             return oApplicant.get();
         }
         else throw new ApplicantNotFoundException("Applicant Not Found"); //todo diorthwshh na bei to else
-
     }
+
+
+    public List<Applicant> getListApplicants() throws ApplicantNotFoundException {
+
+        return applicantRepo.findAll();
+    }
+
+
+
+
 }

@@ -19,7 +19,7 @@ public class CreateAndMatch {
     private int id;
 
     private LocalDateTime dom;
-    private boolean manualMatch;
+    private Boolean manualMatch;
     private Boolean finalized = false;
 
     //    @JoinColumn(name = "applicant", referencedColumnName = "applicant")

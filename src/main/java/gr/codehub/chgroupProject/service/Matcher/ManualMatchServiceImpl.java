@@ -1,4 +1,6 @@
-package gr.codehub.chgroupProject.service.Matcher;import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
+package gr.codehub.chgroupProject.service.Matcher;
+
+import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.CreateAndMatchNotFound;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.model.Applicant;
@@ -8,13 +10,15 @@ import gr.codehub.chgroupProject.repository.ApplicantRepository;
 import gr.codehub.chgroupProject.repository.CreateAndMatchRepository;
 import gr.codehub.chgroupProject.repository.JobOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;import java.time.LocalDateTime;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 
 @Service
-public class CreateManualMatchServiceImpl implements CreateManualMatchService {
+public class ManualMatchServiceImpl implements ManualMatchService {
     @Autowired
     private CreateAndMatchRepository camRepo;
     @Autowired
@@ -26,28 +30,57 @@ public class CreateManualMatchServiceImpl implements CreateManualMatchService {
 
     //TODO na svistei!!
     @Override
-    public List<CreateAndMatch> getCreateAndMatches() {
-        return camRepo.findAll();
-    }    @Override
+    public List<CreateAndMatch> getManualMatches() {
+        return camRepo.listOfManualCreateAndMatch();
+    }
+    @Override
     public CreateAndMatch addCreateAndMatch(int applicantId, int jobOfferId) throws ApplicantNotFoundException, JobOfferNotFoundException {
         Applicant applicantInDb = applicantRepo.findById(applicantId)
                 .orElseThrow(
                         () -> new ApplicantNotFoundException("Applicant Not Found")
-                );        JobOffer jobOfferInDb = jobOfferRepo.findById(jobOfferId)
+                );
+        JobOffer jobOfferInDb = jobOfferRepo.findById(jobOfferId)
                 .orElseThrow(
                         () -> new JobOfferNotFoundException("Job Offer Not Found")
-                );        CreateAndMatch createAndMatch = new CreateAndMatch();
+                );
+        CreateAndMatch createAndMatch = new CreateAndMatch();
         createAndMatch.setDom(LocalDateTime.now());
         createAndMatch.setApplicant(applicantInDb);
         createAndMatch.setJobOffer(jobOfferInDb);
         createAndMatch.setManualMatch(false);
-        createAndMatch.setFinalized(false);        return camRepo.save(createAndMatch);
-    }    @Override
+        createAndMatch.setFinalized(false);
+        return camRepo.save(createAndMatch);
+    }
+
+    @Override
+    public CreateAndMatch addCreateAndMatchManual(int applicantId, int jobOfferId) throws ApplicantNotFoundException, JobOfferNotFoundException {
+        Applicant applicantInDb = applicantRepo.findById(applicantId)
+                .orElseThrow(
+                        () -> new ApplicantNotFoundException("Applicant Not Found")
+                );
+        JobOffer jobOfferInDb = jobOfferRepo.findById(jobOfferId)
+                .orElseThrow(
+                        () -> new JobOfferNotFoundException("Job Offer Not Found")
+                );
+        CreateAndMatch createAndMatch = new CreateAndMatch();
+        createAndMatch.setDom(LocalDateTime.now());
+        createAndMatch.setApplicant(applicantInDb);
+        createAndMatch.setJobOffer(jobOfferInDb);
+        createAndMatch.setManualMatch(true);
+        createAndMatch.setFinalized(false);
+        return camRepo.save(createAndMatch);
+    }
+
+    @Override
     public CreateAndMatch updateCreateAndMatch(CreateAndMatch createAndMatch, int createAndMatchId) throws CreateAndMatchNotFound {
         CreateAndMatch createAndMatchInDb = camRepo.findById(createAndMatchId)
                 .orElseThrow(
-                        () -> new CreateAndMatchNotFound("Match Not Found"));        createAndMatchInDb.setFinalized(createAndMatch.getFinalized());
-        return camRepo.save(createAndMatchInDb);    }    @Override
+                        () -> new CreateAndMatchNotFound("Match Not Found"));
+        createAndMatchInDb.setFinalized(createAndMatch.getFinalized());
+        return camRepo.save(createAndMatchInDb);
+    }
+
+    @Override
     public boolean checkIfApplicantIdAndJobOfferIdExist(Applicant applicant, JobOffer jobOffer) {
         Optional<CreateAndMatch> createAndMatchInDb = camRepo.findCreateAndMatchByJobOfferAndApplicant(jobOffer, applicant);
         if (createAndMatchInDb.isPresent()) {
@@ -66,6 +99,21 @@ public class CreateManualMatchServiceImpl implements CreateManualMatchService {
     @Override
     public List<CreateAndMatch> listOfAutomaticCreateAndMatch() {
         return createAndMatchRepo.listOfAutomaticCreateAndMatch();
+    }
+
+    @Override
+    public boolean deleteCreateAndMatch(int createAndMatchManualId) throws CreateAndMatchNotFound {
+        Optional<CreateAndMatch> oCreateAndMatch = camRepo.findById(createAndMatchManualId);
+        if(oCreateAndMatch.isPresent()){
+            CreateAndMatch createAndMatch = oCreateAndMatch.get();
+            if(createAndMatch.getManualMatch() == true){
+                camRepo.deleteById(createAndMatch.getId());
+                return true;
+            }
+
+        }
+        else throw new CreateAndMatchNotFound("Match Not Found");
+        return false;
     }
 
     @Override

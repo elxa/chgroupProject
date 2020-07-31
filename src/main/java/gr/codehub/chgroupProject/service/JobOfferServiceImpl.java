@@ -114,5 +114,12 @@ public class JobOfferServiceImpl implements JobOfferService {
         } else throw new JobOfferNotFoundException("Job Offer Not Found");
     }
 
+
+
+    public List<JobOffer> getJobOfferList() throws JobOfferNotFoundException {
+
+        return jobOfferRepo.findAll();
+    }
+
 }
 
