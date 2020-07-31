@@ -5,6 +5,7 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class Applicant {
     private String level;
     private Boolean available = true;
 
-    private LocalDateTime dateOfApplicant;
+    private LocalDate dateOfApplicant;
 
 
     /**

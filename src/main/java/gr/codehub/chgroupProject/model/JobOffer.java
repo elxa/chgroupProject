@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class JobOffer {
     private String level;
     private Boolean available = true;
 
-    private LocalDateTime dateOfJobOffer;
+    private LocalDate dateOfJobOffer;
 
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobOffer")

@@ -97,7 +97,7 @@ public class ApplicantServiceImpl implements ApplicantService {
                 || StringUtils.isEmpty(applicant.getAvailable())
         )
             throw new ApplicantNotValidFields("Applicant fields must not be null");
-        applicant.setDateOfApplicant(LocalDateTime.now());
+        applicant.setDateOfApplicant(LocalDate.now());
         return applicantRepo.save(applicant);
     }
 

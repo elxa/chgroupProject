@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +101,7 @@ public class JobOfferServiceImpl implements JobOfferService {
         ) //ean den balei email xtupaei null pointer excheption paizei rolo h seira edw
             throw new JobOfferNotValidFields("Job Offer fields must not be null");
 
-        jobOffer.setDateOfJobOffer(LocalDateTime.now());
+        jobOffer.setDateOfJobOffer(LocalDate.now());
         return jobOfferRepo.save(jobOffer);
     }
 
