@@ -1,5 +1,6 @@
 package gr.codehub.chgroupProject.controller;
 
+import gr.codehub.chgroupProject.dto.ApplicantSkillDto;
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.ApplicantNotValidFields;
 import gr.codehub.chgroupProject.exception.SkillNotFoundException;
@@ -30,11 +31,18 @@ public class ApplicantController {
      * Getting all applicants
      * @return list of applicants
      */
+//    @GetMapping("applicant")
+//    public List<ApplicantSkillDto> getListApplicants(@RequestParam(required = false) String firstName,
+//                                                     @RequestParam(required = false) String lastName,
+//                                                     @RequestParam(required = false) String skillName) throws ApplicantNotFoundException {
+//        logger.info("Take a list of applicants");
+//       // return applicantService.getApplicants(firstName, lastName);
+//        return applicantService.getApplicants(firstName, lastName, skillName);
+//    }
+
     @GetMapping("applicant")
-    public List<Applicant> getListApplicants(@RequestParam(required = false) String firstName,
-                                             @RequestParam(required = false) String lastName) throws ApplicantNotFoundException {
-        logger.info("Take a list of applicants");
-        return applicantService.getApplicants(firstName, lastName);
+    public List<Applicant> getListApplicants() throws ApplicantNotFoundException {
+        return applicantService.getListApplicants();
     }
 
     /**
@@ -72,9 +80,19 @@ public class ApplicantController {
         return applicantService.addApplicant(applicant);
     }
 
+    /**
+     * Add a skill in an applicant
+     *
+     * @param applicantId
+     * @param skillId
+     * @return
+     * @throws ApplicantNotFoundException
+     * @throws SkillNotFoundException
+     */
     //******************************************** ApplicantSkill Controller********************************************
     @PostMapping("applicant/{applicantId}/skill/{skillId}")
     public ApplicantSkill addApplicantSkill(@PathVariable int applicantId, @PathVariable int skillId) throws ApplicantNotFoundException, SkillNotFoundException {
+        logger.info("Add a skill in an Applicant");
         return applicantSkillService.addApplicantSkill(applicantId, skillId);
     }
 

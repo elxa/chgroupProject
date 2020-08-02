@@ -36,11 +36,11 @@ public class JobOffer {
     private LocalDate dateOfJobOffer;
 
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobOffer")
+    @OneToMany(mappedBy = "jobOffer")
     private List<JobOfferSkill> jobOfferSkill;
 
     @JsonIgnore
     @ToString.Exclude
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobOffer")
+    @OneToMany(mappedBy = "jobOffer")
     private List<CreateAndMatch> createAndMatche;
 }

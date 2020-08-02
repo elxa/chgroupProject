@@ -15,7 +15,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -75,10 +77,8 @@ class SkillServiceImplTest {
         Skill ss1 = new Skill();
         ss1.setNameOfSkill("Angular");
         ss1.setId(1);
-
-        skillService.addSkill(ss1);
-
-        assertEquals(true, skillService.deleteSkill((1)));
+        when(skillRepository.findById(1)).thenReturn(Optional.of(ss1)); //otan sto repository k kanleis apo thn bash auto me to id = 1 mhn to kaneies auto apla gurna to skill pou exeis kanei apo panw
+        assertTrue( skillService.deleteSkill((1))); //anti gia assertequal uparxei to assertTrue
     }
 
     @Test
@@ -86,8 +86,9 @@ class SkillServiceImplTest {
         Skill skill1 = new Skill();
         skill1.setId(1);
         skill1.setNameOfSkill("java");
+
         Optional<Skill> optionalSkill = Optional.of(skill1);
-        when(skillRepository.findById(1)).thenReturn(optionalSkill);
+        when(skillRepository.findById(1)).thenReturn(optionalSkill); //allos tropos -> when(skillRepository.findById(1)).thenReturn(Optional.of(skill1))
         Skill sk = skillService.getSkillById(1);
         assertEquals(1, sk.getId());
     }
@@ -106,7 +107,8 @@ class SkillServiceImplTest {
         skill.setId(1);
         skill.setNameOfSkill("java");
         skillService.addSkill(skill);
-        assertThat(skillService.findSkillByName("java"));
+        when(skillRepository.findSkillByName("java")).thenReturn(Optional.of(skill));
+        assertThat(skillService.findSkillByName("java")); // -> assertEqual("java", skillService.findSkillByName("java"))
     }
 
     @Test

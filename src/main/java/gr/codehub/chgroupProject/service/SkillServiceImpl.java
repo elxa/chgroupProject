@@ -1,6 +1,5 @@
 package gr.codehub.chgroupProject.service;
 
-import gr.codehub.chgroupProject.controller.Reporter;
 import gr.codehub.chgroupProject.exception.SkillNotFoundException;
 import gr.codehub.chgroupProject.exception.SkillNotValidFields;
 import gr.codehub.chgroupProject.model.Skill;
@@ -24,6 +23,19 @@ public class SkillServiceImpl implements SkillService {
     @Autowired
     private SkillRepository skillRepo;
 
+    /**
+     * A list of skills
+     *
+     * @return a list of skills
+     */
+    @Override
+    public List<Skill> getAllSkills() {
+        logger.info("Return a list of skills");
+        return skillRepo.findAll();
+    }
+
+    //todo na to 3anadw
+
     @Override
     public List<Skill> getSkills(String skillName) throws SkillNotFoundException {
 
@@ -41,6 +53,14 @@ public class SkillServiceImpl implements SkillService {
         return skillRepo.findAll();
     }
 
+    /**
+     * Add a skill in db
+     *
+     * @param skill
+     * @return
+     * @throws SkillNotFoundException
+     * @throws SkillNotValidFields
+     */
     @Override
     public Skill addSkill(Skill skill) throws SkillNotFoundException, SkillNotValidFields {
         logger.info("Add a skill in db");
@@ -51,11 +71,6 @@ public class SkillServiceImpl implements SkillService {
             throw new SkillNotValidFields("Skill fields must not be null");
         }
         return skillRepo.save(skill);
-    }
-
-    @Override
-    public List<Skill> getAllSkills() {
-        return skillRepo.findAll();
     }
 
     /**
@@ -79,7 +94,6 @@ public class SkillServiceImpl implements SkillService {
         return skillInDb;
     }
 
-    //todo na tsekaroume an xtupaei la8os se periptwsh pou den uparxei to exception
     /**
      * We create this method in order to be able to delete an existing skill
      *
@@ -87,18 +101,19 @@ public class SkillServiceImpl implements SkillService {
      * @return true
      */
     @Override
-    public boolean deleteSkill(int skillId) {
+    public boolean deleteSkill(int skillId) throws SkillNotFoundException {
         logger.info("Delete a skill in db");
-        skillRepo.deleteById(skillId);
-        return true;
+        Optional<Skill> oSkill = skillRepo.findById(skillId);
+        if (oSkill.isPresent()) { //ean uparxei epistrefei to jobOffer
+            skillRepo.deleteById(skillId);
+            return true;
+        } else throw new SkillNotFoundException("Skill Not Found");
     }
-
-    //todo se enan controller
     /**
-     * Wr create this method in order to get all skills
+     * find skill by id
      *
-     * @param skillName
-     * @return a list with all skills of the repo
+     * @param skillId
+     * @return
      * @throws SkillNotFoundException
      */
     @Override
@@ -107,16 +122,22 @@ public class SkillServiceImpl implements SkillService {
         Optional<Skill> oSkill = skillRepo.findById(skillId);
         if (oSkill.isPresent()) {
             return oSkill.get();
-        } else throw new SkillNotFoundException("Job Offer Not Found");
+        } else throw new SkillNotFoundException("Skill Not Found");
     }
 
+    /**
+     * find a skill by name
+     *
+     * @param skillName
+     * @return
+     * @throws SkillNotFoundException
+     */
     @Override
     public Skill findSkillByName(String skillName) throws SkillNotFoundException {
         logger.info("Get a skill by name");
         Optional<Skill> oSkill = skillRepo.findSkillByName(skillName);
         if (oSkill.isPresent()) { //ean uparxei epistrefei to jobOffer
             return oSkill.get();
-        }
-        else throw new SkillNotFoundException("Skill with this name Not Found");
+        } else throw new SkillNotFoundException("Skill with this name Not Found");
     }
 }

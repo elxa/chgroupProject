@@ -1,14 +1,14 @@
 package gr.codehub.chgroupProject.service;
 
-import gr.codehub.chgroupProject.controller.Reporter;
-import gr.codehub.chgroupProject.dto.JobOfferSkillDTO;
+import gr.codehub.chgroupProject.dto.JobOfferRequiredSkillDTO;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.exception.SkillNotFoundException;
-import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.model.JobOfferSkill;
 import gr.codehub.chgroupProject.model.Skill;
-import gr.codehub.chgroupProject.repository.*;
+import gr.codehub.chgroupProject.repository.JobOfferRepository;
+import gr.codehub.chgroupProject.repository.JobOfferSkillRepository;
+import gr.codehub.chgroupProject.repository.SkillRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,14 +58,17 @@ public class JobOfferSkillServiceImpl implements JobOfferSkillService {
 
         jobOfferSkillRepo.save(jobOfferSkill);
         return jobOfferSkill;
-
-
     }
 
-    @Override
-    public List<JobOfferSkillDTO> theMostOfferedSkillsInJobOffers() {
-        logger.info("The Most Offered Skills In JobOffers");
+    /**
+     * a list of the most Offered Skills in Job Offers
+     *
+     * @return a list of the most Offered Skills in Job Offers
+     */
 
+    @Override
+    public List<JobOfferRequiredSkillDTO> theMostOfferedSkillsInJobOffers() {
+        logger.info("The Most Offered Skills In JobOffers");
         return jobOfferRepo.howManyTimesSkillAppearsInJobOfferSkills();
     }
 

@@ -1,5 +1,6 @@
 package gr.codehub.chgroupProject.repository;
 
+import gr.codehub.chgroupProject.dto.ApplicantSkillDto;
 import gr.codehub.chgroupProject.dto.skillsDontMatchToApplicantsDTO;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.model.ApplicantSkill;
@@ -24,4 +25,5 @@ public interface ApplicantSkillRepository extends JpaRepository<ApplicantSkill, 
             "ON s.id = ask.skill_id " +
             "WHERE ask.applicant_id is Null", nativeQuery = true)
     List<skillsDontMatchToApplicantsDTO> skillsWhichDontMatchesToApplicants();
+
 }

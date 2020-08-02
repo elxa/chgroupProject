@@ -58,11 +58,11 @@ public class Applicant {
     /**
      * Set the Foreign key
      */
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "applicant")
+    @OneToMany(mappedBy = "applicant")
     private List<ApplicantSkill> applicantSkills;
 
     @JsonIgnore
     @ToString.Exclude
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "applicant")
+    @OneToMany(mappedBy = "applicant")
     private List<CreateAndMatch> createAndMatches;
 }

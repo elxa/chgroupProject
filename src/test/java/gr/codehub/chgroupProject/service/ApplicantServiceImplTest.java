@@ -9,9 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -54,7 +51,8 @@ class ApplicantServiceImplTest {
         applicant1.setEducation("IT");
         applicant1.setAddress("Kolokotroni 1");
         applicant1.setLevel("Junior");
-        when(applicantRepo.save(applicant1)).thenReturn(applicant1);
+
+        when(applicantRepo.save(applicant1)).thenReturn(applicant1); //anti na mou swseis sth bash epestrepse pisw ton applicant
         Applicant applicant = applicantService.addApplicant(applicant1);
         assertNotNull(applicant);
         assertEquals(applicant1.getFirstName(), applicant.getFirstName());
@@ -78,6 +76,7 @@ class ApplicantServiceImplTest {
         applicant1.setEducation("");
         applicant1.setAddress("Kolokotroni 1");
         applicant1.setLevel("Junior");
+
         Assertions.assertThrows(ApplicantNotValidFields.class, () -> {
             applicantService.addApplicant(applicant1);
         });

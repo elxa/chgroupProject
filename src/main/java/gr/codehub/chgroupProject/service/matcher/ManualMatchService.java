@@ -1,4 +1,4 @@
-package gr.codehub.chgroupProject.service.Matcher;
+package gr.codehub.chgroupProject.service.matcher;
 
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.CreateAndMatchNotFound;
@@ -16,20 +16,12 @@ public interface ManualMatchService {
 
     CreateAndMatch addCreateAndMatchManual(int applicantId, int jobOfferId) throws ApplicantNotFoundException, JobOfferNotFoundException;
 
-
     CreateAndMatch updateCreateAndMatch(CreateAndMatch createAndMatch, int createAndMatchId) throws CreateAndMatchNotFound;
 
-    // boolean checkIfApplicantIdAndJobOfferIdExist(int applicantId, int jobOfferId);
     boolean checkIfApplicantIdAndJobOfferIdExist(Applicant applicant, JobOffer jobOffer);
-
 
     CreateAndMatch findCreateAndMatch(int createAndMatch) throws CreateAndMatchNotFound;
 
-    List<CreateAndMatch> listOfManualCreateAndMatch();
-
-    List<CreateAndMatch> listOfAutomaticCreateAndMatch();
-
-//    List<CreateAndMatch> finalizedList();
-
     boolean deleteCreateAndMatch(int createAndMatchManualId) throws CreateAndMatchNotFound;
+
 }

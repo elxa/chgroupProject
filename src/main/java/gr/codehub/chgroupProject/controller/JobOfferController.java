@@ -1,5 +1,6 @@
 package gr.codehub.chgroupProject.controller;
 
+import gr.codehub.chgroupProject.dto.JobOfferSkillDTO;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.exception.JobOfferNotValidFields;
 import gr.codehub.chgroupProject.exception.SkillNotFoundException;
@@ -28,17 +29,23 @@ public class JobOfferController {
     private JobOfferSkillService jobOfferSkillService;
 
     /**
+     * Get a list of job offer. If user write in url path the companyName, region and nameOfSkill parameters will return this object
      *
-     * @return a list of all available job offers
+     * @param companyName
+     * @param region
+     * @param nameOfSkill
+     * @return
+     * @throws JobOfferNotFoundException
      */
-
     @GetMapping("jobOffer")
-    public List<JobOffer> getListOfJobOffers(@RequestParam(required = false) String companyName,
-                                             @RequestParam(required = false) String region,
-                                             @RequestParam(required = false) String nameOfSkill) throws JobOfferNotFoundException {
+    public List<JobOfferSkillDTO> getListOfJobOffers(@RequestParam(required = false) String companyName,
+                                                     @RequestParam(required = false) String region,
+                                                     @RequestParam(required = false) String nameOfSkill) throws JobOfferNotFoundException {
         logger.info("Return a list of job Offers");
         return jobOfferService.getJobOffers(companyName, region, nameOfSkill);
     }
+
+
 
     /**
      *Adding a new job offe3r
@@ -78,12 +85,22 @@ public class JobOfferController {
     @PutMapping("jobOffer/{jobOfferId}")
     public JobOffer updateJobOffer(@RequestBody JobOffer jobOffer, @PathVariable int jobOfferId) throws JobOfferNotFoundException {
         logger.info("Update a job Offer");
-        return jobOfferService.updateJobOffer(jobOffer,jobOfferId);
+        return jobOfferService.updateJobOffer(jobOffer, jobOfferId);
     }
 
+    /**
+     * Add a skill in job Offer
+     *
+     * @param jobOfferId
+     * @param skillId
+     * @return
+     * @throws SkillNotFoundException
+     * @throws JobOfferNotFoundException
+     */
     //******************************************** JobOfferSkill Controller*********************************************
     @PostMapping("jobOffer/{jobOfferId}/skill/{skillId}")
-    public JobOfferSkill JobOfferSkillService(@PathVariable int jobOfferId, @PathVariable int skillId) throws SkillNotFoundException, JobOfferNotFoundException {
+    public JobOfferSkill JobOfferSkill(@PathVariable int jobOfferId, @PathVariable int skillId) throws SkillNotFoundException, JobOfferNotFoundException {
+        logger.info("Add a skill in job Offer");
         return jobOfferSkillService.addJobOfferSkill(jobOfferId, skillId);
     }
 }

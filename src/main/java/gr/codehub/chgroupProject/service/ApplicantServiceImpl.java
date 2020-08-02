@@ -1,9 +1,11 @@
 package gr.codehub.chgroupProject.service;
 
+import gr.codehub.chgroupProject.dto.ApplicantSkillDto;
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.ApplicantNotValidFields;
 import gr.codehub.chgroupProject.model.Applicant;
 import gr.codehub.chgroupProject.repository.ApplicantRepository;
+import gr.codehub.chgroupProject.repository.ApplicantSkillRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +32,8 @@ public class ApplicantServiceImpl implements ApplicantService {
     Logger logger = LoggerFactory.getLogger(ApplicantServiceImpl.class);
     @Autowired
     private ApplicantRepository applicantRepo;
+    @Autowired
+    private ApplicantSkillRepository applicantSkillRepo;
 
     /**
      * We call the methods of the Interfect
@@ -38,51 +41,59 @@ public class ApplicantServiceImpl implements ApplicantService {
      * @return Return the List of the Applicants from the dattabase
      * @Override
      */
-//    @Override
-//    public List<Applicant> getApplicants() {
-//        logger.info("Get a list of Applicants from db");
-//
-//        return applicantRepo.findAll();
-//    }
 
-
-
-    @Override
-    public List<Applicant> getApplicants(String firstName, String lastName) throws ApplicantNotFoundException {
-        logger.info("Get a list of Applicants from db");
-
-        List<Applicant> applicants = new ArrayList<>();
-
-        if (firstName != null) {
-            Optional<Applicant> oApplicant = applicantRepo.findApplicantByFirstName(firstName);
-            if (oApplicant.isPresent()) { //ean uparxei epistrefei to jobOffer
-                applicants.add(oApplicant.get());
-                logger.info("Return an applicant by name");
-                return applicants;
-            } else throw new ApplicantNotFoundException("Applicant with this name Not Found");
-        }
-
-        if (lastName != null) {
-            Optional<Applicant> oApplicant = applicantRepo.findApplicantByLastName(lastName);
-            if (oApplicant.isPresent()) { //ean uparxei epistrefei to jobOffer
-                applicants.add(oApplicant.get());
-                logger.info("Return an applicant by lastName");
-                return applicants;
-            } else throw new ApplicantNotFoundException("Applicant with this name Not Found");
-        }
-
-        logger.info("Return a list of applicants");
+    /**
+     * A list of applicants
+     *
+     * @return a list of applicants
+     * @throws ApplicantNotFoundException
+     */
+    public List<Applicant> getListApplicants() throws ApplicantNotFoundException {
         return applicantRepo.findAll();
     }
 
+    /**
+     * Return a list of Applicant depend, it depend on the parameter which user give in url(first Name, last Name, skill name)
+     *
+     * @param firstName
+     * @param lastName
+     * @param skillName
+     * @return
+     * @throws ApplicantNotFoundException
+     */
+//    @Override
+//    public List<ApplicantSkillDto> getApplicants(String firstName, String lastName, String skillName) throws ApplicantNotFoundException {
+//        logger.info("Get a list of Applicants from db");
+//        if (firstName != null && lastName != null && skillName != null) {
+//            return applicantRepo.findApplicantByFullNameAndSkillName(firstName, lastName, skillName);
+//        }
+//        if (firstName != null && lastName != null && skillName == null) {
+//            return applicantRepo.findApplicantByName(firstName, lastName);
+//        }
+//        if ((firstName != null || lastName != null) && skillName == null) {
+//            return applicantRepo.findApplicantByFirstNameOrByLastName(firstName, lastName);
+//        }
+//        if (firstName != null && skillName != null) {
+//            return applicantRepo.findApplicantByFirstNameAndSkillName(firstName, skillName);
+//        }
+//        if (lastName != null && skillName != null) {
+//            return applicantRepo.findApplicantByLastNameAndSkillName(lastName, skillName);
+//        }
+//        if (skillName != null && firstName == null && lastName == null) {
+//            return applicantRepo.findApplicantsBySkillName(skillName);
+//        }
+//        logger.info("Return a list of applicants");
+//        return applicantRepo.findAllApplicant();
+//    }
 
     /**
+     * Add an applicant in db
+     *
      * @param applicant
      * @return
      * @throws ApplicantNotFoundException
      * @throws ApplicantNotValidFields
      */
-    //todo prepei na tsekaroume an o xrhsths bazei swsta thn hmeromhnia alliws exei la8os
     @Override
     public Applicant addApplicant(Applicant applicant) throws ApplicantNotFoundException, ApplicantNotValidFields {
         logger.info("Add an applicant in db");
@@ -101,6 +112,14 @@ public class ApplicantServiceImpl implements ApplicantService {
         return applicantRepo.save(applicant);
     }
 
+    /**
+     * Update an applicant
+     *
+     * @param applicant
+     * @param applicantId
+     * @return
+     * @throws ApplicantNotFoundException
+     */
     @Override
     public Applicant updateApplicant(Applicant applicant, int applicantId) throws ApplicantNotFoundException {
         logger.info("Update an applicant in db");
@@ -108,7 +127,7 @@ public class ApplicantServiceImpl implements ApplicantService {
         Applicant applicantInDb = applicantRepo.findById(applicantId)
                 .orElseThrow(
                         () -> new ApplicantNotFoundException("Applicant Not Found"));
-//todo na dw an xreiazetai gia ola ta pedia
+
         applicantInDb.setAvailable(applicant.getAvailable());
         applicantRepo.save(applicantInDb);
 
@@ -116,26 +135,17 @@ public class ApplicantServiceImpl implements ApplicantService {
     }
 
     /**
+     * Retrieve an applicant from db by id
+     *
      * @param applicantId specific applicant
      * @return Return a specific applicant.
      */
     @Override
     public Applicant getApplicantById(int applicantId) throws ApplicantNotFoundException {
-        logger.info("Get applicant in db");
+        logger.info("Retrieve an applicant from db by id");
         Optional<Applicant> oApplicant = applicantRepo.findById(applicantId);
         if (oApplicant.isPresent()) {
             return oApplicant.get();
-        }
-        else throw new ApplicantNotFoundException("Applicant Not Found"); //todo diorthwshh na bei to else
+        } else throw new ApplicantNotFoundException("Applicant Not Found"); //todo diorthwshh na bei to else
     }
-
-
-    public List<Applicant> getListApplicants() throws ApplicantNotFoundException {
-
-        return applicantRepo.findAll();
-    }
-
-
-
-
 }

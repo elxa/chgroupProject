@@ -11,13 +11,13 @@ import org.springframework.web.context.request.WebRequest;
 
 @ControllerAdvice
 public class RestErrorHandler {
-
-    @ExceptionHandler(ApplicantNotFoundException.class)
-    //   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<?> ApplicantNotFound(BusinessException ex, WebRequest request){
-        ErrorDetails errorDetails = new ErrorDetails(HttpStatus.BAD_REQUEST, ex.getMessage() ,request.getDescription(false));
-        return new ResponseEntity(errorDetails, HttpStatus.BAD_REQUEST);
-    }
+//
+//    @ExceptionHandler(ApplicantNotFoundException.class)
+//    //   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    public ResponseEntity<?> ApplicantNotFound(BusinessException ex, WebRequest request){
+//        ErrorDetails errorDetails = new ErrorDetails(HttpStatus.BAD_REQUEST, ex.getMessage() ,request.getDescription(false));
+//        return new ResponseEntity(errorDetails, HttpStatus.BAD_REQUEST);
+//    }
 
 
 

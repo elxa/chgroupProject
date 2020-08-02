@@ -23,11 +23,11 @@ public class Skill {
     private String nameOfSkill;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "skill")
+    @OneToMany(mappedBy = "skill")
     @ToString.Exclude
     private List<ApplicantSkill> applicantSkills;
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "skill")
+    @OneToMany(mappedBy = "skill")
     @ToString.Exclude
     private List<JobOfferSkill> jobOfferSkills;
 

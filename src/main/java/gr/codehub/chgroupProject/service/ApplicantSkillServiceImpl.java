@@ -1,7 +1,7 @@
 package gr.codehub.chgroupProject.service;
 
 import gr.codehub.chgroupProject.controller.Reporter;
-import gr.codehub.chgroupProject.dto.ApplicantSkillDTO;
+import gr.codehub.chgroupProject.dto.ApplicantOfferedSkillDTO;
 import gr.codehub.chgroupProject.dto.skillsDontMatchToApplicantsDTO;
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.SkillNotFoundException;
@@ -20,8 +20,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 //todo na paroume mia lista me ola ta applicantSkill
-
-
 @Service
 @Slf4j
 public class ApplicantSkillServiceImpl implements ApplicantSkillService {
@@ -43,8 +41,6 @@ public class ApplicantSkillServiceImpl implements ApplicantSkillService {
      * @throws SkillNotFoundException
      * @throws ApplicantNotFoundException
      */
-
-
     @Override
     public ApplicantSkill addApplicantSkill(int applicantId, int skillId) throws SkillNotFoundException, ApplicantNotFoundException
     {
@@ -58,7 +54,7 @@ public class ApplicantSkillServiceImpl implements ApplicantSkillService {
                         () -> new SkillNotFoundException("Skill not found")
                 );
 
-        ApplicantSkill applicantSkill= new ApplicantSkill();
+        ApplicantSkill applicantSkill = new ApplicantSkill();
         applicantSkill.setApplicant(applicantInDb);
         applicantSkill.setSkill(skillInDb);
 
@@ -66,12 +62,21 @@ public class ApplicantSkillServiceImpl implements ApplicantSkillService {
         return applicantSkill;
     }
 
+    /**
+     * The Most Offered Skills in other words the skills which exist in applicants
+     *
+     * @return a list of skills which applicant have
+     */
     @Override
-    public List<ApplicantSkillDTO> theMostOfferedSkills() {
+    public List<ApplicantOfferedSkillDTO> theMostOfferedSkills() {
         logger.info("The most offered skills");
         return applicantRepo.howManyTimesSkillAppearsInApplicantSkills();
     }
 
+    /**
+     * A list of skills Which job offer need and applicants dont have DontMatchesToApplicants
+     * @return a list of skills which dont matches to applicants
+     */
     @Override
     public List<skillsDontMatchToApplicantsDTO> skillsWhichDontMatchesToApplicants() {
         logger.info("The skills that required in jobs and dont match with applicants");

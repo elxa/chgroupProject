@@ -12,7 +12,7 @@ public interface SkillService {
     List<Skill> getAllSkills();
     Skill updateSkill(Skill skill, int skillId) throws SkillNotFoundException;
     // throws CustomerNotFoundException;
-    boolean deleteSkill(int skillId);
+    boolean deleteSkill(int skillId) throws SkillNotFoundException;
     Skill getSkillById(int skillId) throws SkillNotFoundException;
     Skill findSkillByName(String skillName) throws SkillNotFoundException;
 }

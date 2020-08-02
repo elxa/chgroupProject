@@ -1,5 +1,6 @@
 package gr.codehub.chgroupProject.service;
 
+import gr.codehub.chgroupProject.dto.JobOfferSkillDTO;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
 import gr.codehub.chgroupProject.exception.JobOfferNotValidFields;
 import gr.codehub.chgroupProject.model.JobOffer;
@@ -12,15 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-//TODO EXCHEPTION
-//TODO updateJobOffer with excheption
-//TODO updateJobOffer -> available
-//todo exception if user does not put a field
 
 @Service
 @Slf4j
@@ -33,30 +28,31 @@ public class JobOfferServiceImpl implements JobOfferService {
 
     /**
      * A methods to view all the job offers
+     *
      * @return a list of all the available job offers
      */
+    public List<JobOffer> getJobOfferList() throws JobOfferNotFoundException {
+        return jobOfferRepo.findAll();
+    }
 
     /**
      * A methods to view all the job offers
      * @return a list of all the available job offers
      */
     @Override
-    public List<JobOffer> getJobOffers(String companyName, String region, String nameOfSkill) throws JobOfferNotFoundException {
+    public List<JobOfferSkillDTO> getJobOffers(String companyName, String region, String nameOfSkill) throws JobOfferNotFoundException {
         logger.info("Get a list of JobOffers from db");
 
-        List<JobOffer> jobOffers = new ArrayList<>();
-
-        if (companyName != null) {
-            return jobOfferRepo.findCompanyName(companyName);
-        }
-
-        if (region != null) {
-            return jobOfferRepo.findRegion(region);
-        }
-        if (nameOfSkill != null) {
-            return jobOfferRepo.findListOfJobOfferWithSkillName(nameOfSkill);
-        }
-        return jobOfferRepo.findAll();
+      //  if (companyName != null && region != null && nameOfSkill != null) {
+            return jobOfferRepo.findJobOfferByCompanyNameRegionSkillName(companyName, region, nameOfSkill);
+//        }
+//        if (region != null) {
+//            return jobOfferRepo.findRegion(region);
+//        }
+//        if (nameOfSkill != null) {
+//            return jobOfferRepo.findListOfJobOfferWithSkillName(nameOfSkill);
+//        }
+//        return jobOfferRepo.findAll();
     }
 
     /**
@@ -66,7 +62,6 @@ public class JobOfferServiceImpl implements JobOfferService {
      * @return a list with the updated job offer list
      * @throws JobOfferNotFoundException
      */
-
     @Override
     public JobOffer updateJobOffer(JobOffer jobOffer, int jobOfferId) throws JobOfferNotFoundException {
         logger.info("Update a job offer");
@@ -105,33 +100,12 @@ public class JobOfferServiceImpl implements JobOfferService {
         return jobOfferRepo.save(jobOffer);
     }
 
-//    @Override
-//    public JobOffer updateJobOffer(JobOffer jobOffer, int jobOfferId) {
-//        JobOffer jobOfferInDb = jobOfferRepo.findById(jobOfferId).get();
-////                .orElseThrow("sss"
-////                     //   () -> new CustomerNotFoundException("not such customer")
-////                              );
-//        //se periptwsh pou den brei to id
-//        jobOfferInDb.setPosition(jobOffer.getPosition());
-//        jobOfferInDb.setRegion(jobOffer.getRegion());
-//
-//        boolean available = jobOfferInDb.isAvailable();
-//        System.out.println("HHHHHHHHHHHHHHHHHHH" +available);
-//        jobOfferInDb.setAvailable(available);
-//
-//        jobOfferRepo.save(jobOfferInDb);
-//
-//        return jobOfferInDb;
-//
-//    }
-
     /**
      * A method that get the job offer by Id
      * @param jobOfferId
      * @return job0ffer
      * @throws JobOfferNotFoundException
      */
-
     @Override
     public JobOffer getJobOfferById(int jobOfferId) throws JobOfferNotFoundException{
         logger.info("Get Job Offer By Id ");
@@ -141,12 +115,6 @@ public class JobOfferServiceImpl implements JobOfferService {
         }
         else throw new JobOfferNotFoundException("Job Offer Not Found");
     }
-
-    public List<JobOffer> getJobOfferList() throws JobOfferNotFoundException {
-
-        return jobOfferRepo.findAll();
-    }
-
 
 }
 

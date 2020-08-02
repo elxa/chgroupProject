@@ -10,34 +10,51 @@ import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.service.JobOfferService;
 import gr.codehub.chgroupProject.service.JobOfferSkillService;
 import gr.codehub.chgroupProject.service.SkillService;
-import org.apache.poi.ss.usermodel.*;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
+@Slf4j
 public class ReadJobOffers {
 
-    private JobOfferService jobOfferService;
-    private SkillService skillService;
-    private JobOfferSkillService jobOfferSkillService;
+    Logger logger = LoggerFactory.getLogger(ReadJobOffers.class);
+
 
     @Autowired
-    public ReadJobOffers(JobOfferService jobOfferService, SkillService skillService, JobOfferSkillService jobOfferSkillService) {
-        this.jobOfferService = jobOfferService;
-        this.skillService = skillService;
-        this.jobOfferSkillService = jobOfferSkillService;
-    }
+    private JobOfferService jobOfferService;
+    @Autowired
+    private SkillService skillService;
+    @Autowired
+    private JobOfferSkillService jobOfferSkillService;
 
-    public List<JobOffer> ReadJobOffersFromExcel(Workbook workbook) throws IOException, JobOfferNotFoundException, JobOfferNotValidFields, SkillNotFoundException, SkillNotValidFields {
+    /**
+     * Read job offers from excel and them in db
+     *
+     * @param workbook
+     * @return
+     * @throws IOException
+     * @throws JobOfferNotFoundException
+     * @throws JobOfferNotValidFields
+     * @throws SkillNotFoundException
+     * @throws SkillNotValidFields
+     */
+    public List<JobOffer> readJobOffersFromExcel(Workbook workbook) throws IOException, JobOfferNotFoundException, JobOfferNotValidFields, SkillNotFoundException, SkillNotValidFields {
 
+        logger.info("Read a job offer from an exchel file and add in db");
         Sheet sheet = workbook.getSheetAt(1);
 
         List<JobOffer> jobOffers = new ArrayList<>();
         boolean firstTime = true;
-
 
         for (Row row : sheet) {
             if (firstTime) {
@@ -59,9 +76,9 @@ public class ReadJobOffers {
 
             int skillsCountCell = 4;
 
-
             while (row.getCell(skillsCountCell) != null) {
 
+                logger.info("read an job offer skill from an exchel file and add in db");
                 String skillName = row.getCell(skillsCountCell).getStringCellValue();
 
                 JobOfferSkill jobOfferSkill = new JobOfferSkill();
@@ -75,19 +92,15 @@ public class ReadJobOffers {
                     skill = new Skill();
                     skill.setNameOfSkill(skillName);
                     skillService.addSkill(skill);
-
                 }
-
                 jobOfferSkill.setSkill(skill);
                 jobOfferSkillList.add(jobOfferSkill);
                 jobOfferSkillService.addJobOfferSkill(jb.getId(), skill.getId());
 
                 skillsCountCell++;
-
             }
             jb.setJobOfferSkill(jobOfferSkillList);
         }
-
         return jobOffers;
     }
 }

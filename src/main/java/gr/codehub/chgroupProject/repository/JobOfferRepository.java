@@ -1,6 +1,7 @@
 package gr.codehub.chgroupProject.repository;
 
 
+import gr.codehub.chgroupProject.dto.JobOfferRequiredSkillDTO;
 import gr.codehub.chgroupProject.dto.JobOfferSkillDTO;
 import gr.codehub.chgroupProject.model.JobOffer;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
@@ -34,5 +34,20 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
 
 
     @Query(value = "SELECT TOP(20) sk.nameOfSkill as SkillName, COUNT(*) as howManyTimesAppeared FROM JobOfferSkill js, Skill sk where js.skill_id = sk.id group by sk.nameOfSkill ORDER BY COUNT(*) DESC", nativeQuery = true)
-    List<JobOfferSkillDTO> howManyTimesSkillAppearsInJobOfferSkills();
+    List<JobOfferRequiredSkillDTO> howManyTimesSkillAppearsInJobOfferSkills();
+
+//********************************************************************************
+@Query(value = "SELECT j.companyName as companyName, j.available as available, j.dateOfJobOffer as dateOfJobOffer, " +
+        "j.level as level, j.position as position, j.region as region, s.nameOfSkill as nameOfSkill " +
+        "FROM JobOffer j " +
+        "Inner join JobOfferSkill jos " +
+        "ON j.id = jos.jobOffer_id " +
+        "Inner Join Skill s " +
+        "On s.id = jos.skill_id " +
+        "where j.companyName = ?1 " +
+        "and j.region = ?2 " +
+        "and s.nameOfSkill = ?3 ", nativeQuery = true)
+List<JobOfferSkillDTO> findJobOfferByCompanyNameRegionSkillName(String companyName, String region, String nameOfSkill);
+
+
 }

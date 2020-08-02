@@ -1,4 +1,4 @@
-package gr.codehub.chgroupProject.service.Matcher;
+package gr.codehub.chgroupProject.service.matcher;
 
 import gr.codehub.chgroupProject.exception.ApplicantNotFoundException;
 import gr.codehub.chgroupProject.exception.JobOfferNotFoundException;
@@ -8,10 +8,14 @@ import gr.codehub.chgroupProject.model.CreateAndMatch;
 import gr.codehub.chgroupProject.model.JobOffer;
 import gr.codehub.chgroupProject.model.Skill;
 import gr.codehub.chgroupProject.repository.ApplicantRepository;
+import gr.codehub.chgroupProject.repository.CreateAndMatchRepository;
 import gr.codehub.chgroupProject.repository.JobOfferRepository;
 import gr.codehub.chgroupProject.service.ApplicantService;
 import gr.codehub.chgroupProject.service.JobOfferService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,26 +23,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class AutomaticMatchServiceImpl implements AutomaticMatchService {
-    private ApplicantService applicantService;
-    private JobOfferService jobOfferService;
-    private ManualMatchService createManualMatchService;
-    private ApplicantRepository applicantRepo;
-    private JobOfferRepository jobOfferRepo;
-
+    Logger logger = LoggerFactory.getLogger(AutomaticMatchServiceImpl.class);
 
     @Autowired
-    public AutomaticMatchServiceImpl(ApplicantService applicantService, JobOfferService jobOfferService, ManualMatchService createManualMatchService, ApplicantRepository applicantRepo, JobOfferRepository jobOfferRepo) {
-        this.applicantService = applicantService;
-        this.jobOfferService = jobOfferService;
-        this.createManualMatchService = createManualMatchService;
-        this.applicantRepo = applicantRepo;
-        jobOfferRepo = jobOfferRepo;
-    }
+    private ApplicantService applicantService;
+    @Autowired
+    private JobOfferService jobOfferService;
+    @Autowired
+    private ManualMatchService createManualMatchService;
+    @Autowired
+    private ApplicantRepository applicantRepo;
+    @Autowired
+    private JobOfferRepository jobOfferRepo;
+    @Autowired
+    private CreateAndMatchRepository createAndMatchRepo;
 
-
-
+    /**
+     * Create a Applicant Skills Id List
+     *
+     * @param applicantList
+     * @return Return a list of applicant skills id
+     */
     private List<List<Integer>> createApplicantSkillsIdList(List<Applicant> applicantList) {
+        logger.info("Return a list of applicant skills id");
+
         List<List<Integer>> applicantSkillsIdList = new ArrayList<>();
         for (int i = 0; i < applicantList.size(); i++) {
             List<Integer> skillIdListApp = new ArrayList<>();
@@ -52,7 +62,15 @@ public class AutomaticMatchServiceImpl implements AutomaticMatchService {
         return applicantSkillsIdList;
     }
 
+    /**
+     * Return a list of Job Offer skills id
+     *
+     * @param jobOfferList
+     * @return Return a list of Job Offer skills id
+     */
     private List<List<Integer>> createJobOfferSkillsIdList(List<JobOffer> jobOfferList) {
+        logger.info("Return a list of Job Offer skills id");
+
         List<List<Integer>> jobOfferSkillsIdList = new ArrayList<>();
         for (int i = 0; i < jobOfferList.size(); i++) {
             List<Integer> skillIdListJob = new ArrayList<>();
@@ -66,14 +84,14 @@ public class AutomaticMatchServiceImpl implements AutomaticMatchService {
         return jobOfferSkillsIdList;
     }
 
+    //todo na to 3anadw
     @Override
-    public List<CreateAndMatch> DoAutomaticMatch(boolean partial)
-            throws ApplicantNotFoundException, JobOfferNotFoundException, SkillNotFoundException {
-       // List<Applicant> applicantList = applicantService.getApplicants();
-       // List<JobOffer> jobOfferList = jobOfferService.getJobOffers();
+    public List<CreateAndMatch> doAutomaticMatch(boolean partial) throws ApplicantNotFoundException, JobOfferNotFoundException, SkillNotFoundException {
 
-         List<Applicant> applicantList = applicantService.getListApplicants();
-         List<JobOffer> jobOfferList = jobOfferService.getJobOfferList();
+        logger.info("Do automatic match which check if applicant list ids include in job offer skills id ");
+
+        List<Applicant> applicantList = applicantService.getListApplicants();
+        List<JobOffer> jobOfferList = jobOfferService.getJobOfferList();
 
         List<List<Integer>> applicantSkillsIdList = createApplicantSkillsIdList(applicantList);
         List<List<Integer>> jobOfferSkillsIdList = createJobOfferSkillsIdList(jobOfferList);
@@ -87,13 +105,13 @@ public class AutomaticMatchServiceImpl implements AutomaticMatchService {
                 if (!jobOfferList.get(i).getLevel().equals(applicantList.get(j).getLevel())) continue;
                 if (skillsIdApp.containsAll(skillsIdJob)) {
                     CreateAndMatch createAndMatch = createManualMatchService
-                            .addCreateAndMatch(applicantList.get(j).getId(), jobOfferList.get(i).getId());
+                               .addCreateAndMatch(applicantList.get(j).getId(), jobOfferList.get(i).getId());
                     currentMatches.add(createAndMatch);
                 } else {
                     if (partial == true) {
                         if (CollectionUtils.containsAny(skillsIdApp, skillsIdJob)) {
                             CreateAndMatch createAndMatch = createManualMatchService
-                                    .addCreateAndMatch(applicantList.get(j).getId(), jobOfferList.get(i).getId());
+                                      .addCreateAndMatch(applicantList.get(j).getId(), jobOfferList.get(i).getId());
                             currentMatches.add(createAndMatch);
                         }
                     }
@@ -102,4 +120,5 @@ public class AutomaticMatchServiceImpl implements AutomaticMatchService {
         }
         return currentMatches;
     }
+
 }

@@ -11,32 +11,47 @@ import gr.codehub.chgroupProject.service.ApplicantService;
 import gr.codehub.chgroupProject.service.ApplicantSkillService;
 import gr.codehub.chgroupProject.service.SkillService;
 import lombok.NoArgsConstructor;
-import org.apache.poi.ss.usermodel.*;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 
 @Service
+@Slf4j
 public class ReadApplicants {
 
-    private ApplicantService applicantService;
-    private SkillService skillService;
-    private ApplicantSkillService applicantSkillService;
+    Logger logger = LoggerFactory.getLogger(ReadApplicants.class);
 
     @Autowired
-    public ReadApplicants(ApplicantService applicantService, SkillService skillService, ApplicantSkillService applicantSkillService) {
-        this.applicantService = applicantService;
-        this.skillService = skillService;
-        this.applicantSkillService = applicantSkillService;
-    }
+    private ApplicantService applicantService;
+    @Autowired
+    private SkillService skillService;
+    @Autowired
+    private ApplicantSkillService applicantSkillService;
 
+    /**
+     * Read applicants from excel and them in db
+     *
+     * @param workbook
+     * @return
+     * @throws IOException
+     * @throws ApplicantNotValidFields
+     * @throws ApplicantNotFoundException
+     * @throws SkillNotFoundException
+     * @throws SkillNotValidFields
+     */
     public List<Applicant> readApplicantsFromExcel(Workbook workbook) throws IOException, ApplicantNotValidFields, ApplicantNotFoundException, SkillNotFoundException, SkillNotValidFields {
-
-
+        logger.info("read applicants from an exchel file and add in db");
         Sheet sheet = workbook.getSheetAt(0);
 
         List<Applicant> applicants = new ArrayList<>();
@@ -84,15 +99,14 @@ public class ReadApplicants {
 
                 }
 
+                logger.info("read an applicant skill from an exchel file and add in db");
                 applicantSkill.setSkill(skill);
                 applicantSkillList.add(applicantSkill);
                 applicantSkillService.addApplicantSkill(a.getId(), skill.getId());
 
                 skillsCountCell++;
             }
-
             a.setApplicantSkills(applicantSkillList);
-
         }
         return applicants;
     }
