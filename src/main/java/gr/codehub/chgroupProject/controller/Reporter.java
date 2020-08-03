@@ -76,7 +76,7 @@ public class Reporter {
      */
 
     @GetMapping("skillsNotMatchedWithApplicants")
-    public List<skillsDontMatchToApplicantsDTO> skillsThatDontMathesToApplicants() {
+    public List<skillsDontMatchToApplicantsDTO> skillsThatDontMatchesToApplicants() {
         logger.info("Retrieve the list of the not matched skills by the applicants");
         return applicantSkillService.skillsWhichDontMatchesToApplicants();
     }
@@ -110,18 +110,5 @@ public class Reporter {
         logger.info("Provide weekly & monthly reports for weekly and monthly finalized");
         return finalizeService.weeklyAndMonthlyRecords(startDate, endDate);
     }
-
-    @RequestMapping("/")
-    public String index() {
-        logger.trace("A TRACE Message");
-        logger.debug("A DEBUG Message");
-        logger.info("An INFO Message");
-        logger.warn("A WARN Message");
-        logger.error("An ERROR Message");
-
-        return "Howdy! Check out the Logs to see the output...";
-    }
-
-
 
 }

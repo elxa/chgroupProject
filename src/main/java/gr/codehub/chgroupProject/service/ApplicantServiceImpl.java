@@ -18,8 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-//TODO UPDATE , EXTEPTIONSAPPLICANT, TODO APPLICANT UPDATE AVAILABLE
-
 /**
  * We directly call the ApplicantRepo
  *
@@ -61,30 +59,30 @@ public class ApplicantServiceImpl implements ApplicantService {
      * @return
      * @throws ApplicantNotFoundException
      */
-//    @Override
-//    public List<ApplicantSkillDto> getApplicants(String firstName, String lastName, String skillName) throws ApplicantNotFoundException {
-//        logger.info("Get a list of Applicants from db");
-//        if (firstName != null && lastName != null && skillName != null) {
-//            return applicantRepo.findApplicantByFullNameAndSkillName(firstName, lastName, skillName);
-//        }
-//        if (firstName != null && lastName != null && skillName == null) {
-//            return applicantRepo.findApplicantByName(firstName, lastName);
-//        }
-//        if ((firstName != null || lastName != null) && skillName == null) {
-//            return applicantRepo.findApplicantByFirstNameOrByLastName(firstName, lastName);
-//        }
-//        if (firstName != null && skillName != null) {
-//            return applicantRepo.findApplicantByFirstNameAndSkillName(firstName, skillName);
-//        }
-//        if (lastName != null && skillName != null) {
-//            return applicantRepo.findApplicantByLastNameAndSkillName(lastName, skillName);
-//        }
-//        if (skillName != null && firstName == null && lastName == null) {
-//            return applicantRepo.findApplicantsBySkillName(skillName);
-//        }
-//        logger.info("Return a list of applicants");
-//        return applicantRepo.findAllApplicant();
-//    }
+    @Override
+    public List<ApplicantSkillDto> getApplicants(String firstName, String lastName, String skillName) throws ApplicantNotFoundException {
+        logger.info("Get a list of Applicants from db");
+        if (firstName != null && lastName != null && skillName != null) {
+            return applicantRepo.findApplicantByFullNameAndSkillName(firstName, lastName, skillName);
+        }
+        if (firstName != null && lastName != null && skillName == null) {
+            return applicantRepo.findApplicantByName(firstName, lastName);
+        }
+        if ((firstName != null || lastName != null) && skillName == null) {
+            return applicantRepo.findApplicantByFirstNameOrByLastName(firstName, lastName);
+        }
+        if (firstName != null && skillName != null) {
+            return applicantRepo.findApplicantByFirstNameAndSkillName(firstName, skillName);
+        }
+        if (lastName != null && skillName != null) {
+            return applicantRepo.findApplicantByLastNameAndSkillName(lastName, skillName);
+        }
+        if (skillName != null && firstName == null && lastName == null) {
+            return applicantRepo.findApplicantsBySkillName(skillName);
+        }
+        logger.info("Return a list of applicants");
+        return applicantRepo.findAllApplicant();
+    }
 
     /**
      * Add an applicant in db

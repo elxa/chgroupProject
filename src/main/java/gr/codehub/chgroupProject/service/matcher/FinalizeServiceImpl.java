@@ -107,7 +107,7 @@ public class FinalizeServiceImpl implements FinalizeService {
             LocalDate startDateLoc = LocalDate.parse(startDate);
             LocalDate endDateLoc = LocalDate.parse(endDate);
            System.out.println(startDateLoc +"*******************************"+endDateLoc);
-            return createAndMatchRepo.weeklyAndMonthlyRecords(startDateLoc, endDateLoc);
+           return createAndMatchRepo.weeklyAndMonthlyRecords(startDateLoc, endDateLoc);
         } else
             throw new RetrieveDatesException("You  give wrong format for the dates OR You dan't give the dates which you want to retieve the records\"");
        //  }else throw new RetrieveDatesException("You dan't give the dates which you want to retieve the records");

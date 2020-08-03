@@ -49,5 +49,51 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
         "and s.nameOfSkill = ?3 ", nativeQuery = true)
 List<JobOfferSkillDTO> findJobOfferByCompanyNameRegionSkillName(String companyName, String region, String nameOfSkill);
 
+    @Query(value = "SELECT * " +
+            "FROM JobOffer j " +
+            "where j.companyName = ?1 " +
+            "and j.region = ?2 ", nativeQuery = true)
+    List<JobOfferSkillDTO> findJobOfferByCompanyNameANDRegion(String companyName, String region);
+
+    @Query(value = "SELECT * " +
+            "FROM JobOffer j " +
+            "where j.companyName = ?1 " +
+            "or j.region = ?2 ", nativeQuery = true)
+    List<JobOfferSkillDTO> findJobOfferByCompanyNameOrRegion(String companyName, String region);
+
+    @Query(value = "SELECT j.companyName as companyName, j.available as available, j.dateOfJobOffer as dateOfJobOffer, " +
+            "j.level as level, j.position as position, j.region as region, s.nameOfSkill as nameOfSkill " +
+            "FROM JobOffer j " +
+            "Inner join JobOfferSkill jos " +
+            "ON j.id = jos.jobOffer_id " +
+            "Inner Join Skill s " +
+            "On s.id = jos.skill_id " +
+            "where j.companyName = ?1 " +
+            "and s.nameOfSkill = ?2 ", nativeQuery = true)
+    List<JobOfferSkillDTO> findJobOfferByCompanyNameAndSkillName(String companyName, String nameOfSkill);
+
+    @Query(value = "SELECT j.companyName as companyName, j.available as available, j.dateOfJobOffer as dateOfJobOffer, " +
+            "j.level as level, j.position as position, j.region as region, s.nameOfSkill as nameOfSkill " +
+            "FROM JobOffer j " +
+            "Inner join JobOfferSkill jos " +
+            "ON j.id = jos.jobOffer_id " +
+            "Inner Join Skill s " +
+            "On s.id = jos.skill_id " +
+            "where j.region = ?1 " +
+            "and s.nameOfSkill = ?2 ", nativeQuery = true)
+    List<JobOfferSkillDTO> findJobOfferByRegionAndSkillName(String region, String nameOfSkill);
+
+    @Query(value = "SELECT j.companyName as companyName, j.available as available, j.dateOfJobOffer as dateOfJobOffer, " +
+            "j.level as level, j.position as position, j.region as region, s.nameOfSkill as nameOfSkill " +
+            "FROM JobOffer j " +
+            "Inner join JobOfferSkill jos " +
+            "ON j.id = jos.jobOffer_id " +
+            "Inner Join Skill s " +
+            "On s.id = jos.skill_id " +
+            "where s.nameOfSkill = ?1 ", nativeQuery = true)
+    List<JobOfferSkillDTO> jobOfferRepo(String nameOfSkill);
+
+    @Query(value = "SELECT * FROM JobOffer j", nativeQuery = true)
+    List<JobOfferSkillDTO> jobOfferListDTO();
 
 }

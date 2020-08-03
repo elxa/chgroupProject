@@ -1,5 +1,7 @@
 package gr.codehub.chgroupProject.dto;
-
+/**
+ * a dto about applicant and skills
+ */
 public interface ApplicantSkillDto {
     String getAddress();
 

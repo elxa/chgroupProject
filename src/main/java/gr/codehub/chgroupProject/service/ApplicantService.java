@@ -11,9 +11,7 @@ public interface ApplicantService {
 
     List<Applicant> getListApplicants() throws ApplicantNotFoundException;
 
-   // List<Applicant> getApplicants(String firstName, String lastName) throws ApplicantNotFoundException;
-
- //   List<ApplicantSkillDto> getApplicants(String firstName, String lastName, String skillName) throws ApplicantNotFoundException;
+    List<ApplicantSkillDto> getApplicants(String firstName, String lastName, String skillName) throws ApplicantNotFoundException;
 
     Applicant addApplicant(Applicant applicant) throws ApplicantNotValidFields, ApplicantNotFoundException;
 

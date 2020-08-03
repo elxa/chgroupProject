@@ -33,11 +33,6 @@ public class ManualMatchContoller {
         return manualMatchService.getManualMatches();
     }
 
-//    @GetMapping("manualCreateAndMatch")
-//    public List<CreateAndMatch> listOfManualCreateAndMatch() {
-//        return manualMatchService.getManualMatches();
-//    }
-
     /**
      * Create a manual match
      *

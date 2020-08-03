@@ -31,19 +31,19 @@ public class ApplicantController {
      * Getting all applicants
      * @return list of applicants
      */
-//    @GetMapping("applicant")
-//    public List<ApplicantSkillDto> getListApplicants(@RequestParam(required = false) String firstName,
-//                                                     @RequestParam(required = false) String lastName,
-//                                                     @RequestParam(required = false) String skillName) throws ApplicantNotFoundException {
-//        logger.info("Take a list of applicants");
-//       // return applicantService.getApplicants(firstName, lastName);
-//        return applicantService.getApplicants(firstName, lastName, skillName);
-//    }
-
     @GetMapping("applicant")
-    public List<Applicant> getListApplicants() throws ApplicantNotFoundException {
-        return applicantService.getListApplicants();
+    public List<ApplicantSkillDto> getListApplicants(@RequestParam(required = false) String firstName,
+                                                     @RequestParam(required = false) String lastName,
+                                                     @RequestParam(required = false) String skillName) throws ApplicantNotFoundException {
+        logger.info("Take a list of applicants");
+       // return applicantService.getApplicants(firstName, lastName);
+        return applicantService.getApplicants(firstName, lastName, skillName);
     }
+
+//    @GetMapping("applicant")
+//    public List<Applicant> getListApplicants() throws ApplicantNotFoundException {
+//        return applicantService.getListApplicants();
+//    }
 
     /**
      * Getting a certain applicant according with their id

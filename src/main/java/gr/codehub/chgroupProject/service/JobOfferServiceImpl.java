@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,23 +35,38 @@ public class JobOfferServiceImpl implements JobOfferService {
     }
 
     /**
-     * A methods to view all the job offers
-     * @return a list of all the available job offers
+     * Return a list of job offer which depend on the parameters which user give in url
+     *
+     * @param companyName
+     * @param region
+     * @param nameOfSkill
+     * @return
+     * @throws JobOfferNotFoundException
      */
     @Override
     public List<JobOfferSkillDTO> getJobOffers(String companyName, String region, String nameOfSkill) throws JobOfferNotFoundException {
         logger.info("Get a list of JobOffers from db");
 
-      //  if (companyName != null && region != null && nameOfSkill != null) {
+        if (companyName != null && region != null && nameOfSkill != null) {
             return jobOfferRepo.findJobOfferByCompanyNameRegionSkillName(companyName, region, nameOfSkill);
-//        }
-//        if (region != null) {
-//            return jobOfferRepo.findRegion(region);
-//        }
-//        if (nameOfSkill != null) {
-//            return jobOfferRepo.findListOfJobOfferWithSkillName(nameOfSkill);
-//        }
-//        return jobOfferRepo.findAll();
+        }
+        if (companyName != null && region != null && nameOfSkill == null) {
+            return jobOfferRepo.findJobOfferByCompanyNameANDRegion(companyName, region);
+        }
+        if ((companyName != null || region != null) && nameOfSkill == null) {
+            return jobOfferRepo.findJobOfferByCompanyNameOrRegion(companyName, region);
+        }
+        if (companyName != null && nameOfSkill != null) {
+            return jobOfferRepo.findJobOfferByCompanyNameAndSkillName(companyName, nameOfSkill);
+        }
+        if (region != null && nameOfSkill != null) {
+            return jobOfferRepo.findJobOfferByRegionAndSkillName(region, nameOfSkill);
+        }
+        if (nameOfSkill != null && companyName == null && region == null) {
+            return jobOfferRepo.jobOfferRepo(nameOfSkill);
+        }
+        logger.info("Return a list of applicants");
+        return jobOfferRepo.jobOfferListDTO();
     }
 
     /**

@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-//todo na paroume mia lista me ola ta applicantSkill
 @Service
 @Slf4j
 public class ApplicantSkillServiceImpl implements ApplicantSkillService {

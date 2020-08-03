@@ -84,7 +84,15 @@ public class AutomaticMatchServiceImpl implements AutomaticMatchService {
         return jobOfferSkillsIdList;
     }
 
-    //todo na to 3anadw
+    /**
+     * Do automatic match
+     *
+     * @param partial
+     * @return
+     * @throws ApplicantNotFoundException
+     * @throws JobOfferNotFoundException
+     * @throws SkillNotFoundException
+     */
     @Override
     public List<CreateAndMatch> doAutomaticMatch(boolean partial) throws ApplicantNotFoundException, JobOfferNotFoundException, SkillNotFoundException {
 

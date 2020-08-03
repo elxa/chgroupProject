@@ -32,10 +32,17 @@ public interface CreateAndMatchRepository extends JpaRepository<CreateAndMatch, 
             "ORDER BY cam.dom", nativeQuery = true)
     List<CreateAndMatch> finalizedList();
 
-    @Query(value = "SELECT * " +
+//    @Query(value = "SELECT * " +
+//            "FROM CreateAndMatch cam " +
+//            "WHERE cam.dom >= ?1 " +
+//            "AND cam.dom   <= ?2 " +
+//            "AND cam.finalized=1 ", nativeQuery = true)
+//    List<CreateAndMatch> weeklyAndMonthlyRecords(LocalDate startDate, LocalDate endDate);
+
+    @Query(value = "SELECT  * " +
             "FROM CreateAndMatch cam " +
-            "WHERE cam.dom >= ?1 " +
-            "AND cam.dom   <= ?2 " +
-            "AND cam.finalized=1;", nativeQuery = true)
+            "WHERE cam.dom >= ?1 AND  cam.dom <= ?2 AND cam.finalized=1 " +
+            "OR cam.dom = ?2 " +
+            "AND cam.finalized=1 ", nativeQuery = true)
     List<CreateAndMatch> weeklyAndMonthlyRecords(LocalDate startDate, LocalDate endDate);
 }

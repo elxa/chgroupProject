@@ -1,5 +1,7 @@
 package gr.codehub.chgroupProject.dto;
-
+/**
+ * a dto about jobOffer and skills
+ */
 public interface JobOfferSkillDTO {
     String getCompanyName();
 
